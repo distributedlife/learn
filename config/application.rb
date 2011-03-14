@@ -38,5 +38,10 @@ module LearnTesting
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    #tell rails to use rspec of testunit
+    config.generators do |g|
+      g.test_framework :rspec
+    end
   end
 end
