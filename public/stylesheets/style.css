@@ -17,3 +17,5 @@ body {
     background: white; }
   .learning_objective_list p.odd {
     background: #dddddd; }
+  .learning_objective_list p:hover {
+    background: #ffffaa; }

@@ -1,6 +1,6 @@
 $table_row_base : #fff ;
 $table_row_vary : #ddd ;
-$table_row_hover: #000 ;
+$table_row_hover: #ffa ;
 
 body
 {
@@ -32,6 +32,11 @@ body
   p.odd
   {
     background: $table_row_vary;
+  }
+
+  p:hover
+  {
+    background: $table_row_hover;
   }
 
   border: 1px dotted black ;
