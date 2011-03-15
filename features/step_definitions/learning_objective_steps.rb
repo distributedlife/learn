@@ -14,6 +14,11 @@ Given /^the learning objective "([^"]*)"$/ do |text|
   @learning_objectives.push(lo)
 end
 
+When /^I search for "([^"]*)"$/ do |search_term|
+  fill_in('q', :with => search_term)
+  click_on('Search')
+end
+
 Then /^each learning objective is displayed on the page alphabetically$/ do
   @learning_objectives.count.should_not be 0
   @learning_objectives.sort! { |a,b| a.brief.downcase <=> b.brief.downcase }

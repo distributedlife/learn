@@ -1,3 +1,9 @@
+.search
+  = form_tag('home/search', :method => "get") do
+    = label_tag(:q, "Search for:") 
+    = text_field_tag(:q) 
+    = submit_tag("Search") 
+
 .learning_objective_list
   .notice
     - if @learning_objectives.empty?
