@@ -1,0 +1,6 @@
+.learning_objective_list
+  .notice
+    - if @learning_objectives.empty?
+      %p No learning objectives found
+  - @learning_objectives.each do |lo|
+    %p{:class => cycle("even", "odd")}= lo.brief

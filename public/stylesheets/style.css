@@ -1,0 +1,19 @@
+body {
+  width: 960px;
+  margin: auto;
+  font-size: 1.2em; }
+
+.notice {
+  font-style: italic;
+  text-align: center; }
+
+.learning_objective_list {
+  border: 1px dotted black; }
+  .learning_objective_list p {
+    padding: 0.6em;
+    margin: 0;
+    min-height: 2.2em; }
+  .learning_objective_list p.even {
+    background: white; }
+  .learning_objective_list p.odd {
+    background: #dddddd; }

@@ -1,7 +1,0 @@
-<% if @learning_objectives.empty? %>
-<p>No learning objectives found</p>
-<% else %>
-  <% @learning_objectives.each do |lo| %>
-    <p><%= lo.brief %></p>
-  <% end %>
-<% end %>

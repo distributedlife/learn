@@ -1,0 +1,38 @@
+$table_row_base : #fff ;
+$table_row_vary : #ddd ;
+$table_row_hover: #000 ;
+
+body
+{
+  width: 960px;
+  margin: auto;
+  font-size: 1.2em;
+}
+
+.notice
+{
+  font-style: italic;
+  text-align: center;
+}
+
+.learning_objective_list
+{
+  p
+  {
+    padding: 0.6em;
+    margin: 0;
+    min-height: 2.2em;
+  }
+
+  p.even
+  {
+    background: $table_row_base;
+  }
+
+  p.odd
+  {
+    background: $table_row_vary;
+  }
+
+  border: 1px dotted black ;
+}
