@@ -14,6 +14,15 @@ Given /^the learning objective "([^"]*)"$/ do |text|
   @learning_objectives.push(lo)
 end
 
+Given /^(\d+) learning objectives containing "([^"]*)"$/ do |count, text|
+  count.to_i.times do
+    lo = LearningObjective.new
+    lo.brief = "#{text} #{Faker::Lorem.paragraph(3)}"
+    lo.save!
+  end
+end
+
+
 When /^I search for "([^"]*)"$/ do |search_term|
   fill_in('q', :with => search_term)
   click_on('Search')
@@ -23,7 +32,7 @@ Then /^each learning objective is displayed on the page alphabetically$/ do
   @learning_objectives.count.should_not be 0
   @learning_objectives.sort! { |a,b| a.brief.downcase <=> b.brief.downcase }
 
-  displayed_learning_objectives = all('p')
+  displayed_learning_objectives = all('p.even') + all('p.odd')
   @learning_objectives.count.should == displayed_learning_objectives.count
 
   #for each paragraph element on the page check to see if it matches an

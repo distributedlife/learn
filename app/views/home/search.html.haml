@@ -1,12 +1,16 @@
 .search
   = form_tag('/home/search', :method => "get") do
     = label_tag(:q, "Search for:") 
-    = text_field_tag(:q) 
+    = text_field_tag(:q, @q)
     = submit_tag("Search") 
 
 .learning_objective_list
-  .notice
-    - if @learning_objectives.empty?
+  - if @learning_objectives.empty?
+    .notice
       %p No learning objectives found
   - @learning_objectives.each do |lo|
     %p{:class => cycle("even", "odd")}= lo.brief
+
+- unless @learning_objectives.empty?
+  .list_summary
+    %p= @learning_objectives.count

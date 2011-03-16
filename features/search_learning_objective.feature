@@ -18,3 +18,23 @@ Scenario: search hit
     When I search for "understands"
     Then each learning objective is displayed on the page alphabetically
     And I should not see "No learning objectives found"
+
+
+Scenario: show result count multiple
+    Given 5 learning objectives containing "banana"
+    And I am on the learning objectives page
+    When I search for "banana"
+    Then I should see "5"
+
+
+Scenario: no result count when no results return
+    Given 5 learning objectives containing "banana"
+    And I am on the learning objectives page
+    When I search for "awesomesauce"
+    Then I should not see "0"
+
+Scenario: search text is visible in search box after search
+    Given 5 learning objectives containing "banana"
+    And I am on the learning objectives page
+    When I search for "banana"
+    Then the "q" field should contain "banana"

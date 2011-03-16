@@ -1,11 +1,11 @@
 class HomeController < ApplicationController
   def search
-    query = params[:q]
+    @q = params[:q]
     
-    if query.nil? or query.empty?
-       @learning_objectives = LearningObjective.order(:brief).all
+    if @q.nil? or @q.empty?
+       @learning_objectives = LearningObjective::order(:brief).all
     else
-       @learning_objectives = LearningObjective.order(:brief).search(query)
+       @learning_objectives = LearningObjective::order(:brief).search(@q)
     end
     
     respond_to do |format|
