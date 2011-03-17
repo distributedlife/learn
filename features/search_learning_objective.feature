@@ -5,15 +5,15 @@ Feature: Learning Objectives
 
 
 Scenario: search miss
-    Given the learning objective "understands how change impacts automation tests"
+    Given the learning objective "understands how change impacts automation tests" in the "automation" discipline
     And I go to the learning objectives page
     When I search for "banana"
     Then I should see "No learning objectives found"
 
 
 Scenario: search hit
-    Given the learning objective "understands how change impacts automation tests"
-    And the learning objective "understands deductive reasoning and how it relates to software testing"
+    Given the learning objective "understands how change impacts automation tests" in the "automation" discipline
+    And the learning objective "understands deductive reasoning and how it relates to software testing" in the "fundamentals" discipline
     And I go to the learning objectives page
     When I search for "understands"
     Then each learning objective is displayed on the page alphabetically
@@ -33,7 +33,7 @@ Scenario: no result count when no results return
     When I search for "awesomesauce"
     Then I should not see "0"
 
-Scenario: search text is visible in search box after search
+Scenario: search text is visible in search box after search 
     Given 5 learning objectives containing "banana"
     And I am on the learning objectives page
     When I search for "banana"

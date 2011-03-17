@@ -1,13 +1,15 @@
+require 'ap'
+
 class HomeController < ApplicationController
   def search
     @q = params[:q]
     
     if @q.nil? or @q.empty?
-       @learning_objectives = LearningObjective::order(:brief).all
+       @learning_objectives = LearningObjective::order(:discipline).order(:brief).all
     else
-       @learning_objectives = LearningObjective::order(:brief).search(@q)
+       @learning_objectives = LearningObjective::order(:discipline).order(:brief).search(@q)
     end
-    
+
     respond_to do |format|
       format.html
     end

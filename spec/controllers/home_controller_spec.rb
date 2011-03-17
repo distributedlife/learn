@@ -3,9 +3,9 @@ require 'spec_helper'
 describe HomeController do
   describe "GET 'search'" do
     before(:each) do
-      create_learning_objective('the quick brown fox jumps over the lazy dog')
-      create_learning_objective('aaaaa bbbbb ccccc ddddd eeeee fffff ggggg')
-      create_learning_objective('aaaaa hhhhh iiiii jjjjj kkkkk lllll mmmmm')
+      create_learning_objective('the quick brown fox jumps over the lazy dog', 'automation')
+      create_learning_objective('aaaaa bbbbb ccccc ddddd eeeee fffff ggggg', 'fundamentals')
+      create_learning_objective('aaaaa hhhhh iiiii jjjjj kkkkk lllll mmmmm', 'user interaction')
     end
 
     it 'should be successful' do

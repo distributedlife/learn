@@ -9,7 +9,8 @@
     .notice
       %p No learning objectives found
   - @learning_objectives.each do |lo|
-    %p{:class => cycle("even", "odd")}= lo.brief
+    %p{:class => ['brief', cycle("even", "odd")]}= lo.brief
+    %span{:class => 'category'}= lo.discipline
 
 - unless @learning_objectives.empty?
   .list_summary
