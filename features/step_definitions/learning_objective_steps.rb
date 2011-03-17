@@ -35,8 +35,8 @@ Then /^each learning objective is displayed on the page alphabetically$/ do
   @learning_objectives.count.should_not be 0
   @learning_objectives = @learning_objectives.sort_by { |a| [a.discipline.downcase, a.brief.downcase] }
 
-  displayed_learning_objective_brief = all('p.brief')
-  displayed_learning_objective_discipline = all('span.category')
+  displayed_learning_objective_brief = all('p#brief')
+  displayed_learning_objective_discipline = all('span#category')
 
   displayed_learning_objective_brief.each {|e| ap e.text}
   displayed_learning_objective_discipline.each {|e| ap e.text}

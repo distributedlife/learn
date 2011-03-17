@@ -15,26 +15,38 @@ body
   text-align: center;
 }
 
-.learning_objective_list
+.learning_objective
 {
-  p
+  ul
+  {
+    margin: 0;
+    padding:0;
+    list-style-type:none;
+  }
+  
+  li
   {
     padding: 0.6em;
     margin: 0;
-    min-height: 2.2em;
+
+    p
+    {
+      margin: 0;
+      padding: 0;
+    }
   }
 
-  p.even
+  li.even
   {
     background: $table_row_base;
   }
 
-  p.odd
+  li.odd
   {
     background: $table_row_vary;
   }
 
-  p:hover
+  li:hover
   {
     background: $table_row_hover;
   }

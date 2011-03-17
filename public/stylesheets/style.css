@@ -7,15 +7,21 @@ body {
   font-style: italic;
   text-align: center; }
 
-.learning_objective_list {
+.learning_objective {
   border: 1px dotted black; }
-  .learning_objective_list p {
-    padding: 0.6em;
+  .learning_objective ul {
     margin: 0;
-    min-height: 2.2em; }
-  .learning_objective_list p.even {
+    padding: 0;
+    list-style-type: none; }
+  .learning_objective li {
+    padding: 0.6em;
+    margin: 0; }
+    .learning_objective li p {
+      margin: 0;
+      padding: 0; }
+  .learning_objective li.even {
     background: white; }
-  .learning_objective_list p.odd {
+  .learning_objective li.odd {
     background: #dddddd; }
-  .learning_objective_list p:hover {
+  .learning_objective li:hover {
     background: #ffffaa; }

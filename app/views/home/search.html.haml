@@ -4,13 +4,15 @@
     = text_field_tag(:q, @q)
     = submit_tag("Search") 
 
-.learning_objective_list
+.learning_objective
   - if @learning_objectives.empty?
     .notice
       %p No learning objectives found
-  - @learning_objectives.each do |lo|
-    %p{:class => ['brief', cycle("even", "odd")]}= lo.brief
-    %span{:class => 'category'}= lo.discipline
+  %ul
+    - @learning_objectives.each do |lo|
+      %li{:class => cycle("even", "odd")}
+        %p#brief= lo.brief
+        %span#category= lo.discipline
 
 - unless @learning_objectives.empty?
   .list_summary
