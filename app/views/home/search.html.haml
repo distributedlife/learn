@@ -12,7 +12,8 @@
     - @learning_objectives.each do |lo|
       %li{:class => cycle("even", "odd")}
         %p#brief= lo.brief
-        %span#category= lo.discipline
+        %span#discipline= lo.discipline
+        %span#category= lo.category
 
 - unless @learning_objectives.empty?
   .list_summary

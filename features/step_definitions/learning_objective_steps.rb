@@ -3,10 +3,7 @@ Given /^no learning objectives$/ do
 end
 
 Given /^the learning objective "([^"]*)" in the "([^"]*)" discipline$/ do |brief, discipline|
-  lo = LearningObjective.new
-  lo.brief = brief
-  lo.discipline = discipline
-  lo.save!
+  lo = LearningObjective.make(:brief => brief, :discipline => discipline)
 
   unless defined? @learning_objectives
     @learning_objectives = Array.new
@@ -15,12 +12,13 @@ Given /^the learning objective "([^"]*)" in the "([^"]*)" discipline$/ do |brief
   @learning_objectives.push(lo)
 end
 
+Given /^the "([^"]*)" "([^"]*)" in the "([^"]*)" discipline$/ do |category, brief, discipline|
+  LearningObjective.make(:category => category, :brief => brief, :discipline => discipline)
+end
+
 Given /^(\d+) learning objectives containing "([^"]*)"$/ do |count, text|
   count.to_i.times do
-    lo = LearningObjective.new
-    lo.brief = "#{text} #{Faker::Lorem.paragraph(3)}"
-    lo.discipline = "#{Faker::name}"
-    lo.save!
+    lo = LearningObjective.make(:brief => "#{text} #{Faker::Lorem.paragraph(3)}")
   end
 end
 
@@ -35,22 +33,25 @@ Then /^each learning objective is displayed on the page alphabetically$/ do
   @learning_objectives.count.should_not be 0
   @learning_objectives = @learning_objectives.sort_by { |a| [a.discipline.downcase, a.brief.downcase] }
 
+  
   displayed_learning_objective_brief = all('p#brief')
-  displayed_learning_objective_discipline = all('span#category')
+  displayed_learning_objective_discipline = all('span#discipline')
+  displayed_learning_objective_categories = all('span#category')
 
-  displayed_learning_objective_brief.each {|e| ap e.text}
-  displayed_learning_objective_discipline.each {|e| ap e.text}
 
   @learning_objectives.count.should == displayed_learning_objective_brief.count
   @learning_objectives.count.should == displayed_learning_objective_discipline.count
+  @learning_objectives.count.should == displayed_learning_objective_categories.count
 
   #for each paragraph element on the page check to see if it matches an
   #element in learning_objectives at the same index
   @learning_objectives.each_with_index do |lo, i|
     discipline = displayed_learning_objective_discipline[i]
     brief = displayed_learning_objective_brief[i]
+    category = displayed_learning_objective_categories[i]
 
     brief.text.should == lo.brief
     discipline.text.should == lo.discipline
+    category.text.should == lo.category
   end
 end

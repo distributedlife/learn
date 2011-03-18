@@ -18,6 +18,10 @@ require 'capybara/cucumber'
 require 'capybara/session'
 require 'akephalos'
 require 'cucumber/rails/capybara_javascript_emulation' # Lets you click links with onclick javascript handlers without using @culerity or @javascript
+
+#add blueprints path (needed to cuke steps to access blueprints)
+require File.expand_path(File.dirname(__FILE__) + "../../../spec/support/blueprints.rb")
+
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your

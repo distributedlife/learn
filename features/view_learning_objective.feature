@@ -15,4 +15,5 @@ Scenario: multiple learning objectives, sorted alphabetically by discipline and 
     And the learning objective "understands a row the comes second is placed first" in the "automation" discipline
     And the learning objective "understands deductive reasoning and how it relates to software testing" in the "fundamentals" discipline
     When I go to the learning objectives page
+    Then each learning objective is displayed on the page alphabetically
     And I should not see "No learning objectives found"

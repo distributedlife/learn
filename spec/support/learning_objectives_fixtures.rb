@@ -1,3 +1,3 @@
-def create_learning_objective(brief, discipline)
-  @lo = LearningObjective.make(:brief => brief, :discipline => discipline)
+def create_learning_objective(brief, discipline, category)
+  LearningObjective.make(:brief => brief, :discipline => discipline, :category => category)
 end

@@ -5,9 +5,9 @@ class HomeController < ApplicationController
     @q = params[:q]
     
     if @q.nil? or @q.empty?
-       @learning_objectives = LearningObjective::order(:discipline).order(:brief).all
+       @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).all
     else
-       @learning_objectives = LearningObjective::order(:discipline).order(:brief).search(@q)
+       @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).search(@q)
     end
 
     respond_to do |format|

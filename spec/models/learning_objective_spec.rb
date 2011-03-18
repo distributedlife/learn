@@ -2,48 +2,90 @@ require 'spec_helper'
 
 describe LearningObjective do
   context 'LearningObjective' do
-    it 'should be invalid without a brief' do
-      @lo = LearningObjective.new
-      @lo.discipline = "a value"
-      
-      @lo.valid?().should be false
-      @lo.brief = "something"
-      @lo.valid?().should be true
+    context 'brief' do
+      it 'should be invalid without a brief' do
+        @lo = LearningObjective.new
+        @lo.discipline = "automation"
+        @lo.category = "concept"
+
+        @lo.valid?().should be false
+        @lo.brief = "something"
+        @lo.valid?().should be true
+      end
+
+      it 'should be invalid if brief is greater than 500 characters' do
+        @lo = LearningObjective.new
+        @lo.discipline = "automation"
+        @lo.category = "concept"
+
+        @lo.valid?().should be false
+        @lo.brief = "a" * (500 + 1)
+        @lo.valid?().should be false
+      end
     end
 
-    it 'should be invalid if brief is greater than 500 characters' do
-      @lo = LearningObjective.new
-      @lo.discipline = "a value"
+    context 'discipline' do
+      it 'should be invalid without a discipline' do
+        @lo = LearningObjective.new
+        @lo.brief = "space monkey"
+        @lo.category = "concept"
 
-      @lo.valid?().should be false
-      @lo.brief = "a" * (500 + 1)
-      @lo.valid?().should be false
+        @lo.valid?().should be false
+        @lo.discipline = "automation"
+        @lo.valid?().should be true
+      end
+
+      it 'should be invalid if discipline is not in allowed list' do
+        @lo = LearningObjective.new
+        @lo.brief = "space monkey"
+        @lo.category = "concept"
+
+
+        @lo.valid?().should be false
+        LearningObjective::DISCIPLINES.each do |allowed_type|
+          @lo.discipline = allowed_type
+          @lo.valid?().should be true
+        end
+
+        @lo.discipline = 'banana'
+        @lo.valid?().should be false
+      end
     end
 
-    it 'should be invalid without a discipline' do
-      @lo = LearningObjective.new
-      @lo.brief = "space monkey"
+    context 'category' do
+      it 'should be invalid without a type' do
+        @lo = LearningObjective.new
+        @lo.brief = "space monkey"
+        @lo.discipline = "automation"
 
-      @lo.valid?().should be false
-      @lo.discipline = "something"
-      @lo.valid?().should be true
-    end
+        @lo.valid?().should be false
+        @lo.category = "concept"
+        @lo.valid?().should be true
+      end
 
-    it 'should be invalid if discipline is greater than 50 characters' do
-      @lo = LearningObjective.new
-      @lo.brief = "space monkey"
+      it 'should be invalid if type is not in allowed list' do
+        @lo = LearningObjective.new
+        @lo.brief = "space monkey"
+        @lo.discipline = "automation"
 
-      @lo.valid?().should be false
-      @lo.discipline = "a" * (50 + 1)
-      @lo.valid?().should be false
+
+        @lo.valid?().should be false
+        LearningObjective::CATEGORIES.each do |allowed_type|
+          @lo.category = allowed_type
+          @lo.valid?().should be true
+        end
+
+        @lo.category = 'banana'
+        @lo.valid?().should be false
+      end
     end
   end
 
   context 'search' do
     before(:each) do
-      create_learning_objective('the quick brown fox jumps over the lazy dog', 'automation')
-      create_learning_objective('aaaaa bbbbb ccccc ddddd eeeee fffff ggggg', 'fundamentals')
-      create_learning_objective('aaaaa hhhhh iiiii jjjjj kkkkk lllll mmmmm', 'user interactioj')
+      create_learning_objective('the quick brown fox jumps over the lazy dog', 'automation', 'concept')
+      create_learning_objective('aaaaa bbbbb ccccc ddddd eeeee fffff ggggg', 'fundamentals', 'lens')
+      create_learning_objective('aaaaa hhhhh iiiii jjjjj kkkkk lllll mmmmm', 'user interaction', 'artefact')
     end
 
     it 'should wildcard match on brief at the start of strings' do
@@ -95,6 +137,14 @@ describe LearningObjective do
       results.count.should be 1
       results[0].brief.should == 'the quick brown fox jumps over the lazy dog'
       results[0].discipline.should == 'automation'
+    end
+
+    it 'should match on category' do
+      results = LearningObjective.search('concept')
+
+      results.count.should be 1
+      results[0].brief.should == 'the quick brown fox jumps over the lazy dog'
+      results[0].category.should == 'concept'
     end
   end
 end
