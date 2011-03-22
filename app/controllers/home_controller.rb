@@ -1,5 +1,3 @@
-require 'ap'
-
 class HomeController < ApplicationController
   def search
     @q = params[:q]
