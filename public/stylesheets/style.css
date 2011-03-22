@@ -19,9 +19,11 @@ body {
   padding-top: 0.6em;
   padding-right: 0.6em;
   float: right;
+  clear: both;
   font-size: 1.6em; }
 
 .list_summary {
+  clear: both;
   margin-bottom: 0.6em;
   float: right;
   padding-left: 0.6em;

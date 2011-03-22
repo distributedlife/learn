@@ -34,12 +34,14 @@ body
   padding-right: 0.6em;
   
   float: right;
+  clear: both;
 
   font-size: $font_size
 }
 
 .list_summary
 {
+  clear: both;
   margin-bottom: 0.6em;
   float: right;
   padding-left: 0.6em;

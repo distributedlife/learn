@@ -4,6 +4,8 @@
     = text_field_tag(:q, @q)
     = submit_tag("Search")
 
+.pad
+
 - unless @learning_objectives.empty?
   .list_summary
     %p= "showing all #{@learning_objectives.count} results"
