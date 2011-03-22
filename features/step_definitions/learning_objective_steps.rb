@@ -51,7 +51,7 @@ Then /^each learning objective is displayed on the page alphabetically$/ do
     category = displayed_learning_objective_categories[i]
 
     brief.text.should == lo.brief
-    discipline.text.should == lo.discipline
-    category.text.should == lo.category
+    discipline.text.should == lo.discipline.upcase
+    category.text.should == lo.category.upcase
   end
 end

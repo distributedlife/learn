@@ -6,9 +6,9 @@ Feature: Learning Objective disciplines
   Scenario: learning objective has a discipline
     Given the learning objective "understands how change impacts automation tests" in the "automation" discipline
     When I go to the learning objectives page
-    Then I should see "automation"
+    Then I should see "AUTOMATION"
 
   Scenario: learning objective type is concept
     Given the "concept" "understands how change impacts automation tests" in the "automation" discipline
     When I go to the learning objectives page
-    Then I should see "concept"
+    Then I should see "CONCEPT"

@@ -1,12 +1,16 @@
 $table_row_base : #fff ;
-$table_row_vary : #ddd ;
+$table_row_vary : #eee ;
 $table_row_hover: #ffa ;
+$page_background: #eee ;
+$li_background:   #fff ;
+$font_size:       1.6em;
 
 body
 {
   width: 960px;
   margin: auto;
-  font-size: 1.2em;
+  font-size: $font_size ;
+  background-color: $page_background;
 }
 
 .notice
@@ -15,41 +19,99 @@ body
   text-align: center;
 }
 
+.panel
+{
+  background-color: $li_background;
+  border-radius: 20px;
+  padding: 0.6em;
+  margin: 0.6em;
+}
+
+.search
+{
+  margin-left: 70%;
+  padding-top: 0.6em;
+  padding-right: 0.6em;
+  
+  float: right;
+
+  font-size: $font_size
+}
+
+.list_summary
+{
+  margin-bottom: 0.6em;
+  float: right;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+}
+
 .learning_objective
 {
   ul
   {
+    clear: both;
     margin: 0;
-    padding:0;
-    list-style-type:none;
+    padding: 0;
+    list-style-type: none;
   }
   
   li
   {
-    padding: 0.6em;
-    margin: 0;
+    margin-bottom: 1.2em;
 
     p
     {
+      width: 75%;
       margin: 0;
       padding: 0;
     }
-  }
 
-  li.even
-  {
-    background: $table_row_base;
-  }
+    span
+    {
+      color: black;
+      float: right;
+      padding-top: 0.6em;
+      padding-left: 0.3em;
+      padding-right: 0.3em;
+    }
 
-  li.odd
-  {
-    background: $table_row_vary;
+    span#discipline
+    {
+      clear: both;
+      font-weight: bold ;
+      font-size: 0.6em;
+    }
+
+    span#category
+    {
+      clear: both;
+      font-size: 0.6em;
+    }
+
+    span#category_new
+    {
+      float: right;
+      clear: both;
+      font-size: 3em;
+      padding-top: 0;
+      padding-left:0;
+      margin-bottom: 0.3em;
+    }
   }
 
   li:hover
   {
-    background: $table_row_hover;
+/*    background: $table_row_hover;*/
   }
 
-  border: 1px dotted black ;
+  p
+  {
+    padding: 0.6em;
+  }
+}
+
+.pad
+{
+  clear: both;
 }

@@ -1,20 +1,23 @@
 .search
   = form_tag('/home/search', :method => "get") do
-    = label_tag(:q, "Search for:") 
+    = label_tag(:q, "") 
     = text_field_tag(:q, @q)
-    = submit_tag("Search") 
-
-.learning_objective
-  - if @learning_objectives.empty?
-    .notice
-      %p No learning objectives found
-  %ul
-    - @learning_objectives.each do |lo|
-      %li{:class => cycle("even", "odd")}
-        %p#brief= lo.brief
-        %span#discipline= lo.discipline
-        %span#category= lo.category
+    = submit_tag("Search")
 
 - unless @learning_objectives.empty?
   .list_summary
-    %p= @learning_objectives.count
+    %p= "showing all #{@learning_objectives.count} results"
+
+.learning_objective
+  - if @learning_objectives.empty?
+    .notice.panel
+      %p No learning objectives found. 
+  %ul
+    - @learning_objectives.each do |lo|
+      %li.panel
+        %span#category_new= lo.category.first.upcase
+        %p#brief= lo.brief
+        %span#category= lo.category.upcase
+        %span#discipline= lo.discipline.upcase
+        .pad
+
