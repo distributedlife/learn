@@ -16,7 +16,7 @@ $font_size_small: 0.6em;
 
 body
 {
-  width: 960px;
+  width: 1000px;
   margin: auto;
   font-size: $font_size_large ;
   background-color: $page_background;
@@ -89,7 +89,7 @@ a:hover
 
     p
     {
-      width: 75%;
+      width: 80%;
       margin: 0;
       padding: 0;
     }
@@ -133,7 +133,7 @@ a:hover
   }
 
   float: left;
-  width: 75%;
+  width: 70%;
 }
 
 .pad
@@ -145,7 +145,7 @@ nav.filter
 {
   clear: right;
   float: right;
-  width: 25%;
+  width: 30%;
 
   ul
   {
@@ -194,7 +194,6 @@ nav.filter
       {
         color: $add_filter_colour;
       }
-
     }
   }
 }

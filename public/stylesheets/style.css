@@ -1,5 +1,5 @@
 body {
-  width: 960px;
+  width: 1000px;
   margin: auto;
   font-size: 1.6em;
   background-color: #eeeeee; }
@@ -38,7 +38,7 @@ a:hover {
 
 .learning_objective {
   float: left;
-  width: 75%; }
+  width: 70%; }
   .learning_objective ul {
     clear: both;
     margin: 0;
@@ -47,7 +47,7 @@ a:hover {
   .learning_objective li {
     margin-bottom: 1.2em; }
     .learning_objective li p {
-      width: 75%;
+      width: 80%;
       margin: 0;
       padding: 0; }
     .learning_objective li span {
@@ -79,7 +79,7 @@ a:hover {
 nav.filter {
   clear: right;
   float: right;
-  width: 25%; }
+  width: 30%; }
   nav.filter ul {
     margin-top: 0.6em;
     margin-bottom: 0.6em; }
