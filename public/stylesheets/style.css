@@ -4,6 +4,12 @@ body {
   font-size: 1.6em;
   background-color: #eeeeee; }
 
+a {
+  text-decoration: none; }
+
+a:hover {
+  text-decoration: none; }
+
 .notice {
   font-style: italic;
   text-align: center; }
@@ -27,43 +33,70 @@ body {
   margin-bottom: 0.6em;
   float: right;
   padding-left: 0.6em;
-  padding-right: 0.6em; }
+  padding-right: 0.6em;
+  min-height: 1.0em; }
 
-.learning_objective ul {
-  clear: both;
-  margin: 0;
-  padding: 0;
-  list-style-type: none; }
-.learning_objective li {
-  margin-bottom: 1.2em; }
-  .learning_objective li p {
-    width: 75%;
+.learning_objective {
+  float: left;
+  width: 75%; }
+  .learning_objective ul {
+    clear: both;
     margin: 0;
-    padding: 0; }
-  .learning_objective li span {
-    color: black;
-    float: right;
-    padding-top: 0.6em;
-    padding-left: 0.3em;
-    padding-right: 0.3em; }
-  .learning_objective li span#discipline {
-    clear: both;
-    font-weight: bold;
-    font-size: 0.6em; }
-  .learning_objective li span#category {
-    clear: both;
-    font-size: 0.6em; }
-  .learning_objective li span#category_new {
-    float: right;
-    clear: both;
-    font-size: 3em;
-    padding-top: 0;
-    padding-left: 0;
-    margin-bottom: 0.3em; }
-.learning_objective li:hover {
-  /*    background: $table_row_hover;*/ }
-.learning_objective p {
-  padding: 0.6em; }
+    padding: 0;
+    list-style-type: none; }
+  .learning_objective li {
+    margin-bottom: 1.2em; }
+    .learning_objective li p {
+      width: 75%;
+      margin: 0;
+      padding: 0; }
+    .learning_objective li span {
+      color: black;
+      float: right;
+      padding-top: 0.6em;
+      padding-left: 0.3em;
+      padding-right: 0.3em; }
+    .learning_objective li span#discipline {
+      clear: both;
+      font-weight: bold;
+      font-size: 0.6em; }
+    .learning_objective li span#category {
+      clear: both;
+      font-size: 0.6em; }
+    .learning_objective li span#category_new {
+      float: right;
+      clear: both;
+      font-size: 3em;
+      padding-top: 0;
+      padding-left: 0;
+      margin-bottom: 0.3em; }
+  .learning_objective p {
+    padding: 0.6em; }
 
 .pad {
   clear: both; }
+
+nav.filter {
+  clear: right;
+  float: right;
+  width: 25%; }
+  nav.filter ul {
+    margin-top: 0.6em;
+    margin-bottom: 0.6em; }
+    nav.filter ul li {
+      font-size: 0.6em;
+      padding: 0;
+      margin: 0;
+      text-align: right; }
+    nav.filter ul span.include a {
+      color: black; }
+    nav.filter ul span.include a:visited {
+      color: black; }
+    nav.filter ul span.include a:hover {
+      color: red; }
+    nav.filter ul span.exclude a {
+      color: grey; }
+    nav.filter ul span.exclude a:visited {
+      color: grey; }
+    nav.filter ul span.exclude a:hover {
+      color: green; }

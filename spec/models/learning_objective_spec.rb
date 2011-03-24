@@ -131,20 +131,102 @@ describe LearningObjective do
       results[1].brief.should == 'aaaaa hhhhh iiiii jjjjj kkkkk lllll mmmmm'
     end
 
-    it 'should match on discipline' do
+    it 'should not match on discipline' do
       results = LearningObjective.search('automation')
 
+      results.count.should be 0
+    end
+
+    it 'should not match on category' do
+      results = LearningObjective.search('concept')
+
+      results.count.should be 0
+    end
+
+    it 'should support filtering on discipline' do
+      results = LearningObjective.search('', 'automation', '')
+      
       results.count.should be 1
       results[0].brief.should == 'the quick brown fox jumps over the lazy dog'
       results[0].discipline.should == 'automation'
     end
 
-    it 'should match on category' do
-      results = LearningObjective.search('concept')
+    it 'should support filtering on category' do
+      results = LearningObjective.search('', '', 'concept')
 
       results.count.should be 1
       results[0].brief.should == 'the quick brown fox jumps over the lazy dog'
       results[0].category.should == 'concept'
+    end
+
+    it 'should support multiple filters on discipline' do
+      results = LearningObjective.search('', ['automation', 'user interaction'], '')
+
+      results.count.should be 2
+      results[0].brief.should == 'the quick brown fox jumps over the lazy dog'
+      results[0].discipline.should == 'automation'
+      results[1].brief.should == 'aaaaa hhhhh iiiii jjjjj kkkkk lllll mmmmm'
+      results[1].discipline.should == 'user interaction'
+    end
+
+    it 'should support multiple filters on category' do
+      results = LearningObjective.search('', '', ['concept', 'lens'])
+
+      results.count.should be 2
+      results[0].brief.should == 'the quick brown fox jumps over the lazy dog'
+      results[0].discipline.should == 'automation'
+      results[1].brief.should == 'aaaaa bbbbb ccccc ddddd eeeee fffff ggggg'
+      results[1].discipline.should == 'fundamentals'
+    end
+
+    it 'should support both filtering and searching at the same time' do
+      results = LearningObjective.search('a', ['automation', 'user interaction', 'fundamentals'], ['concept', 'lens', 'artefact'])
+
+      results.count.should be 3
+      results[0].brief.should == 'the quick brown fox jumps over the lazy dog'
+      results[0].discipline.should == 'automation'
+      results[1].brief.should == 'aaaaa bbbbb ccccc ddddd eeeee fffff ggggg'
+      results[1].discipline.should == 'fundamentals'
+      results[2].brief.should == 'aaaaa hhhhh iiiii jjjjj kkkkk lllll mmmmm'
+      results[2].discipline.should == 'user interaction'
+    end
+  end
+
+  context 'trim_invalid_disciplines' do
+    it 'should accept a single discipline' do
+      disciplines = LearningObjective.trim_invalid_disciplines('automation')
+      disciplines.count.should be 1
+      disciplines[0].should == 'automation'
+
+      disciplines = LearningObjective.trim_invalid_disciplines('banana')
+      disciplines.empty?. should be true
+    end
+
+    it 'should accept an array of disciplines' do
+      disciplines = LearningObjective.trim_invalid_disciplines(['automation', 'banana', 'user interaction'])
+
+      disciplines.count.should be 2
+      disciplines[0].should == 'automation'
+      disciplines[1].should == 'user interaction'
+    end
+  end
+
+  context 'trim_invalid_categories' do
+    it 'should accept a single category' do
+      categories = LearningObjective.trim_invalid_categories('lens')
+      categories.count.should be 1
+      categories[0].should == 'lens'
+
+      categories = LearningObjective.trim_invalid_categories('banana')
+      categories.empty?. should be true
+    end
+
+    it 'should accept an array of categories' do
+      categories = LearningObjective.trim_invalid_categories(['lens', 'banana', 'concept'])
+
+      categories.count.should be 2
+      categories[0].should == 'concept'
+      categories[1].should == 'lens'
     end
   end
 end

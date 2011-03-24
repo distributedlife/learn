@@ -3,7 +3,7 @@ class LearningObjective < ActiveRecord::Base
 
 #TODO: add dsl for categories and disciplines
   CATEGORIES = ['concept', 'responsibility', 'technique', 'artefact', 'lens']
-  DISCIPLINES = ['automation', 'fundamentals', 'behaviour & functionality', 'user interaction', 'performance', 'security', 'domain knowledge', 'preparation & planning']
+  DISCIPLINES = ['automation', 'fundamentals', 'behaviour & functionality', 'user interaction', 'performance', 'security', 'domain knowledge', 'preparation & planning', 'infrastructure & integration']
 
   validates :brief, :presence => true, :length => { :minimum => 1, :maximum => 500 }
   validates :discipline, :presence => true
@@ -12,8 +12,33 @@ class LearningObjective < ActiveRecord::Base
   validates_inclusion_of :discipline, :in => DISCIPLINES
 
   
-  def self.search(search_term)
-    search_term = "%#{search_term}%"
-    self.find(:all, :conditions => ["brief like ? or discipline like ? or category like ?", search_term, search_term, search_term])
+  def self.search(search_term, discipline_filter = nil, category_filter = nil)
+    search_term = "%#{search_term}%".downcase
+
+
+    #use all disciplines if none supplied
+    discipline_filter = DISCIPLINES if (discipline_filter.nil? or discipline_filter.empty?)
+
+    #use all categories if none supplied
+    category_filter = CATEGORIES if (category_filter.nil? or category_filter.empty?)
+
+
+    self.find(:all, :conditions => ["brief like ? and discipline in (?) and category in (?)", search_term, discipline_filter, category_filter])
+  end
+
+  def self.trim_invalid_disciplines(disciplines)
+    unless disciplines.kind_of?(Array)
+      disciplines = [disciplines]
+    end
+    
+    DISCIPLINES & disciplines
+  end
+
+  def self.trim_invalid_categories(categories)
+    unless categories.kind_of?(Array)
+      categories = [categories]
+    end
+
+    CATEGORIES & categories
   end
 end

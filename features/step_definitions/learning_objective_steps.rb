@@ -22,6 +22,9 @@ Given /^(\d+) learning objectives containing "([^"]*)"$/ do |count, text|
   end
 end
 
+Given /^one learning objective in all permutations$/ do
+  
+end
 
 When /^I search for "([^"]*)"$/ do |search_term|
   fill_in('q', :with => search_term)

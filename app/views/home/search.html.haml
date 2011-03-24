@@ -1,14 +1,35 @@
 .search
   = form_tag('/home/search', :method => "get") do
-    = label_tag(:q, "") 
+    = label_tag(:q, "")
     = text_field_tag(:q, @q)
+    = hidden_field_tag('disciplines', @disciplines)
+    = hidden_field_tag('categories', @categories)
     = submit_tag("Search")
 
 .pad
 
-- unless @learning_objectives.empty?
+- if @learning_objectives.empty?
+  .list_summary
+    .pad
+- else
   .list_summary
     %p= "showing all #{@learning_objectives.count} results"
+
+%nav.filter
+  %ul.panel
+    - @discipline_values.each do |discipline|
+      %li
+        - if (@disciplines & [discipline] == [discipline]) and (@disciplines.empty? == false)
+          %span.include= link_to("#{discipline.downcase} [-]", "/home/search?q=#{@q}&disciplines=#{CGI::escape((@disciplines - [discipline]).to_param)}&categories=#{CGI::escape(@categories.to_param)}")
+        - else
+          %span.exclude= link_to("#{discipline.downcase} [+]", "/home/search?q=#{@q}&disciplines=#{CGI::escape((@disciplines | [discipline]).to_param)}&categories=#{CGI::escape(@categories.to_param)}")
+  %ul.panel
+    - @category_values.each do |category|
+      %li
+        - if (@categories & [category] == [category]) and (@categories.empty? == false)
+          %span.include= link_to("#{category.downcase} [-]", "/home/search?q=#{@q}&disciplines=#{CGI::escape(@disciplines.to_param)}&categories=#{CGI::escape((@categories - [category]).to_param)}")
+        - else
+          %span.exclude= link_to("#{category.downcase} [+]", "/home/search?q=#{@q}&disciplines=#{CGI::escape(@disciplines.to_param)}&categories=#{CGI::escape((@categories | [category]).to_param)}")
 
 .learning_objective
   - if @learning_objectives.empty?
@@ -22,4 +43,3 @@
         %span#category= lo.category.upcase
         %span#discipline= lo.discipline.upcase
         .pad
-
