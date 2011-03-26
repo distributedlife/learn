@@ -79,10 +79,17 @@ describe LearningObjective do
         @lo.valid?().should be false
       end
     end
+
+    context 'pending' do
+      it 'should be true by default' do
+        @lo = LearningObjective.new
+        @lo.pending.should be true
+      end
+    end
   end
 
   context 'search' do
-    before(:each) do
+    before do
       create_learning_objective('the quick brown fox jumps over the lazy dog', 'automation', 'concept')
       create_learning_objective('aaaaa bbbbb ccccc ddddd eeeee fffff ggggg', 'fundamentals', 'lens')
       create_learning_objective('aaaaa hhhhh iiiii jjjjj kkkkk lllll mmmmm', 'user interaction', 'artefact')
@@ -90,8 +97,6 @@ describe LearningObjective do
 
     it 'should wildcard match on brief at the start of strings' do
       results = LearningObjective.search('the q')
-
-      LearningObjective.all.count.should be 3
 
       results.count.should be 1
       results.each do |lo|
@@ -145,7 +150,7 @@ describe LearningObjective do
 
     it 'should support filtering on discipline' do
       results = LearningObjective.search('', 'automation', '')
-      
+
       results.count.should be 1
       results[0].brief.should == 'the quick brown fox jumps over the lazy dog'
       results[0].discipline.should == 'automation'
@@ -189,6 +194,23 @@ describe LearningObjective do
       results[1].discipline.should == 'fundamentals'
       results[2].brief.should == 'aaaaa hhhhh iiiii jjjjj kkkkk lllll mmmmm'
       results[2].discipline.should == 'user interaction'
+    end
+
+    it 'should exclude pending by default' do
+      create_pending_learning_objective('I are pending!', 'user interaction', 'artefact')
+
+      results = LearningObjective.search('', '', '')
+      results.count.should be 3
+
+      results = LearningObjective.search('', '', '', false)
+      results.count.should be 3
+    end
+
+    it 'should include pending when requested' do
+      create_pending_learning_objective('I are pending!', 'user interaction', 'artefact')
+
+      results = LearningObjective.search('', nil, nil, true)
+      results.count.should be 4
     end
   end
 

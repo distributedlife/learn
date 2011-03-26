@@ -5,7 +5,14 @@ body {
   background-color: #eeeeee; }
 
 a {
-  text-decoration: none; }
+  text-decoration: none;
+  color: black; }
+
+a:visited {
+  color: black; }
+
+a:hover {
+  color: green; }
 
 a:hover {
   text-decoration: none; }
@@ -19,6 +26,9 @@ a:hover {
   border-radius: 20px;
   padding: 0.6em;
   margin: 0.6em; }
+
+.pending {
+  background-color: #ffffdd; }
 
 .search {
   margin-left: 70%;
@@ -70,6 +80,15 @@ a:hover {
       padding-top: 0;
       padding-left: 0;
       margin-bottom: 0.3em; }
+    .learning_objective li p#pending {
+      float: left;
+      font-style: italic;
+      font-size: 0.4em;
+      padding-bottom: 0.3em; }
+      .learning_objective li p#pending a {
+        font-weight: bold !important; }
+      .learning_objective li p#pending a:hover {
+        font-weight: bold !important; }
   .learning_objective p {
     padding: 0.6em; }
 

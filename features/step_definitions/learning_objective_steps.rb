@@ -23,7 +23,39 @@ Given /^(\d+) learning objectives containing "([^"]*)"$/ do |count, text|
 end
 
 Given /^one learning objective in all permutations$/ do
-  
+  category = 0
+  category_done = false
+  discipline = 0
+  discipline_done = false
+
+  until category_done and discipline_done
+    LearningObjective.make(:discipline => LearningObjective::DISCIPLINES[discipline], :category => LearningObjective::CATEGORIES[category])
+
+    category += 1
+    discipline += 1
+
+    if category == LearningObjective::CATEGORIES.length
+      category = 0
+      category_done = true ;
+    end
+    if discipline == LearningObjective::DISCIPLINES.length
+      discipline = 0
+      discipline_done = true ;
+      puts 'here'
+    end
+  end
+end
+
+Given /^a pending learning objective$/ do
+  LearningObjective.make(:pending => true)
+end
+
+Given /^the following pending learning objective "([^"]*)"$/ do |brief|
+  LearningObjective.make(:pending => true, :brief => brief)
+end
+
+Given /^pending learning objectives are shown$/ do
+  And "I follow \"show pending\""
 end
 
 When /^I search for "([^"]*)"$/ do |search_term|
@@ -57,4 +89,8 @@ Then /^each learning objective is displayed on the page alphabetically$/ do
     discipline.text.should == lo.discipline.upcase
     category.text.should == lo.category.upcase
   end
+end
+
+Then /^I should see the link "([^"]*)"$/ do |text|
+  find_link(text)
 end

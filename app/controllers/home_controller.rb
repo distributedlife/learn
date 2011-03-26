@@ -5,9 +5,10 @@ class HomeController < ApplicationController
     @q = ''
     @disciplines = []
     @categories = []
+    @show_pending = false
 
     @q = params[:q] unless params[:q].nil?
-
+    @show_pending = true if params[:show_pending] == "true" or params[:show_pending] == true
 
     #as we are using to_param we need to decode the url_encoded strings; if they are encoded
     params[:disciplines] = params[:disciplines].each_with_index {|unused, i| CGI::unescape(params[:disciplines][i])} if params[:disciplines].kind_of?(Array)
@@ -48,11 +49,20 @@ class HomeController < ApplicationController
     end
 
 
-    @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).search(@q, @disciplines, @categories)
+    #map query to pending, show pending or hide pending
+    if @q == 'pending' or @q == 'show pending'
+      @q = ""
+      @show_pending = true
+    end
+    if @q == 'hide pending'
+      @q = ""
+      @show_pending = false
+    end
 
 
-#    @disciplines = LearningObjective::DISCIPLINES.sort if @disciplines.empty?
-#    @categories = LearningObjective::CATEGORIES.sort if @categories.empty?
+    @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).search(@q, @disciplines, @categories, @show_pending)
+
+
     @discipline_values = LearningObjective::DISCIPLINES.sort
     @category_values = LearningObjective::CATEGORIES.sort
 

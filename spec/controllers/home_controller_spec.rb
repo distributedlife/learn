@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe HomeController do
   describe "GET 'search'" do
-    before(:each) do
+    before do
       create_learning_objective('the quick brown fox jumps over the lazy dog', 'fundamentals', 'concept')
       create_learning_objective('aba quick brown fox jumps over the lazy zog', 'automation', 'responsibility')
       create_learning_objective('aaaaa bbbbb ccccc ddddd eeeee fffff ggggg', 'automation', 'lens')
@@ -15,7 +15,7 @@ describe HomeController do
       response.should be_success
     end
 
-    it 'should return all rows when query is not provided' do      
+    it 'should return all rows when query is not provided' do
       get 'search'
 
       assigns(:learning_objectives).count.should be 5
@@ -83,11 +83,11 @@ describe HomeController do
       assigns(:learning_objectives).count.should be 2
       assigns(:learning_objectives)[0].brief.should == 'aaaaa bbbbb ccccc ddddd eeeee fffff ggggg'
       assigns(:learning_objectives)[1].brief.should == 'aba quick brown fox jumps over the lazy zog'
-    
+
       assigns(:q).empty?.should be true
       assigns(:disciplines).should == ['automation']
     end
-    
+
     it 'should map query to a category when supplied' do
       get(:search, {:q => 'concept'})
 
@@ -212,6 +212,45 @@ describe HomeController do
       get(:search, {:disciplines => CGI::escape((LearningObjective::DISCIPLINES - ['automation']).to_param)})
       assigns(:learning_objectives).count.should be 3
       assigns(:disciplines).count.should be 8
+    end
+
+    it 'should not include pending items by default' do
+      create_pending_learning_objective('zomg this is pending', 'fundamentals', 'concept')
+
+      get(:search)
+      assigns(:learning_objectives).count.should be 5
+      assigns(:show_pending).should be false
+    end
+
+    it 'should include pending items when requested' do
+      create_pending_learning_objective('zomg this is pending', 'fundamentals', 'concept')
+
+      get(:search, {:show_pending => true})
+      assigns(:learning_objectives).count.should be 6
+      assigns(:show_pending).should be true
+    end
+
+    it 'should map a search query of pending to the pending enabled flag' do
+      create_pending_learning_objective('zomg this is pending', 'fundamentals', 'concept')
+
+      get(:search, {:q => 'pending'})
+      assigns(:learning_objectives).count.should be 6
+      assigns(:show_pending).should be true
+      assigns(:q).empty?.should be true
+
+      get(:search, {:q => 'show pending'})
+      assigns(:learning_objectives).count.should be 6
+      assigns(:show_pending).should be true
+      assigns(:q).empty?.should be true
+    end
+
+    it 'should map a search query of hide pending to the pending hidden flag' do
+      create_pending_learning_objective('zomg this is pending', 'fundamentals', 'concept')
+
+      get(:search, {:q => 'hide pending'})
+      assigns(:learning_objectives).count.should be 5
+      assigns(:show_pending).should be false
+      assigns(:q).empty?.should be true
     end
   end
 end

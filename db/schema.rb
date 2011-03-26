@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110322024055) do
+ActiveRecord::Schema.define(:version => 20110324223531) do
 
   create_table "learning_objectives", :force => true do |t|
     t.string   "brief",      :limit => 500
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20110322024055) do
     t.datetime "updated_at"
     t.string   "discipline"
     t.string   "category"
+    t.boolean  "pending",                   :default => true
   end
 
 end
