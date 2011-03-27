@@ -3,6 +3,12 @@ LearnTesting::Application.routes.draw do
   match 'home/search/:q' => 'home#search'
 
   root :to => "home#search"
+
+  resources :learning_objective do
+    member do
+      post 'update'
+    end
+  end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -34,4 +34,17 @@ Scenario: Hide pending learning objectives does what it says
     When I follow "Hide pending learning objectives?"
     Then I should see "No learning objectives found"
 
+Scenario: approve pending learning objective
+    Given the following pending learning objective "this learning objective is pending"
+    And I am on the learning objectives page
+    And pending learning objectives are shown
+    When I press "Approve this learning objective?"
+    Then I should not see "Hide pending learning objectives?"
 
+#Scenario: approve one of multiple pending learning objectives
+#    Given the following pending learning objective "this learning objective is pending"
+#    Given the following pending learning objective "this learning objective is also pending"
+#    And I am on the learning objectives page
+#    And pending learning objectives are shown
+#    When I follow "Approve learning objective?" for "this learning objective is pending"
+#    Then I should not see "Hide pending learning objectives?" on "this learning objective is pending"

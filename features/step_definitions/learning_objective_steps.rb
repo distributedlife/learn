@@ -41,7 +41,6 @@ Given /^one learning objective in all permutations$/ do
     if discipline == LearningObjective::DISCIPLINES.length
       discipline = 0
       discipline_done = true ;
-      puts 'here'
     end
   end
 end

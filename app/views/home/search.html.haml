@@ -44,6 +44,11 @@
       %li
         %span= link_to("show pending", "/home/search?q=#{@q}&disciplines=#{CGI::escape(@disciplines.to_param)}&categories=#{CGI::escape(@categories.to_param)}&show_pending=true")
 
+.flash
+  - flash.each do |key, value|
+    .p{:class => key}
+      %span= value
+
 .learning_objective
   - if @learning_objectives.empty?
     .notice.panel
@@ -56,6 +61,9 @@
           %p#pending
             This learning objective is not yet approved.
             = link_to("Hide pending learning objectives?", "/home/search?q=#{@q}&discipline=#{CGI::escape(@disciplines.to_param)}&categories=#{CGI::escape(@categories.to_param)}&show_pending=false")
+            = form_tag("/learning_objective/#{lo.id}", :method => "post") do
+              = hidden_field_tag('pending', false)
+              = submit_tag("Approve this learning objective?")
         %p#brief= lo.brief
         %span#category= lo.category.upcase
         %span#discipline= lo.discipline.upcase
