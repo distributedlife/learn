@@ -1,3 +1,5 @@
+include LearningObjectiveSearchHelper
+
 class LearningObjectiveController < ApplicationController
   FAILURE = "Unable to complete as the requested learning objective could not be found."
   SUCCESS = "Success!"

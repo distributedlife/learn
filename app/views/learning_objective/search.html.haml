@@ -4,6 +4,7 @@
     = text_field_tag(:q, @q)
     = hidden_field_tag('disciplines', @disciplines)
     = hidden_field_tag('categories', @categories)
+    = hidden_field_tag('show_pending', @show_pending)
     = submit_tag("Search")
 
 .pad
@@ -20,29 +21,29 @@
     - @discipline_values.each do |discipline|
       %li
         - if (@disciplines & [discipline] == [discipline]) and (@disciplines.empty? == false)
-          %span.include= link_to("#{discipline.downcase} [-]", "/learning_objective/search?q=#{@q}&disciplines=#{CGI::escape((@disciplines - [discipline]).to_param)}&categories=#{CGI::escape(@categories.to_param)}&show_pending=#{@show_pending}")
+          %span.include= search_url("#{discipline.downcase} [-]", @q, @disciplines - [discipline], @categories, @show_pending)
         - else
-          %span.exclude= link_to("#{discipline.downcase} [+]", "/learning_objective/search?q=#{@q}&disciplines=#{CGI::escape((@disciplines | [discipline]).to_param)}&categories=#{CGI::escape(@categories.to_param)}&show_pending=#{@show_pending}")
+          %span.exclude= search_url("#{discipline.downcase} [+]", @q, @disciplines | [discipline], @categories, @show_pending)
   %ul.panel
     - @category_values.each do |category|
       %li
         - if (@categories & [category] == [category]) and (@categories.empty? == false)
-          %span.include= link_to("#{category.downcase} [-]", "/learning_objective/search?q=#{@q}&disciplines=#{CGI::escape(@disciplines.to_param)}&categories=#{CGI::escape((@categories - [category]).to_param)}&show_pending=#{@show_pending}")
+          %span.include= search_url("#{category.downcase} [-]", @q, @disciplines, @categories - [category], @show_pending)
         - else
-          %span.exclude= link_to("#{category.downcase} [+]", "/learning_objective/search?q=#{@q}&disciplines=#{CGI::escape(@disciplines.to_param)}&categories=#{CGI::escape((@categories | [category]).to_param)}&show_pending=#{@show_pending}")
+          %span.exclude= search_url("#{category.downcase} [+]", @q, @disciplines, @categories | [category], @show_pending)
   %ul.panel
     %li
       - if @disciplines.count == 0 and @categories.count == 0
-        %span.exclude= link_to("clear filter", "/learning_objective/search?q=#{@q}&disciplines=&categories=&show_pending=#{@show_pending}")
+        %span.exclude= search_url("clear filter", "", "", "", @show_pending)
       - else
-        %span.include= link_to("clear filter", "/learning_objective/search?q=#{@q}&disciplines=&categories=&show_pending=#{@show_pending}")
+        %span.include= search_url("clear filter", "", "", "", @show_pending)
 
     - if @show_pending == true
       %li
-        %span= link_to("hide pending", "/learning_objective/search?q=#{@q}&disciplines=#{CGI::escape(@disciplines.to_param)}&categories=#{CGI::escape(@categories.to_param)}&show_pending=false")
+        %span= search_url("hide pending", @q, @disciplines, @categories, 'false')
     - else
       %li
-        %span= link_to("show pending", "/learning_objective/search?q=#{@q}&disciplines=#{CGI::escape(@disciplines.to_param)}&categories=#{CGI::escape(@categories.to_param)}&show_pending=true")
+        %span= search_url("show pending", @q, @disciplines, @categories, 'true')
 
 .flash
   - flash.each do |key, value|
@@ -60,7 +61,7 @@
         - if lo.pending?
           %p#pending
             This learning objective is not yet approved.
-            = link_to("Hide pending learning objectives?", "/learning_objective/search?q=#{@q}&discipline=#{CGI::escape(@disciplines.to_param)}&categories=#{CGI::escape(@categories.to_param)}&show_pending=false")
+            = search_url("Hide pending learning objectives?", @q, @disciplines, @categories, 'false')
             = form_tag("/learning_objective/#{lo.id}", :method => "post") do
               = hidden_field_tag('pending', false)
               = submit_tag("Approve this learning objective?")
