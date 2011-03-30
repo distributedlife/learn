@@ -90,6 +90,8 @@ GEM
     mime-types (1.16)
     nokogiri (1.4.4)
     notifier (0.1.2)
+    paper_trail (2.0.2)
+      rails (~> 3)
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -163,6 +165,7 @@ DEPENDENCIES
   launchy
   machinist
   nokogiri
+  paper_trail
   rails (= 3.0.5)
   rspec-rails (>= 2.0.0.beta.10)
   spork

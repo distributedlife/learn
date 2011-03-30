@@ -1,14 +1,16 @@
 LearnTesting::Application.routes.draw do
-  match 'home/search' => 'home#search'
-  match 'home/search/:q' => 'home#search'
+  match 'learning_objective/search' => 'learning_objective#search'
+  match 'learning_objective/search/:q' => 'learning_objective#search'
 
-  root :to => "home#search"
+  root :to => "learning_objective#search"
 
   resources :learning_objective do
     member do
       post 'update'
     end
   end
+
+  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

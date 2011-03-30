@@ -1,7 +1,8 @@
 class LearningObjective < ActiveRecord::Base
+  has_paper_trail
+  
   attr_accessible :brief, :discipline, :category, :pending
 
-#TODO: add dsl for categories and disciplines
   CATEGORIES = ['concept', 'responsibility', 'technique', 'artefact', 'lens']
   DISCIPLINES = ['automation', 'fundamentals', 'behaviour & functionality', 'user interaction', 'performance', 'security', 'domain knowledge', 'preparation & planning', 'infrastructure & integration']
 

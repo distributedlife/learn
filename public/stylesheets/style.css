@@ -17,6 +17,14 @@ a:hover {
 a:hover {
   text-decoration: none; }
 
+.flash {
+  width: 70%; }
+  .flash p.undo {
+    background-color: #eeffee;
+    padding: 0.3em;
+    margin: 0.6em;
+    border-radius: 10px; }
+
 .notice {
   font-style: italic;
   text-align: center; }
