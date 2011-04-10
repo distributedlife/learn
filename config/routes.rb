@@ -4,9 +4,10 @@ LearnTesting::Application.routes.draw do
 
   root :to => "learning_objective#search"
 
-  resources :learning_objective do
+  resources :learning_objective, :as => "lo" do
     member do
-      post 'update'
+      post 'update', :as => "update"
+      post 'ajax_update', :as => "ajax_update"
     end
   end
 

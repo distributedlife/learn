@@ -24,6 +24,8 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'haml'
 gem 'heroku'
 gem 'paper_trail'
+gem 'jquery-rails', '>= 0.2.6'
+
 # gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for the local environment. Make sure to
@@ -44,4 +46,5 @@ group :development, :test do
   gem 'akephalos'
   gem 'machinist'
   gem 'faker'
+  gem 'ruby-debug'
 end

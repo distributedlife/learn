@@ -5,7 +5,8 @@ $table_row_hover: #ffa ;
 $page_background: #eee ;
 $li_background:   #fff ;
 $pending_background: #ffd;
-$undo_notice_color: #efe;
+$success_notice_color: #efe;
+$failure_notice_color: #fee;
 
 $text_colour: black ;
 $add_filter_colour: green ;
@@ -55,12 +56,21 @@ a:hover
 {
   width: 70% ;
 
-  p.undo
+  p
   {
-    background-color: $undo_notice_color;
+    font-size: $font_size_small;
     padding: 0.3em;
     margin: 0.6em;
     border-radius: 10px;
+  }
+  p.success
+  {
+    background-color: $success_notice_color;
+  }
+
+  p.failure
+  {
+    background-color: $failure_notice_color;
   }
 }
 
@@ -116,7 +126,7 @@ a:hover
     list-style-type: none;
   }
   
-  li
+  div
   {
     margin-bottom: 1.2em;
 

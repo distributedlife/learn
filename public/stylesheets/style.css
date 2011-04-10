@@ -19,11 +19,15 @@ a:hover {
 
 .flash {
   width: 70%; }
-  .flash p.undo {
-    background-color: #eeffee;
+  .flash p {
+    font-size: 0.6em;
     padding: 0.3em;
     margin: 0.6em;
     border-radius: 10px; }
+  .flash p.success {
+    background-color: #eeffee; }
+  .flash p.failure {
+    background-color: #ffeeee; }
 
 .notice {
   font-style: italic;
@@ -62,40 +66,40 @@ a:hover {
     margin: 0;
     padding: 0;
     list-style-type: none; }
-  .learning_objective li {
+  .learning_objective div {
     margin-bottom: 1.2em; }
-    .learning_objective li p {
+    .learning_objective div p {
       width: 80%;
       margin: 0;
       padding: 0; }
-    .learning_objective li span {
+    .learning_objective div span {
       color: black;
       float: right;
       padding-top: 0.6em;
       padding-left: 0.3em;
       padding-right: 0.3em; }
-    .learning_objective li span#discipline {
+    .learning_objective div span#discipline {
       clear: both;
       font-weight: bold;
       font-size: 0.6em; }
-    .learning_objective li span#category {
+    .learning_objective div span#category {
       clear: both;
       font-size: 0.6em; }
-    .learning_objective li span#category_new {
+    .learning_objective div span#category_new {
       float: right;
       clear: both;
       font-size: 3em;
       padding-top: 0;
       padding-left: 0;
       margin-bottom: 0.3em; }
-    .learning_objective li p#pending {
+    .learning_objective div p#pending {
       float: left;
       font-style: italic;
       font-size: 0.4em;
       padding-bottom: 0.3em; }
-      .learning_objective li p#pending a {
+      .learning_objective div p#pending a {
         font-weight: bold !important; }
-      .learning_objective li p#pending a:hover {
+      .learning_objective div p#pending a:hover {
         font-weight: bold !important; }
   .learning_objective p {
     padding: 0.6em; }

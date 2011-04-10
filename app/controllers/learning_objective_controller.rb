@@ -53,12 +53,29 @@ class LearningObjectiveController < ApplicationController
 
   def update
     begin
-      @lo = LearningObjective.find(params[:id])    
+      @lo = LearningObjective.find(params[:id])
       @lo.pending = params[:pending] unless params[:pending].nil?
       @lo.save!
 
       link = self.class.helpers.link_to('Click here to undo.', revert_version_path(@lo.versions.scoped.last), :method => :post)
       redirect_to :back, :flash => {:success => "#{SUCCESS} #{link}"}
+    rescue
+      redirect_to :back, :flash => {:failure => FAILURE} if @lo.nil?
+    end
+  end
+
+
+  def ajax_update
+    begin
+      @lo = LearningObjective.find(params[:id])
+      @lo.pending = params[:pending] unless params[:pending].nil?
+      @lo.save!
+
+      @link = self.class.helpers.link_to('Click here to undo.', revert_version_path(@lo.versions.scoped.last), :method => :post)
+
+#      respond_to do |format|
+#        format.js {render :layout=>false}
+#      end
     rescue
       redirect_to :back, :flash => {:failure => FAILURE} if @lo.nil?
     end
