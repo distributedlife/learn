@@ -47,4 +47,5 @@ group :development, :test do
   gem 'machinist'
   gem 'faker'
   gem 'ruby-debug'
+  gem 'metric_fu'
 end

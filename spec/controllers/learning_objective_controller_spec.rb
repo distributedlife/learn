@@ -8,41 +8,66 @@ describe LearningObjectiveController do
     end
 
     context 'when learning objective id exists' do
-      it 'should be a redirect' do
-        post(:update, {:id => @lo.id})
-        
-        response.should be_redirect
-      end
-
       it 'should not update the pending attribute if it is not supplied' do
-        post(:update, {:id => @lo.id})
+        xhr :post, :ajax_update, {:id => @lo.id}
        
         @lo.reload
         @lo.pending.should == true;
       end
 
       it 'should update the pending attribute if it is supplied' do
-        post(:update, {:id => @lo.id, :pending => false})
+        xhr :post, :ajax_update, {:id => @lo.id, :pending => false}
 
         @lo.reload
         @lo.pending.should == false;
       end
 
-      it 'should redirect back with undo message to revert change' do
-        post(:update, {:id => @lo.id, :pending => false})
-
-        response.should redirect_to :back
+      it 'link should contain undo message to revert change' do
+        xhr :post, :ajax_update, {:id => @lo.id, :pending => false}
+        
+        assigns[:link].should ~ /Click here to undo/
         flash[:undo].should ~ /^Success!/
       end
     end
 
     context 'when resource supplied does not exist' do
       it 'should redirect with error message when redirect supplied' do
-        post(:update, {:id => 0})
+        xhr :post, :ajax_update, {:id => 0}
 
         response.should redirect_to :back
         flash[:failure].should == "Unable to complete as the requested learning objective could not be found."
       end
+    end
+  end
+
+  describe "POST 'revert'" do
+    before do
+      request.env["HTTP_REFERER"] = "http://distributedlife.com"
+      @lo = LearningObjective.make(:pending => true)
+      @lo.pending = false
+      @lo.save!
+
+      @version = @lo.versions.last
+    end
+
+    it 'should return the learning objective in its current state' do
+      xhr :post, :revert, {:id => @version.id}
+
+      assigns[:lo].pending.should == true
+    end
+
+    it 'should return a link to revert the most recent change' do
+      xhr :post, :revert, {:id => @version.id}
+
+      (assigns[:link].include? "Click here to redo"). should == true
+      (assigns[:link].include? "#{@version.next.id}").should == true
+    end
+
+    it 'should return undo text to revery the most recent change when requested' do
+      xhr :post, :revert, {:id => @version.id, :redo => true}
+
+      (assigns[:link].include? "Click here to undo"). should == true
+      (assigns[:link].include? "#{@version.next.id}").should == true
     end
   end
 

@@ -34,27 +34,30 @@ Scenario: Hide pending learning objectives does what it says
     When I follow "Hide pending learning objectives?"
     Then I should see "No learning objectives found"
 
+@javascript
 Scenario: approve pending learning objective
     Given the following pending learning objective "this learning objective is pending"
     And I am on the learning objectives page
     And pending learning objectives are shown
-    When I press "Approve this learning objective?"
+    When I follow "Approve this learning objective?"
     Then I should not see "Hide pending learning objectives?"
-    And I should see "Success! Click here to undo."
+    And I should see "Click here to undo."
 
+@javascript
 Scenario: undo an approved pending learning objective
     Given the following pending learning objective "this learning objective is pending"
     And I am on the learning objectives page
     And pending learning objectives are shown
-    And I press "Approve this learning objective?"
+    And I follow "Approve this learning objective?"
     When I follow "Click here to undo."
     Then I should see "Hide pending learning objectives?"
 
+@javascript
 Scenario: redo an undone approved pending learning objective
     Given the following pending learning objective "this learning objective is pending"
     And I am on the learning objectives page
     And pending learning objectives are shown
-    And I press "Approve this learning objective?"
+    And I follow "Approve this learning objective?"
     And I follow "Click here to undo."
-    When I follow "Click here if you want to redo."
+    When I follow "Click here to redo."
     Then I should not see "No learning objectives found"

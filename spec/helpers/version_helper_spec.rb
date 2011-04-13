@@ -1,10 +1,8 @@
 require 'spec_helper'
 
-describe VersionsController do
+describe VersionHelper do
   context 'revert' do
     before do
-      request.env["HTTP_REFERER"] = "http://distributedlife.com"
-      
       @changed = LearningObjective.make
       @changed.pending = true
       @changed.save!
@@ -12,11 +10,11 @@ describe VersionsController do
       @version = @changed.versions.last
     end
 
-    context 'when succesful' do
+   context 'when succesful' do
       it 'should revert a version if it is the latest' do
         @changed.pending.should == true
 
-        post(:revert, {:id => @version.id})
+        VersionHelper.revert @version.id
 
         @changed.reload
         @changed.pending.should == false
@@ -30,22 +28,21 @@ describe VersionsController do
 
         @version = @changed.versions.last
 
-        post(:revert, {:id => @version.id})
+        VersionHelper.revert @version.id
 
         @changed.reload
         @changed.brief.should == original_brief
 
-        post(:revert, {:id => @version.next.id, :redo => 'true'})
+        VersionHelper.revert @version.next.id
 
         @changed.reload
         @changed.brief.should == 'this is the second change'
       end
 
-      it 'should redirect to back with a redo link' do
-        post(:revert, {:id => @version.id})
+      it 'should return the current version' do
+        returned_version = VersionHelper.revert @version.id
 
-        response.should redirect_to :back
-        flash[:success].should ~ /^Successfully reverted your change./
+        returned_version.should == @version
       end
     end
 
@@ -53,7 +50,7 @@ describe VersionsController do
       it 'should not revert a version if the version id does not exist' do
         @changed.pending.should == true
 
-        post(:revert, {:id => (@version.id + 1)})
+        VersionHelper.revert(@version.id + 1)
 
         @changed.reload
         @changed.pending.should == true
@@ -66,18 +63,17 @@ describe VersionsController do
         @changed.pending.should == true
         @changed.brief.should == 'bananana'
 
-        post(:revert, {:id => (@version.id)})
+        VersionHelper.revert @version.id
 
         @changed.reload
         @changed.pending.should == true
         @changed.brief.should == 'bananana'
       end
 
-      it 'should redirect to back and report an error' do
-        post(:revert, {:id => @version.id + 1})
+      it 'should return nil' do
+        returned_version = VersionHelper.revert(@version.id + 1)
 
-        response.should redirect_to :back
-        flash[:failure].should == "Could not make change. The record probably has changed since you made your change."
+        returned_version.nil?.should == true
       end
     end
   end

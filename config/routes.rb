@@ -6,12 +6,10 @@ LearnTesting::Application.routes.draw do
 
   resources :learning_objective, :as => "lo" do
     member do
-      post 'update', :as => "update"
       post 'ajax_update', :as => "ajax_update"
+      post 'revert', :as => "revert"
     end
   end
-
-  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

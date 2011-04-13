@@ -1,4 +1,5 @@
 include LearningObjectiveSearchHelper
+include VersionHelper
 
 class LearningObjectiveController < ApplicationController
   FAILURE = "Unable to complete as the requested learning objective could not be found."
@@ -51,33 +52,32 @@ class LearningObjectiveController < ApplicationController
   end
 
 
-  def update
-    begin
-      @lo = LearningObjective.find(params[:id])
-      @lo.pending = params[:pending] unless params[:pending].nil?
-      @lo.save!
-
-      link = self.class.helpers.link_to('Click here to undo.', revert_version_path(@lo.versions.scoped.last), :method => :post)
-      redirect_to :back, :flash => {:success => "#{SUCCESS} #{link}"}
-    rescue
-      redirect_to :back, :flash => {:failure => FAILURE} if @lo.nil?
-    end
-  end
-
-
   def ajax_update
     begin
       @lo = LearningObjective.find(params[:id])
       @lo.pending = params[:pending] unless params[:pending].nil?
       @lo.save!
 
-      @link = self.class.helpers.link_to('Click here to undo.', revert_version_path(@lo.versions.scoped.last), :method => :post)
-
-#      respond_to do |format|
-#        format.js {render :layout=>false}
-#      end
+      @link = self.class.helpers.link_to('Click here to undo.', revert_lo_path(@lo.versions.scoped.last), :remote => true, :method => :post)
     rescue
       redirect_to :back, :flash => {:failure => FAILURE} if @lo.nil?
+    end
+  end
+
+
+  def revert
+    begin
+      version = VersionHelper.revert params[:id]
+      @lo = LearningObjective.find(version.item_id)
+
+      #TODO: encapsulate in a method that calls a function pointer
+      if (!params[:redo])
+        @link = self.class.helpers.link_to('Click here to redo.', revert_lo_path(version.next, :redo => 'true'), :remote => true, :method => :post)
+      else
+        @link = self.class.helpers.link_to('Click here to undo.', revert_lo_path(version.next, :redo => 'false'), :remote => true, :method => :post)
+      end
+    rescue
+      redirect_to :back, :flash => {:failure => FAILURE}
     end
   end
 
