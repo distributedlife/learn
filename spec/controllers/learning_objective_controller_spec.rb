@@ -9,21 +9,21 @@ describe LearningObjectiveController do
 
     context 'when learning objective id exists' do
       it 'should not update the pending attribute if it is not supplied' do
-        xhr :post, :ajax_update, {:id => @lo.id}
+        xhr :post, :update, {:id => @lo.id}
        
         @lo.reload
         @lo.pending.should == true;
       end
 
       it 'should update the pending attribute if it is supplied' do
-        xhr :post, :ajax_update, {:id => @lo.id, :pending => false}
+        xhr :post, :update, {:id => @lo.id, :pending => false}
 
         @lo.reload
         @lo.pending.should == false;
       end
 
       it 'link should contain undo message to revert change' do
-        xhr :post, :ajax_update, {:id => @lo.id, :pending => false}
+        xhr :post, :update, {:id => @lo.id, :pending => false}
         
         assigns[:link].should ~ /Click here to undo/
         flash[:undo].should ~ /^Success!/
@@ -32,7 +32,7 @@ describe LearningObjectiveController do
 
     context 'when resource supplied does not exist' do
       it 'should redirect with error message when redirect supplied' do
-        xhr :post, :ajax_update, {:id => 0}
+        xhr :post, :update, {:id => 0}
 
         response.should redirect_to :back
         flash[:failure].should == "Unable to complete as the requested learning objective could not be found."

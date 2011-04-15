@@ -52,7 +52,7 @@ class LearningObjectiveController < ApplicationController
   end
 
 
-  def ajax_update
+  def update
     begin
       @lo = LearningObjective.find(params[:id])
       @lo.pending = params[:pending] unless params[:pending].nil?

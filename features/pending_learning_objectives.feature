@@ -17,7 +17,6 @@ Scenario: pending learning objectives are shown when selected
     Then I should see "this learning objective is pending"
     And I should see the link "hide pending"
     And I should see "This learning objective is not yet approved"
-    And I should see the link "Hide pending learning objectives?"
 
 Scenario: pending learning objectives are hidden when deselected
     Given the following pending learning objective "this learning objective is pending"
@@ -27,20 +26,13 @@ Scenario: pending learning objectives are hidden when deselected
     Then I should see "No learning objectives found"
     And I should see the link "show pending"
 
-Scenario: Hide pending learning objectives does what it says
-    Given the following pending learning objective "this learning objective is pending"
-    And I am on the learning objectives page
-    And pending learning objectives are shown
-    When I follow "Hide pending learning objectives?"
-    Then I should see "No learning objectives found"
-
 @javascript
 Scenario: approve pending learning objective
     Given the following pending learning objective "this learning objective is pending"
     And I am on the learning objectives page
     And pending learning objectives are shown
     When I follow "Approve this learning objective?"
-    Then I should not see "Hide pending learning objectives?"
+    Then I should not see "This learning objective is not yet approved."
     And I should see "Click here to undo."
 
 @javascript
@@ -50,7 +42,7 @@ Scenario: undo an approved pending learning objective
     And pending learning objectives are shown
     And I follow "Approve this learning objective?"
     When I follow "Click here to undo."
-    Then I should see "Hide pending learning objectives?"
+    Then I should see "This learning objective is not yet approved."
 
 @javascript
 Scenario: redo an undone approved pending learning objective

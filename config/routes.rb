@@ -6,7 +6,7 @@ LearnTesting::Application.routes.draw do
 
   resources :learning_objective, :as => "lo" do
     member do
-      post 'ajax_update', :as => "ajax_update"
+      post 'update', :as => "update"
       post 'revert', :as => "revert"
     end
   end

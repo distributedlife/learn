@@ -4,9 +4,7 @@
   - if lo.pending?
     %p#pending
       This learning objective is not yet approved.
-      //= search_url("Hide pending learning objectives?", @q, @disciplines, @categories, 'false')
-      = search_url("Hide pending learning objectives?", '', '', '', 'false')
-      = link_to "Approve this learning objective?", ajax_update_lo_path(lo.id, :pending => 'false'), :remote => true, :method => :post
+      = link_to "Approve this learning objective?", update_lo_path(lo.id, :pending => 'false'), :remote => true, :method => :post
   - unless link.nil?
     %p= link.html_safe
   %p#brief= lo.brief
