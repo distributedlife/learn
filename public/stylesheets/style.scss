@@ -7,6 +7,8 @@ $li_background:   #fff ;
 $pending_background: #ffd;
 $success_notice_color: #efe;
 $failure_notice_color: #fee;
+$help_notice_color: #faa;
+$selected_item_color: #0f0;
 
 $text_colour: black ;
 $add_filter_colour: green ;
@@ -16,6 +18,7 @@ $excluded_filter_colour: grey;
 
 $font_size_letter: 3.0em;
 $font_size_large: 1.6em;
+$font_size_normal: 1.0em;
 $font_size_small: 0.6em;
 $font_size_tiny: 0.4em;
 
@@ -25,6 +28,12 @@ body
   margin: auto;
   font-size: $font_size_large ;
   background-color: $page_background;
+}
+
+header
+{
+  margin: 0.6em ;
+  padding: 0.6em;
 }
 
 a
@@ -84,6 +93,14 @@ a:hover
 {
   background-color: $li_background;
   border-radius: 20px;
+  padding: 0.6em;
+  margin: 0.6em;
+}
+
+.created_item
+{
+  background-color: $success_notice_color;
+  border-radius: 10px;
   padding: 0.6em;
   margin: 0.6em;
 }
@@ -257,4 +274,96 @@ nav.filter
       }
     }
   }
+}
+
+p.title
+{
+  font-family: "Consolas", sans-serif;
+  font-weight: bold;
+  font-size: $font_size_large;
+}
+
+p.subtitle
+{
+  font-family: "Book Antiqua", serif;
+  font-style: italic;
+  font-size: $font_size_small;
+}
+
+p.definition_text
+{
+  font-family: "Book Antiqua", serif;
+  font-style: italic;
+  font-size: $font_size_normal;
+}
+
+strong
+{
+  font-weight: bold;
+}
+
+.section_break
+{
+  padding-top: 0.6em;
+  border-bottom: 1px solid black;
+}
+
+.definition
+{
+  font-size: $font_size_small;
+}
+
+textarea
+{
+  width: 90%;
+  margin: auto;
+  font-size: $font_size_small;
+  border-radius: 5px;
+  border: 2px solid $page_background;
+  height: 5em;
+  padding: 0.6em;
+}
+
+select
+{
+  font-size: $font_size_small;
+  border-radius: 5px;
+  display: block;
+}
+
+.left
+{
+  float: left;
+}
+
+.right
+{
+  float: right;
+}
+
+.pad_from_top
+{
+  padding-top: 1.2em;
+}
+
+.help
+{
+  font-style: italics;
+  color: $help_notice_color;
+}
+
+.hover
+{
+  color: $included_filter_colour !important;
+  cursor: pointer;
+}
+
+.excluded
+{
+  color: $excluded_filter_colour
+}
+
+.included
+{
+  color: $selected_item_color
 }

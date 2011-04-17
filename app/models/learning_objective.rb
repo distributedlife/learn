@@ -6,9 +6,8 @@ class LearningObjective < ActiveRecord::Base
   CATEGORIES = ['concept', 'responsibility', 'technique', 'artefact', 'lens']
   DISCIPLINES = ['automation', 'fundamentals', 'behaviour & functionality', 'user interaction', 'performance', 'security', 'domain knowledge', 'preparation & planning', 'infrastructure & integration']
 
-  validates :brief, :presence => true, :length => { :minimum => 1, :maximum => 500 }
-  validates :discipline, :presence => true
-  validates :category, :presence => true
+  validates :brief, :presence => true, :length => { :maximum => 500 }
+  validates :brief, :uniqueness => {:scope => :discipline}
   validates_inclusion_of :category, :in => CATEGORIES
   validates_inclusion_of :discipline, :in => DISCIPLINES
 

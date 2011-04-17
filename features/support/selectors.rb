@@ -17,6 +17,13 @@ module HtmlSelectorsHelpers
     #  when /the (notice|error|info) flash/
     #    ".flash.#{$1}"
 
+    when /the "([^"]+)" accordion section/
+      [:xpath, Bermuda::XPath.accordion_content($1)]
+    when /the "([^"]+)" dialog/
+      [:xpath, Bermuda::XPath.dialog($1)]
+    when /the "([^"]+)" tab/
+      [:xpath, Bermuda::XPath.tab_content($1)]
+
     # You can also return an array to use a different selector
     # type, like:
     #

@@ -9,8 +9,10 @@ describe LearningObjective do
         @lo.category = "concept"
 
         @lo.valid?().should be false
+        @lo.errors[:brief].should == ["can't be blank"]
         @lo.brief = "something"
         @lo.valid?().should be true
+        @lo.errors.empty?.should be true
       end
 
       it 'should be invalid if brief is greater than 500 characters' do
@@ -21,6 +23,23 @@ describe LearningObjective do
         @lo.valid?().should be false
         @lo.brief = "a" * (500 + 1)
         @lo.valid?().should be false
+        @lo.errors[:brief].should == ["is too long (maximum is 500 characters)"]
+      end
+
+      it 'should be invalid if brief exists within same discipline' do
+        @lo = LearningObjective.new
+        @lo.brief = 'elephantasaurus'
+        @lo.discipline = "automation"
+        @lo.category = "concept"
+        @lo.valid?().should be true
+        @lo.save
+
+        @lo2 = LearningObjective.new
+        @lo2.brief = 'elephantasaurus'
+        @lo2.discipline = "automation"
+        @lo2.category = "concept"
+        @lo2.valid?().should be false
+        @lo2.errors[:brief].should == ["has already been taken"]
       end
     end
 
@@ -31,8 +50,10 @@ describe LearningObjective do
         @lo.category = "concept"
 
         @lo.valid?().should be false
+        @lo.errors[:discipline].should == ["is not included in the list"]
         @lo.discipline = "automation"
         @lo.valid?().should be true
+        @lo.errors.empty?.should be true
       end
 
       it 'should be invalid if discipline is not in allowed list' do
@@ -42,13 +63,16 @@ describe LearningObjective do
 
 
         @lo.valid?().should be false
+
         LearningObjective::DISCIPLINES.each do |allowed_type|
           @lo.discipline = allowed_type
           @lo.valid?().should be true
+          @lo.errors.empty?.should be true
         end
 
         @lo.discipline = 'banana'
         @lo.valid?().should be false
+        @lo.errors[:discipline].should == ["is not included in the list"]
       end
     end
 
@@ -59,8 +83,10 @@ describe LearningObjective do
         @lo.discipline = "automation"
 
         @lo.valid?().should be false
+        @lo.errors[:category].should == ["is not included in the list"]
         @lo.category = "concept"
         @lo.valid?().should be true
+        @lo.errors.empty?.should be true
       end
 
       it 'should be invalid if type is not in allowed list' do
@@ -73,10 +99,12 @@ describe LearningObjective do
         LearningObjective::CATEGORIES.each do |allowed_type|
           @lo.category = allowed_type
           @lo.valid?().should be true
+          @lo.errors.empty?.should be true
         end
 
         @lo.category = 'banana'
         @lo.valid?().should be false
+        @lo.errors[:category].should == ["is not included in the list"]
       end
     end
 

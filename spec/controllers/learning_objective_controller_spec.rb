@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe LearningObjectiveController do
-  describe "POST 'update'" do
+  describe "PUT 'update'" do
     before do
       request.env["HTTP_REFERER"] = "http://distributedlife.com"
       @lo = LearningObjective.make(:pending => true)
@@ -9,21 +9,21 @@ describe LearningObjectiveController do
 
     context 'when learning objective id exists' do
       it 'should not update the pending attribute if it is not supplied' do
-        xhr :post, :update, {:id => @lo.id}
+        xhr :put, :update, {:id => @lo.id}
        
         @lo.reload
         @lo.pending.should == true;
       end
 
       it 'should update the pending attribute if it is supplied' do
-        xhr :post, :update, {:id => @lo.id, :pending => false}
+        xhr :put, :update, {:id => @lo.id, :pending => false}
 
         @lo.reload
         @lo.pending.should == false;
       end
 
       it 'link should contain undo message to revert change' do
-        xhr :post, :update, {:id => @lo.id, :pending => false}
+        xhr :put, :update, {:id => @lo.id, :pending => false}
         
         assigns[:link].should ~ /Click here to undo/
         flash[:undo].should ~ /^Success!/
@@ -32,7 +32,7 @@ describe LearningObjectiveController do
 
     context 'when resource supplied does not exist' do
       it 'should redirect with error message when redirect supplied' do
-        xhr :post, :update, {:id => 0}
+        xhr :put, :update, {:id => 0}
 
         response.should redirect_to :back
         flash[:failure].should == "Unable to complete as the requested learning objective could not be found."
@@ -68,6 +68,112 @@ describe LearningObjectiveController do
 
       (assigns[:link].include? "Click here to undo"). should == true
       (assigns[:link].include? "#{@version.next.id}").should == true
+    end
+  end
+
+  describe "POST 'create'" do
+    it 'should require a brief' do
+      xhr :post, :create, :lo => {:discipline => 'automation', :category => 'concept'}
+
+      @lo = assigns[:lo]
+      @lo.errors[:brief].should == ["can't be blank"]
+    end
+
+    it 'should require a valid discipline' do
+      xhr :post, :create, :lo => {:brief => 'space bananas', :category => 'concept'}
+      @lo = assigns[:lo]
+      @lo.errors[:discipline].should == ["is not included in the list"]
+
+      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'elephant', :category => 'concept'}
+      @lo = assigns[:lo]
+      @lo.errors[:discipline].should == ["is not included in the list"]
+    end
+
+    it 'should require a valid category' do
+      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation'}
+      @lo = assigns[:lo]
+      @lo.errors[:category].should == ["is not included in the list"]
+
+      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'reginald'}
+      @lo = assigns[:lo]
+      @lo.errors[:category].should == ["is not included in the list"]
+    end
+
+    it 'should return the newly created learning objective when successful' do
+      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
+
+      @created = assigns[:created]
+      @created.errors.empty?.should == true
+
+      @created.brief.should == 'space bananas'
+      @created.discipline.should == 'automation'
+      @created.category.should == 'concept'
+      @created.id.should > 0
+    end
+
+    it 'should default discipline and concept to the first values in the list' do
+      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
+
+      @lo = assigns[:lo]
+      @lo.discipline.should == "automation"
+      @lo.category.should == "artefact"
+    end
+
+    it 'should return an empty learning objective when successful' do
+      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
+
+      @lo = assigns[:lo]
+      @lo.brief.nil?.should == true
+      @lo.id.nil?.should == true
+    end
+
+    it 'should not allow duplicate briefs within the same discipline' do
+      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
+      @lo = assigns[:lo]
+      @lo.errors.empty?.should == true
+
+      
+      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'lens'}
+      @lo = assigns[:lo]
+      @lo.errors[:brief].should == ['has already been taken']
+
+
+      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'user interaction', :category => 'concept'}
+      @lo = assigns[:lo]
+      @lo.errors.empty?.should == true
+    end
+
+    it 'should convert underscores to spaces for discipline and category' do
+
+    end
+
+    it 'should convert and to ampersand for discipline and category' do
+
+    end
+  end
+
+  describe "POST 'delete'" do
+    it 'should only delete pending learning objectives' do
+      @lo = LearningObjective.make(:pending => true)
+
+      xhr :delete, :destroy, {:id => @lo.id}
+
+      lambda { @lo.reload }.should raise_error
+    end
+
+    it 'should return an failure message when the input was invalid' do
+      xhr :delete, :destroy, {:id => 100}
+
+      assigns[:notice].nil?.should == true
+      assigns[:id].should == 100
+    end
+
+    it 'should return an failure message when the input was invalid or the learning objective had been approved' do
+      @lo = LearningObjective.make(:pending => false)
+
+      xhr :delete, :destroy, {:id => @lo.id}
+
+      assigns[:notice].should == "Learning objective cannot be deleted as it has been approved."
     end
   end
 

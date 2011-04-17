@@ -1,0 +1,15 @@
+%header
+  %p.title Propose Learning Objective
+  %p.subtitle propose a learning objective and start a discussion
+  .section_break
+//=render :partial => 'header', :locals => {:title => "Propose Learning Objective", :subtitle => "propose a learning objective and start a discussion"}
+%section{:class => ["panel"]}
+  #create_learning_objective{:class => ['left'], :style => "width:60%"}
+    =render :partial => 'create_learning_objective', :locals => {:lo => @lo}
+  .definitions{:class => ['right'], :style => "width:40%"}
+    #discipline_definition
+      =render :partial => 'definitions', :locals => {:definitions => @discipline_definitions}
+    #category_definition
+      =render :partial => 'definitions', :locals => {:definitions => @category_definitions}
+  .pad
+.created_items

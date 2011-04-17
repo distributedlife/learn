@@ -1,0 +1,3 @@
+- unless @created.nil?
+  $(".created_items").prepend("#{escape_javascript(render :partial => 'push_newly_created_learning_objective', :locals => {:lo => @created})}");
+$("#create_learning_objective").html("#{escape_javascript(render :partial => 'create_learning_objective', :locals => {:lo => @lo})}")

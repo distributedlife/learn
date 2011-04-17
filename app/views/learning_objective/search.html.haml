@@ -45,6 +45,9 @@
       %li
         %span= search_url("show pending", @q, @disciplines, @categories, 'true')
 
+    %li
+      %span.include= link_to "propose learning objective", '/learning_objective/create', :method => :post
+
 .flash
   - flash.each do |key, value|
     %p{:class => key}

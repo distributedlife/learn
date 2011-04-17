@@ -6,8 +6,12 @@ LearnTesting::Application.routes.draw do
 
   resources :learning_objective, :as => "lo" do
     member do
-      post 'update', :as => "update"
+      post 'create', :as => "create"
+      get 'create'
+
+      put 'update', :as => "update"
       post 'revert', :as => "revert"
+      delete 'destroy', :as => "destroy"
     end
   end
   

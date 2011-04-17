@@ -1,0 +1,4 @@
+#created_item{:id => lo.id, :class => 'created_item'}
+  %p.positive
+    = "#{@created.brief[0,25]}... is a new #{@created.category} in the #{@created.discipline} discipline."
+    = link_to "Click here to undo.", destroy_lo_url(@created.id), :remote => true, :method => :delete

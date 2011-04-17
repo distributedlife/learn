@@ -51,6 +51,38 @@ class LearningObjectiveController < ApplicationController
     end
   end
 
+  def create
+    unless (params[:lo].nil?)
+      params[:lo][:discipline] = from_valid_dom_id(params[:lo][:discipline]) unless params[:lo][:discipline].nil?
+      params[:lo][:category] = from_valid_dom_id(params[:lo][:category]) unless params[:lo][:category].nil?
+
+      @lo = LearningObjective.create(params[:lo])
+    else
+      @lo = LearningObjective.new(:discipline => 'automation', :category => 'artefact')
+    end
+
+
+    if @lo.valid?
+      @created = @lo
+      @lo = LearningObjective.new(:discipline => 'automation', :category => 'artefact')
+    end
+
+
+    #build definitions to display on page
+    @discipline_definitions = {}
+    Definitions.where(:topic => 'discipline').each do |definition|
+      @discipline_definitions[definition.name] = definition.description
+    end
+
+    @category_definitions = {}
+    Definitions.where(:topic => 'category').each do |definition|
+      @category_definitions[definition.name] = definition.description
+    end
+
+    @discipline_values = LearningObjective::DISCIPLINES.sort
+    @category_values = LearningObjective::CATEGORIES.sort
+  end
+
 
   def update
     begin
@@ -61,6 +93,22 @@ class LearningObjectiveController < ApplicationController
       @link = self.class.helpers.link_to('Click here to undo.', revert_lo_path(@lo.versions.scoped.last), :remote => true, :method => :post)
     rescue
       redirect_to :back, :flash => {:failure => FAILURE} if @lo.nil?
+    end
+  end
+
+
+  def destroy
+    begin
+      @id = params[:id]
+
+      lo = LearningObjective.find(@id)
+
+      if lo.pending == false
+        @notice = "Learning objective cannot be deleted as it has been approved."
+      else
+        lo.delete
+      end
+    rescue
     end
   end
 

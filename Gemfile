@@ -48,4 +48,5 @@ group :development, :test do
   gem 'faker'
   gem 'ruby-debug'
   gem 'metric_fu'
+  gem 'bermuda'
 end

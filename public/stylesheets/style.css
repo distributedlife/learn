@@ -4,6 +4,10 @@ body {
   font-size: 1.6em;
   background-color: #eeeeee; }
 
+header {
+  margin: 0.6em;
+  padding: 0.6em; }
+
 a {
   text-decoration: none;
   color: black; }
@@ -36,6 +40,12 @@ a:hover {
 .panel {
   background-color: white;
   border-radius: 20px;
+  padding: 0.6em;
+  margin: 0.6em; }
+
+.created_item {
+  background-color: #eeffee;
+  border-radius: 10px;
   padding: 0.6em;
   margin: 0.6em; }
 
@@ -131,3 +141,65 @@ nav.filter {
       color: grey; }
     nav.filter ul span.exclude a:hover {
       color: green; }
+
+p.title {
+  font-family: "Consolas", sans-serif;
+  font-weight: bold;
+  font-size: 1.6em; }
+
+p.subtitle {
+  font-family: "Book Antiqua", serif;
+  font-style: italic;
+  font-size: 0.6em; }
+
+p.definition_text {
+  font-family: "Book Antiqua", serif;
+  font-style: italic;
+  font-size: 1em; }
+
+strong {
+  font-weight: bold; }
+
+.section_break {
+  padding-top: 0.6em;
+  border-bottom: 1px solid black; }
+
+.definition {
+  font-size: 0.6em; }
+
+textarea {
+  width: 90%;
+  margin: auto;
+  font-size: 0.6em;
+  border-radius: 5px;
+  border: 2px solid #eeeeee;
+  height: 5em;
+  padding: 0.6em; }
+
+select {
+  font-size: 0.6em;
+  border-radius: 5px;
+  display: block; }
+
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
+.pad_from_top {
+  padding-top: 1.2em; }
+
+.help {
+  font-style: italics;
+  color: #ffaaaa; }
+
+.hover {
+  color: black !important;
+  cursor: pointer; }
+
+.excluded {
+  color: grey; }
+
+.included {
+  color: lime; }

@@ -2,4 +2,23 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        learning_objective:
+          attributes:
+            brief:
+              blank: "that can't be blank"
+              taken: "that has not been taken"
+              too_long: "that has to be shorter"
+            category:
+              inclusion: "from the following"
+            discipline:
+              inclusion: "from the following"
+  learning_objective:
+    propose:
+      title: "Propose Learning Objective"
+      tagline: "propose a learning objective and start a discussion"
+    search:
+      title: ""
+      tagline: ""

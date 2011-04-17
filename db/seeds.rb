@@ -6,6 +6,21 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 #
+Definitions.create(:topic => 'discipline', :name => 'automation', :description => 'The automation discipline covers everything that a tester does with regards to automated exploratory testing, automated regression testing and the use and creation of tools that assist in manual testing.')
+Definitions.create(:topic => 'discipline', :name => 'behaviour & functionality', :description => 'b')
+Definitions.create(:topic => 'discipline', :name => 'domain knowledge', :description => 'c')
+Definitions.create(:topic => 'discipline', :name => 'fundamentals', :description => 'd')
+Definitions.create(:topic => 'discipline', :name => 'infrastructure & integration', :description => 'e')
+Definitions.create(:topic => 'discipline', :name => 'performance', :description => 'f')
+Definitions.create(:topic => 'discipline', :name => 'preparation & planning', :description => 'g')
+Definitions.create(:topic => 'discipline', :name => 'security', :description => 'h')
+Definitions.create(:topic => 'discipline', :name => 'user interaction', :description => 'i')
+
+Definitions.create(:topic => 'category', :name => 'concept', :description => 'j')
+Definitions.create(:topic => 'category', :name => 'responsibility', :description => 'k')
+Definitions.create(:topic => 'category', :name => 'technique', :description => 'l')
+Definitions.create(:topic => 'category', :name => 'artefact', :description => 'm')
+Definitions.create(:topic => 'category', :name => 'lens', :description => 'n')
 
 current_discipline = 'behaviour & functionality'
 current_category = 'concept'
