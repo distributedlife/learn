@@ -1,38 +1,11 @@
-class LearningObjectiveCreatePage
-  URL = '/learning_objective/ create'
-
-  def initialize session
-    @session = session
-  end
-
-  def visit 
-    @session.visit URL
-  end
-
-  def brief
-    @session.find_field('lo_brief').text
-  end
-
-  def brief= value
-    @session.fill_in('lo_brief', :with => value)
-  end
-
-  def discipline= discipline
-    @session.execute_script "$(#{valid_dom_id(discipline)}).click();"
-  end
-
-  def category= category
-    @session.execute_script "$(#{valid_dom_id(category)}).click();"
-  end
-
-  def save
-    @session.click_on('save')
-  end
+Given /^I am on the propose learning objective page$/ do
+  @current_page = LearningObjectiveCreatePage.new(Capybara.current_session)
+  @current_page.visit
 end
 
-Given /^I am on the propose learning objective page$/ do
-  @learning_objective_create_page = LearningObjectiveCreatePage.new(Capybara.current_session)
-  @learning_objective_create_page.visit
+Given /^I am on the learning objectives page$/ do
+  @current_page = LearningObjectiveSearchPage.new(Capybara.current_session)
+  @current_page.visit
 end
 
 Given /^no learning objectives$/ do
@@ -91,7 +64,7 @@ Given /^the following pending learning objective "([^"]*)"$/ do |brief|
 end
 
 Given /^pending learning objectives are shown$/ do
-  And "I follow \"show pending\""
+  @current_page.show_pending
 end
 
 Given /^all learning objectives are automagically approved$/ do
@@ -102,24 +75,20 @@ Given /^all learning objectives are automagically approved$/ do
 end
 
 
-
 When /^I search for "([^"]*)"$/ do |search_term|
-  fill_in('q', :with => search_term)
-  click_on('Search')
+  @current_page.search_for search_term
 end
 
 When /^I create a learning objective with:$/ do |lo_properties|
   lo_properties.hashes.map do |lo|
-    @learning_objective_create_page.brief = lo["brief"]
-
-    @learning_objective_create_page.discipline = lo["discipline"]
-    @learning_objective_create_page.category = lo["category"]
-
-    @learning_objective_create_page.save
+    @current_page.create lo["brief"], lo["discipline"], lo["category"]
   end
 end
 
-
+When /^I go to the learning objectives page$/ do
+  @current_page = LearningObjectiveSearchPage.new(Capybara.current_session)
+  @current_page.visit
+end
 
 Then /^each learning objective is displayed on the page alphabetically$/ do
   @learning_objectives.count.should_not be 0
@@ -152,13 +121,6 @@ Then /^I should see the link "([^"]*)"$/ do |text|
   find_link(text)
 end
 
-Then /^the following input are empty:$/ do |fields|
-  fields.hashes.map do |field|
-#    @learning_objective_create_page.field
-
-    if field == 'brief'
-      field = find_field(lo_brief)
-      field.text.should == ""
-    end
-  end
+Then /^the brief field is empty$/ do
+  @current_page.brief.should == ""
 end

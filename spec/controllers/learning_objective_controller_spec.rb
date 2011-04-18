@@ -76,27 +76,27 @@ describe LearningObjectiveController do
       xhr :post, :create, :lo => {:discipline => 'automation', :category => 'concept'}
 
       @lo = assigns[:lo]
-      @lo.errors[:brief].should == ["can't be blank"]
+      @lo.errors[:brief].should == ["that can't be blank"]
     end
 
     it 'should require a valid discipline' do
       xhr :post, :create, :lo => {:brief => 'space bananas', :category => 'concept'}
       @lo = assigns[:lo]
-      @lo.errors[:discipline].should == ["is not included in the list"]
+      @lo.errors[:discipline].should == ["from the following"]
 
       xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'elephant', :category => 'concept'}
       @lo = assigns[:lo]
-      @lo.errors[:discipline].should == ["is not included in the list"]
+      @lo.errors[:discipline].should == ["from the following"]
     end
 
     it 'should require a valid category' do
       xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation'}
       @lo = assigns[:lo]
-      @lo.errors[:category].should == ["is not included in the list"]
+      @lo.errors[:category].should == ["from the following"]
 
       xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'reginald'}
       @lo = assigns[:lo]
-      @lo.errors[:category].should == ["is not included in the list"]
+      @lo.errors[:category].should == ["from the following"]
     end
 
     it 'should return the newly created learning objective when successful' do
@@ -135,7 +135,7 @@ describe LearningObjectiveController do
       
       xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'lens'}
       @lo = assigns[:lo]
-      @lo.errors[:brief].should == ['has already been taken']
+      @lo.errors[:brief].should == ['that has not been taken']
 
 
       xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'user interaction', :category => 'concept'}

@@ -12,8 +12,7 @@ Feature: Add learning objective
       | brief                            | discipline | category |
       | This is a new learning objective | user interaction | concept  |
     Then I should see "This is a new learning ob... is a new concept in the user interaction discipline"
-    And the following input are empty:
-      | brief |
+    And the brief field is empty
     And I should see "Click here to undo."
 
   @javascript
@@ -75,11 +74,11 @@ Feature: Add learning objective
       | brief                            | discipline | category |
       | This is a new learning objective | automation | concept  |
     And I follow "Click here to undo."
-#    When I go to the learning objective page
-#    And pending learning objectives are shown
-#    And I filter by automation
-#    And I filter by concept
-    And I should not see "This a new learning ob... is a new concept in the automation discipline"
+    When I go to the learning objectives page
+    And pending learning objectives are shown
+    And I follow "automation"
+    And I follow "concept"
+    And I should not see "This is a new learning ob... is a new concept in the automation discipline"
     And I should see "No learning objectives found."
 
   @javascript @user-journey
@@ -87,11 +86,11 @@ Feature: Add learning objective
     Given I create a learning objective with:
       | brief                            | discipline | category |
       | This is a new learning objective | automation | concept  |
-#    When I go to the learning objective page
-#    And pending learning objectives are shown
-#    And I filter by automation
-#    And I filter by concept
-    And I should see "This a new learning ob... is a new concept in the automation discipline"
+    When I go to the learning objectives page
+    And pending learning objectives are shown
+    And I follow "automation"
+    And I follow "concept"
+    And I should see "This is a new learning objective"
     And I should see "This learning objective is not yet approved."
 
   @javascript @user-journey
@@ -105,6 +104,6 @@ Feature: Add learning objective
     And I create a learning objective with:
       | brief                              | discipline   | category |
       | This is a third learning objective | fundamentals | lens     |
-    And I should see "This a new learning ob... is a new concept in the automation discipline"
-    And I should see "This a second learning... is a new technique in the user interaction discipline"
-    And I should see "This a third learning ... is a new lens in the fundamentals discipline"
+    And I should see "This is a new learning ob... is a new concept in the automation discipline"
+    And I should see "This is a second learning... is a new technique in the user interaction discipline"
+    And I should see "This is a third learning ... is a new lens in the fundamentals discipline"

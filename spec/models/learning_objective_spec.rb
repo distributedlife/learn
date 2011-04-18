@@ -9,7 +9,7 @@ describe LearningObjective do
         @lo.category = "concept"
 
         @lo.valid?().should be false
-        @lo.errors[:brief].should == ["can't be blank"]
+        @lo.errors[:brief].should == ["that can't be blank"]
         @lo.brief = "something"
         @lo.valid?().should be true
         @lo.errors.empty?.should be true
@@ -23,7 +23,7 @@ describe LearningObjective do
         @lo.valid?().should be false
         @lo.brief = "a" * (500 + 1)
         @lo.valid?().should be false
-        @lo.errors[:brief].should == ["is too long (maximum is 500 characters)"]
+        @lo.errors[:brief].should == ["that has to be shorter"]
       end
 
       it 'should be invalid if brief exists within same discipline' do
@@ -39,7 +39,7 @@ describe LearningObjective do
         @lo2.discipline = "automation"
         @lo2.category = "concept"
         @lo2.valid?().should be false
-        @lo2.errors[:brief].should == ["has already been taken"]
+        @lo2.errors[:brief].should == ["that has not been taken"]
       end
     end
 
@@ -50,7 +50,7 @@ describe LearningObjective do
         @lo.category = "concept"
 
         @lo.valid?().should be false
-        @lo.errors[:discipline].should == ["is not included in the list"]
+        @lo.errors[:discipline].should == ["from the following"]
         @lo.discipline = "automation"
         @lo.valid?().should be true
         @lo.errors.empty?.should be true
@@ -72,7 +72,7 @@ describe LearningObjective do
 
         @lo.discipline = 'banana'
         @lo.valid?().should be false
-        @lo.errors[:discipline].should == ["is not included in the list"]
+        @lo.errors[:discipline].should == ["from the following"]
       end
     end
 
@@ -83,7 +83,7 @@ describe LearningObjective do
         @lo.discipline = "automation"
 
         @lo.valid?().should be false
-        @lo.errors[:category].should == ["is not included in the list"]
+        @lo.errors[:category].should == ["from the following"]
         @lo.category = "concept"
         @lo.valid?().should be true
         @lo.errors.empty?.should be true
@@ -104,7 +104,7 @@ describe LearningObjective do
 
         @lo.category = 'banana'
         @lo.valid?().should be false
-        @lo.errors[:category].should == ["is not included in the list"]
+        @lo.errors[:category].should == ["from the following"]
       end
     end
 
