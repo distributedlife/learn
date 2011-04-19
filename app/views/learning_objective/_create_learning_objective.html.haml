@@ -1,85 +1,47 @@
-- form_for(:lo, :url => 'create', :method => :post, :remote => true) do
-  %strong all you need is a brief
-  - unless @lo.errors[:brief].empty?
-    %span.help= "#{@lo.errors[:brief]}"
-  = text_area(:lo, :brief)
-
+- semantic_form_for(@lo, :url => 'create', :method => :post, :remote => true) do |f|
+  = f.input :brief, :as => :text, :label => false, :hint => I18n.t('learning_objective.propose.labels.brief'), :required => false, :wrapper_html => {:class => 'lo_propose'}
   .pad_from_top
-  %strong one discipline
-  - unless @lo.errors[:discipline].empty?
-    %span.help= "#{@lo.errors[:discipline]}"
-  = hidden_field(:lo, :discipline)
-  %p
-  - @discipline_values.each do |discipline|
-    %span{:id => ["#{valid_dom_id(discipline)}"], :class => [discipline == @discipline_values.first ? 'included':'excluded']}= discipline
-    :javascript
-      //record selection
-      $("span##{valid_dom_id(discipline)}").click(function () {
-        $(document.getElementById($("input#lo_discipline").val())).removeClass('included').addClass('excluded')
-        $(this).removeClass('excluded').addClass('included');
+  #discipline_definition
+    =render :partial => 'definitions', :locals => {:definitions => @discipline_definitions}
+  = f.input :discipline, :label => I18n.t('learning_objective.propose.labels.discipline'), :required => false, :as => :radio, :collection => @discipline_values, :wrapper_html => {:class => 'lo_propose'}
+  .pad_from_top
+  #category_definition
+    =render :partial => 'definitions', :locals => {:definitions => @category_definitions}
+  = f.input :category, :label => I18n.t('learning_objective.propose.labels.category'), :required => false, :as => :radio, :collection => @category_values, :wrapper_html => {:class => 'lo_propose'}
+  .pad_from_top
+  - f.buttons do
+    = f.commit_button(:label => I18n.t('learning_objective.propose.labels.save'))
 
-        $("input#lo_discipline").val("#{valid_dom_id(discipline)}")
-      });
-
-      //display definition (default)
-      if ("#{discipline}" == "#{@discipline_values.first}")
-      {
-        $(document).ready(function() {
-          $("#discipline_definition").find("p.title").html("#{discipline}")
-          $("#discipline_definition").find("p.definition_text").html("#{@discipline_definitions[discipline]}")
-        });
-      }
-
-      //display definition (on selection)
-      $("span##{valid_dom_id(discipline)}").click(function () {
+- @discipline_values.each do |discipline|
+  :javascript
+    //display definition (default)
+    if ("#{discipline}" == "#{@discipline_values.first}")
+    {
+      $(document).ready(function() {
         $("#discipline_definition").find("p.title").html("#{discipline}")
         $("#discipline_definition").find("p.definition_text").html("#{@discipline_definitions[discipline]}")
       });
+    }
 
-      //hover effect
-      $("span##{valid_dom_id(discipline)}").hover(function () {
-        $(this).addClass('hover');
-      }, function () {
-        $(this).removeClass('hover');
-      });
-  .pad_from_top
-  %strong and one category
-  - unless @lo.errors[:category].empty?
-    %span.help= "#{@lo.errors[:category]}"
-  = hidden_field(:lo, :category)
-  %p
-  - @category_values.each do |category|
-    %span{:id => ["#{valid_dom_id(category)}"], :class => [category == @category_values.first ? 'included':'excluded']}= category
-    :javascript
-      //record selection
-      $("span##{valid_dom_id(category)}").click(function () {
-        $(document.getElementById($("input#lo_category").val())).removeClass('included').addClass('excluded')
-        $(this).removeClass('excluded').addClass('included');
+    //display definition (on selection)
+    $("input#learning_objective_discipline_#{valid_dom_id(discipline)}").click(function () {
+      $("#discipline_definition").find("p.title").html("#{discipline}")
+      $("#discipline_definition").find("p.definition_text").html("#{@discipline_definitions[discipline]}")
+    });
 
-        $("input#lo_category").val("#{valid_dom_id(category)}")
-      });
-
-      //display definition (default)
-      if ("#{category}" == "#{@category_values.first}")
-      {
-        $(document).ready(function() {
-          $("#category_definition").find("p.title").html("#{category}")
-          $("#category_definition").find("p.definition_text").html("#{@category_definitions[category]}")
-        });
-      }
-
-      //display definition
-      $("span##{valid_dom_id(category)}").click(function () {
+- @category_values.each do |category|
+  :javascript
+    //display definition (default)
+    if ("#{category}" == "#{@category_values.first}")
+    {
+      $(document).ready(function() {
         $("#category_definition").find("p.title").html("#{category}")
         $("#category_definition").find("p.definition_text").html("#{@category_definitions[category]}")
       });
+    }
 
-      //hover effect
-      $("span##{valid_dom_id(category)}").hover(function () {
-        $(this).addClass('hover');
-      }, function () {
-        $(this).removeClass('hover');
-      });
-
-  .pad_from_top
-  = button_to('save')
+    //display definition
+    $("input#learning_objective_category_#{valid_dom_id(category)}").click(function () {
+      $("#category_definition").find("p.title").html("#{category}")
+      $("#category_definition").find("p.definition_text").html("#{@category_definitions[category]}")
+    });

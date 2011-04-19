@@ -6,23 +6,23 @@ class LearningObjectiveCreatePage < BasePage
   end
 
   def brief
-    @session.find_field('lo_brief').text
+    @session.find_field('learning_objective_brief').text
   end
 
   def brief= value
-    @session.fill_in('lo_brief', :with => value)
+    @session.fill_in('learning_objective_brief', :with => value)
   end
 
   def discipline= discipline
-    @session.execute_script "$(#{valid_dom_id(discipline)}).click();"
+    @session.choose(discipline)
   end
 
   def category= category
-    @session.execute_script "$(#{valid_dom_id(category)}).click();"
+    @session.choose(category)
   end
 
   def save
-    @session.click_on('save')
+    @session.click_on('propose')
   end
 
   def create brief, discipline, category

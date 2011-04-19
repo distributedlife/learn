@@ -25,6 +25,7 @@ gem 'haml'
 gem 'heroku'
 gem 'paper_trail'
 gem 'jquery-rails', '>= 0.2.6'
+gem 'formtastic', '~> 1.2.3'
 
 # gem 'aws-s3', :require => 'aws/s3'
 
@@ -49,4 +50,5 @@ group :development, :test do
   gem 'ruby-debug'
   gem 'metric_fu'
   gem 'bermuda'
+#  gem 'capybara-webkit'
 end

@@ -73,34 +73,34 @@ describe LearningObjectiveController do
 
   describe "POST 'create'" do
     it 'should require a brief' do
-      xhr :post, :create, :lo => {:discipline => 'automation', :category => 'concept'}
+      xhr :post, :create, :learning_objective => {:discipline => 'automation', :category => 'concept'}
 
       @lo = assigns[:lo]
       @lo.errors[:brief].should == ["that can't be blank"]
     end
 
     it 'should require a valid discipline' do
-      xhr :post, :create, :lo => {:brief => 'space bananas', :category => 'concept'}
+      xhr :post, :create, :learning_objective => {:brief => 'space bananas', :category => 'concept'}
       @lo = assigns[:lo]
       @lo.errors[:discipline].should == ["from the following"]
 
-      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'elephant', :category => 'concept'}
+      xhr :post, :create, :learning_objective => {:brief => 'space bananas', :discipline => 'elephant', :category => 'concept'}
       @lo = assigns[:lo]
       @lo.errors[:discipline].should == ["from the following"]
     end
 
     it 'should require a valid category' do
-      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation'}
+      xhr :post, :create, :learning_objective => {:brief => 'space bananas', :discipline => 'automation'}
       @lo = assigns[:lo]
       @lo.errors[:category].should == ["from the following"]
 
-      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'reginald'}
+      xhr :post, :create, :learning_objective => {:brief => 'space bananas', :discipline => 'automation', :category => 'reginald'}
       @lo = assigns[:lo]
       @lo.errors[:category].should == ["from the following"]
     end
 
     it 'should return the newly created learning objective when successful' do
-      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
+      xhr :post, :create, :learning_objective => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
 
       @created = assigns[:created]
       @created.errors.empty?.should == true
@@ -112,7 +112,7 @@ describe LearningObjectiveController do
     end
 
     it 'should default discipline and concept to the first values in the list' do
-      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
+      xhr :post, :create, :learning_objective => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
 
       @lo = assigns[:lo]
       @lo.discipline.should == "automation"
@@ -120,7 +120,7 @@ describe LearningObjectiveController do
     end
 
     it 'should return an empty learning objective when successful' do
-      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
+      xhr :post, :create, :learning_objective => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
 
       @lo = assigns[:lo]
       @lo.brief.nil?.should == true
@@ -128,17 +128,17 @@ describe LearningObjectiveController do
     end
 
     it 'should not allow duplicate briefs within the same discipline' do
-      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
+      xhr :post, :create, :learning_objective => {:brief => 'space bananas', :discipline => 'automation', :category => 'concept'}
       @lo = assigns[:lo]
       @lo.errors.empty?.should == true
 
       
-      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'automation', :category => 'lens'}
+      xhr :post, :create, :learning_objective => {:brief => 'space bananas', :discipline => 'automation', :category => 'lens'}
       @lo = assigns[:lo]
       @lo.errors[:brief].should == ['that has not been taken']
 
 
-      xhr :post, :create, :lo => {:brief => 'space bananas', :discipline => 'user interaction', :category => 'concept'}
+      xhr :post, :create, :learning_objective => {:brief => 'space bananas', :discipline => 'user interaction', :category => 'concept'}
       @lo = assigns[:lo]
       @lo.errors.empty?.should == true
     end

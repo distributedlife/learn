@@ -133,7 +133,7 @@ a:hover
   min-height: 1.0em;
 }
 
-.learning_objective
+.learning_objective_search
 {
   ul
   {
@@ -295,9 +295,15 @@ p.definition_text
   font-family: "Book Antiqua", serif;
   font-style: italic;
   font-size: $font_size_normal;
+  text-align: left;
 }
 
-strong
+.strong
+{
+  font-weight: bold;
+}
+
+legend.label
 {
   font-weight: bold;
 }
@@ -310,7 +316,16 @@ strong
 
 .definition
 {
-  font-size: $font_size_small;
+  p
+  {
+    font-size: $font_size_small !important;
+  }
+  
+  float: right;
+  clear: none;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center ;
 }
 
 textarea
@@ -320,7 +335,7 @@ textarea
   font-size: $font_size_small;
   border-radius: 5px;
   border: 2px solid $page_background;
-  height: 5em;
+  height: 6em;
   padding: 0.6em;
 }
 
@@ -343,7 +358,7 @@ select
 
 .pad_from_top
 {
-  padding-top: 1.2em;
+  padding-top: 1.0em;
 }
 
 .help
@@ -366,4 +381,26 @@ select
 .included
 {
   color: $selected_item_color
+}
+
+form
+{
+  width: 100% !important;
+  
+  li
+  {
+     list-style: none;
+
+    p
+    {
+      display: inline !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  }
+
+  li.lo_propose
+  {
+    width: 60%
+  }
 }

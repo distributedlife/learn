@@ -18,7 +18,12 @@ en:
   learning_objective:
     propose:
       title: "Propose Learning Objective"
-      tagline: "propose a learning objective and start a discussion"
+      subtitle: "propose a learning objective and start a discussion"
+      labels:
+        brief: "all you need is a brief"
+        discipline: "one discipline"
+        category: "one category"
+        save: "propose"
     search:
       title: ""
-      tagline: ""
+      subtitle: ""

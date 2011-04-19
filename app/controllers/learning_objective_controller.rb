@@ -52,11 +52,11 @@ class LearningObjectiveController < ApplicationController
   end
 
   def create
-    unless (params[:lo].nil?)
-      params[:lo][:discipline] = from_valid_dom_id(params[:lo][:discipline]) unless params[:lo][:discipline].nil?
-      params[:lo][:category] = from_valid_dom_id(params[:lo][:category]) unless params[:lo][:category].nil?
+    unless (params[:learning_objective].nil?)
+      params[:learning_objective][:discipline] = params[:learning_objective][:discipline] unless params[:learning_objective][:discipline].nil?
+      params[:learning_objective][:category] = params[:learning_objective][:category] unless params[:learning_objective][:category].nil?
 
-      @lo = LearningObjective.create(params[:lo])
+      @lo = LearningObjective.create(params[:learning_objective])
     else
       @lo = LearningObjective.new(:discipline => 'automation', :category => 'artefact')
     end

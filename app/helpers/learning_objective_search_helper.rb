@@ -4,10 +4,10 @@ module LearningObjectiveSearchHelper
   end
 
   def valid_dom_id(text)
-    text.gsub(/&/,"and").gsub(/ /, "_")
+    text.gsub(/ & /,"__").gsub(/ /, "_")
   end
 
   def from_valid_dom_id(text)
-    text.gsub(/and/,"&").gsub(/_/, " ")
+    text.gsub(/__/," & ").gsub(/_/, " ")
   end
 end
