@@ -6,7 +6,7 @@ body {
   margin-bottom: 0em;
   font-size: 1.6em;
   background-color: #eeeeee;
-  font-family: "Consolas", sans-serif; }
+  font-family: 'Times New Roman', serif; }
 
 li {
   list-style: none; }
@@ -116,6 +116,7 @@ input[type="password"] {
   width: 90%; }
 
 input[type="submit"] {
+  font-family: 'Times New Roman', serif;
   color: black; }
 
 input[type="submit"]:hover {

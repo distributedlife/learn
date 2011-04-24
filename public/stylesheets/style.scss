@@ -51,7 +51,7 @@ body
   font-size: $font_size_large ;
   background-color: $page_background;
 
-  font-family: "Consolas", sans-serif;
+  font-family: 'Times New Roman', serif;
 }
 
 li
@@ -228,6 +228,7 @@ input[type="password"]
 
 input[type="submit"]
 {
+  font-family: 'Times New Roman', serif;
   color: $button_text;
 }
 
