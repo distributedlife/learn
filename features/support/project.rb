@@ -4,4 +4,4 @@ require 'bermuda/cucumber'
 require File.expand_path(File.dirname(__FILE__) + "../../../spec/support/blueprints.rb")
 
 #use akephalos for the javascript driver
-Capybara.javascript_driver = :akephalos  
+Capybara.javascript_driver = :akephalos

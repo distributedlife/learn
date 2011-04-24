@@ -12,7 +12,7 @@ Feature: Add learning objective
       | brief                            | discipline | category |
       | This is a new learning objective | user interaction | concept  |
     Then I should see "This is a new learning ob... is a new concept in the user interaction discipline"
-    And the brief field is empty
+    And the form should be reset
     And I should see "Click here to undo."
 
   @javascript
@@ -74,7 +74,7 @@ Feature: Add learning objective
       | brief                            | discipline | category |
       | This is a new learning objective | automation | concept  |
     And I follow "Click here to undo."
-    When I go to the learning objectives page
+    When I go to the search learning objectives page
     And pending learning objectives are shown
     And I follow "automation"
     And I follow "concept"
@@ -86,7 +86,7 @@ Feature: Add learning objective
     Given I create a learning objective with:
       | brief                            | discipline | category |
       | This is a new learning objective | automation | concept  |
-    When I go to the learning objectives page
+    When I go to the search learning objectives page
     And pending learning objectives are shown
     And I follow "automation"
     And I follow "concept"

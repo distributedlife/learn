@@ -144,11 +144,11 @@ describe LearningObjectiveController do
     end
 
     it 'should convert underscores to spaces for discipline and category' do
-
+      pending
     end
 
     it 'should convert and to ampersand for discipline and category' do
-
+      pending
     end
   end
 

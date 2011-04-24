@@ -1,9 +1,16 @@
-class LearningObjectiveCreatePage < BasePage
+module ProposeLearningObjectivePage
 
-  def initialize session
-    super session
-    @url = '/learning_objective/create'
+  def url *params
+    '/learning_objective/create'
   end
+
+  def is_current_page?
+    @session.has_content?("all you need is a brief")
+  end
+#  def initialize session
+#    super session
+#    @url = '/learning_objective/create'
+#  end
 
   def brief
     @session.find_field('learning_objective_brief').text

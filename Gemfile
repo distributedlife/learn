@@ -26,6 +26,7 @@ gem 'heroku'
 gem 'paper_trail'
 gem 'jquery-rails', '>= 0.2.6'
 gem 'formtastic', '~> 1.2.3'
+gem 'devise'
 
 # gem 'aws-s3', :require => 'aws/s3'
 

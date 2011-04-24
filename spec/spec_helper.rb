@@ -28,4 +28,7 @@ RSpec.configure do |config|
   # blueprints
   config.before(:all)    { Sham.reset(:before_all)  }
   config.before(:each)   { Sham.reset(:before_each) }
+
+  #devise helpers
+  config.include Devise::TestHelpers, :type => :controller
 end

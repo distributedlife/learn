@@ -1,7 +1,10 @@
-class LearningObjectiveSearchPage < BasePage
-  def initialize session
-    super session
-    @url = '/'
+module SearchLearningObjectivePage
+  def url *params
+    "/"
+  end
+
+  def is_current_page?
+    @session.has_content?("show pending") && @session.has_content?("automation")
   end
 
   def show_pending

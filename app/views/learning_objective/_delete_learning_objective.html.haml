@@ -1,5 +1,5 @@
 - @notice ||= nil
 - if @notice.nil?
-  %p The learning objective has been removed.
+  %p= I18n.t('learning_objective.propose.labels.deleted')
 - else
   %p= @notice

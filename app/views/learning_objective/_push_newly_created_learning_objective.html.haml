@@ -1,4 +1,4 @@
 #created_item{:id => lo.id, :class => 'created_item'}
   %p.positive
-    = "#{@created.brief[0,25]}... is a new #{@created.category} in the #{@created.discipline} discipline."
-    = link_to "Click here to undo.", destroy_lo_url(@created.id), :remote => true, :method => :delete
+    = "#{@created.brief[0,25]}... #{I18n.t('learning_objective.propose.labels.is_a_new')} #{@created.category} #{I18n.t('learning_objective.propose.labels.in_the')} #{@created.discipline} #{I18n.t('general.terms.discipline')}"
+    = link_to I18n.t('general.labels.undo'), destroy_lo_url(@created.id), :remote => true, :method => :delete

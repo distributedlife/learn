@@ -5,7 +5,7 @@ Feature: Learning Objective disciplines
 
   Scenario: can add all disciplines and all categories
     Given one learning objective in all permutations
-    And I go to the learning objectives page
+    And I go to the search learning objectives page
     When I follow "automation"
     And I follow "behaviour & functionality"
     And I follow "domain knowledge"
@@ -25,7 +25,7 @@ Feature: Learning Objective disciplines
   Scenario: can add and remove a discipline filter
     Given the learning objective "understands how change impacts automation tests" in the "automation" discipline
     And the learning objective "is a second learning objective" in the "user interaction" discipline
-    And I am on the learning objectives page
+    And I am on the search learning objectives page
     When I follow "automation"
     Then I should see "understands how change impacts automation tests"
     And I should not see "is a second learning objective"
@@ -33,7 +33,7 @@ Feature: Learning Objective disciplines
   Scenario: can add and remove a category filter
     Given the "concept" "understands how change impacts automation tests" in the "automation" discipline
     And the "responsibility" "is a second learning objective" in the "user interaction" discipline
-    And I am on the learning objectives page
+    And I am on the search learning objectives page
     When I follow "responsibility"
     Then I should see "is a second learning objective"
     And I should not see "understands how change impacts automation tests"
@@ -41,7 +41,7 @@ Feature: Learning Objective disciplines
   Scenario: remove all discipline filters
     Given the learning objective "understands how change impacts automation tests" in the "automation" discipline
     And the learning objective "is a second learning objective" in the "user interaction" discipline
-    And I am on the learning objectives page
+    And I am on the search learning objectives page
     And I follow "automation"
     When I follow "clear filter"
     Then I should see "is a second learning objective"
@@ -49,7 +49,7 @@ Feature: Learning Objective disciplines
   Scenario: remove all category filters
     Given the "concept" "understands how change impacts automation tests" in the "automation" discipline
     And the "responsibility" "is a second learning objective" in the "user interaction" discipline
-    And I am on the learning objectives page
+    And I am on the search learning objectives page
     And I follow "responsibility"
     When I follow "clear filter"
     Then I should see "understands how change impacts automation tests"

@@ -3,8 +3,8 @@
   %span#category_new= lo.category.first.upcase
   - if lo.pending?
     %p#pending
-      This learning objective is not yet approved.
-      = link_to "Approve this learning objective?", update_lo_url(lo.id, :pending => 'false'), :remote => true, :method => :put
+      = I18n.t('learning_objective.general.labels.proposed')
+      = link_to I18n.t('learning_objective.general.labels.approve'), update_lo_url(lo.id, :pending => 'false'), :remote => true, :method => :put
   - unless link.nil?
     %p= link.html_safe
   %p#brief= lo.brief

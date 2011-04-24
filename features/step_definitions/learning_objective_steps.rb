@@ -1,11 +1,13 @@
 Given /^I am on the propose learning objective page$/ do
-  @current_page = LearningObjectiveCreatePage.new(Capybara.current_session)
-  @current_page.visit
+  goto_page :ProposeLearningObjectivePage, Capybara.current_session do |page|
+    page.is_current_page?.should == true
+  end
 end
 
-Given /^I am on the learning objectives page$/ do
-  @current_page = LearningObjectiveSearchPage.new(Capybara.current_session)
-  @current_page.visit
+Given /^I am on the search learning objectives page$/ do
+  goto_page :SearchLearningObjectivePage, Capybara.current_session do |page|
+    page.is_current_page?.should == true
+  end
 end
 
 Given /^no learning objectives$/ do
@@ -64,7 +66,9 @@ Given /^the following pending learning objective "([^"]*)"$/ do |brief|
 end
 
 Given /^pending learning objectives are shown$/ do
-  @current_page.show_pending
+  on_page :SearchLearningObjectivePage, Capybara.current_session do |page|
+    page.show_pending
+  end
 end
 
 Given /^all learning objectives are automagically approved$/ do
@@ -76,18 +80,25 @@ end
 
 
 When /^I search for "([^"]*)"$/ do |search_term|
-  @current_page.search_for search_term
-end
-
-When /^I create a learning objective with:$/ do |lo_properties|
-  lo_properties.hashes.map do |lo|
-    @current_page.create lo["brief"], lo["discipline"], lo["category"]
+  on_page :SearchLearningObjectivePage, Capybara.current_session do |page|
+    page.search_for search_term
   end
 end
 
-When /^I go to the learning objectives page$/ do
-  @current_page = LearningObjectiveSearchPage.new(Capybara.current_session)
-  @current_page.visit
+When /^I create a learning objective with:$/ do |lo_properties|
+  on_page :ProposeLearningObjectivePage, Capybara.current_session do |page|
+#    page.is_current_page?.should == true
+    lo_properties.hashes.map do |lo|
+#      @current_page.create lo["brief"], lo["discipline"], lo["category"]
+      page.create lo["brief"], lo["discipline"], lo["category"]
+    end
+  end
+end
+
+When /^I go to the search learning objectives page$/ do
+  goto_page :SearchLearningObjectivePage, Capybara.current_session do |page|
+    page.is_current_page?.should == true
+  end
 end
 
 Then /^each learning objective is displayed on the page alphabetically$/ do
@@ -121,6 +132,8 @@ Then /^I should see the link "([^"]*)"$/ do |text|
   find_link(text)
 end
 
-Then /^the brief field is empty$/ do
-  @current_page.brief.should == ""
+Then /^the form should be reset$/ do
+  on_page :ProposeLearningObjectivePage, Capybara.current_session do |page|
+    page.brief.should == ""
+  end
 end

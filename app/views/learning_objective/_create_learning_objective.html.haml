@@ -10,7 +10,7 @@
   = f.input :category, :label => I18n.t('learning_objective.propose.labels.category'), :required => false, :as => :radio, :collection => @category_values, :wrapper_html => {:class => 'lo_propose'}
   .pad_from_top
   - f.buttons do
-    = f.commit_button(:label => I18n.t('learning_objective.propose.labels.save'))
+    = f.submit I18n.t('learning_objective.propose.labels.save'), :class => 'positive'
 
 - @discipline_values.each do |discipline|
   :javascript

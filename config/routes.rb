@@ -1,4 +1,7 @@
 LearnTesting::Application.routes.draw do
+  devise_for :users, :controllers => { :registrations => "users/registrations" } 
+
+  match 'info/check_style' => 'info#check_style'
   match 'learning_objective/search' => 'learning_objective#search'
   match 'learning_objective/search/:q' => 'learning_objective#search'
 
@@ -14,6 +17,8 @@ LearnTesting::Application.routes.draw do
       delete 'destroy', :as => "destroy"
     end
   end
+
+  resources :users, :as => "user" 
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
