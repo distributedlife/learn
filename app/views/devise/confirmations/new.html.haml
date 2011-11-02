@@ -1,12 +1,16 @@
-=render :partial => '/common/header', :locals => {:title => t('users.confirm.title'), :subtitle => t('users.confirm.subtitle')}
-%h2 Resend confirmation instructions
+.container
+  .content
+    =render :partial => '/common/page_header', :locals => {:title => t('titles.users-confirm.title'), :subtitle => t('titles.users-confirm.subtitle')}
+    .row
+      .span16
+        %h2= t('text.resend-confirmation')
 
-= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
-  = devise_error_messages!
-
-  %p= f.label :email
-  %p= f.email_field :email
-
-  %p= f.submit "Resend confirmation instructions"
-
-= render :partial => "devise/shared/links"
+        = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
+          = devise_error_messages!
+        
+          %p= f.label :email
+          %p= f.email_field :email
+        
+          %p= f.submit t('actions.resend-confirmation')
+        
+        = render :partial => "devise/shared/links"

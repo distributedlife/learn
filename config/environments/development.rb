@@ -11,13 +11,12 @@ LearnTesting::Application.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
-  config.action_view.debug_rjs             = true
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
   config.action_mailer.perform_deliveries = false
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => "distributedlife.com" }
+  config.action_mailer.default_url_options = { :host => "localhost:3001" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings =
   {
@@ -25,7 +24,7 @@ LearnTesting::Application.configure do
     :port                 => 587,
     :domain               => 'distributedlife.com',
     :user_name            => 'ryan.boucher@distributedlife.com',
-    :password             => 'bowser16',
+    :password             => 'xxx',
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }
@@ -35,5 +34,11 @@ LearnTesting::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  #devise performance for test and dev
+  config.stretches = 1
+
+  #disable craploads of paperclip logging
+  Paperclip.options[:log] = false
 end
 

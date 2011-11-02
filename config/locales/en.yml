@@ -28,87 +28,122 @@ en:
             current_password:
               blank: "that can't be blank"
               invalid: "that must be correct :)"
-  general:
-    labels:
-      undo: "Click here to undo."
-    terms:
-      discipline: "discipline"
-      learning_objective: "learning objective"
-  learning_objective:
-    propose:
-      title: "Propose Learning Objective"
-      subtitle: "propose a learning objective and start a discussion"
-      labels:
-        brief: "all you need is a brief"
-        discipline: "one discipline"
-        category: "one category"
-        save: "propose"
-        deleted: "The learning objective has been removed."
-        is_a_new: "is a new"
-        in_the: "in the"
-      action: "propose learning objective"
-    general:
-      labels:
-        proposed: "This learning objective is not yet approved."
-        approve: "Approve this learning objective?"
-    search:
-      title: "Search Learning Objectives"
-      subtitle: "find something to learn about..."
-      no_results: "No learning objectives found."
-  user:
-    registration:
-      title: "Sign up to LearnTesting!"
-      subtitle: "signing up allows you to keep track of your learning progress"
-      labels:
-        email: "your email"
-        password: "a password"
-        confirm_password: "and the password again"
-        create_account: "Join!"
-    reset_password:
-      title: "Reset your password"
+  notice:
+    start-editing: "You are now in edit mode."
+    stop-editing: "You are no longer in edit mode."
+    not-authorised: "You are not authorised to access that."
+    not-found: "<strong>Sorry.</strong> What you are looking for does not, or no longer exists."
+
+    no-matching-learning-objectives: "No learning objectives found"
+    proposed-learning-objective: "This learning objective is not yet approved."
+  actions:
+    add: "add"
+    advance: "Advance"
+    cancel: "Cancel"
+    change: "change"
+    close: "close"
+    create: "Create"
+    confirm-account: "Confirm Account"
+    delete: "Delete"
+    delete-confirm: "Are you sure?"
+    edit: "Edit"
+    edit-registration: "Account"
+    hide: "hide"
+    home: "Home"
+    mute: "mute"
+    more: "more"
+    next: "Next"
+    next-page: "next page"
+    next-chapter: "next chapter"
+    next-position: "next position"
+    new: "New"
+    ok: "ok"
+    pause: "pause"
+    play: "play"
+    prev-chapter: "prev chapter"
+    prev-position: "prev position"
+    resend-confirmation: "Resend confirmation"
+    resend-unlock-instructions: "Resend unlock instructions"
+    save: "Save"
+    show: "show"
+    sign-out: "Logout"
+    sign-in: "Login"
+    sign-up: "Join!"
+    start-editing: "edit"
+    stop-editing: "stop editing"
+    unlock: "Unlock"
+    unmute: "unmute"
+    forgot-password: "Recover password"
+    update-account: "Update Account"
+    cancel-account: "Cancel Account"
+    confirm-cancel: "Please confirm you wish to cancel your account?"
+    change-password: "Change my password"
+    reset-password: "Send me password reset instructions"
+    create-account: "Create Account"
+    search: "Search"
+
+    show-pending: "show pending"
+    hide-pending: "hide pending"
+    approve: "Approve this learning objective?"
+    propose: "propose learning objective"
+  form:
+    user-email: "email"
+    user-change-email: "change email address?"
+    user-password: "my password"
+    user-change-password: "change password? or leave blank"
+    user-remember-me: "and remember me from now on?"
+    user-confirm-password: "my password again"
+    user-confirm-new-password: "confirm your new password"
+    user-translation-language: "my native language"
+    user-current-password: "your current password; to confirm changes"
+
+  terminology:
+  text:
+    brand: "Learn Testing"
+    reset-password-what-is-this-email: "Someone has requested a link to change your password, and you can do this through the link below."
+    reset-password-further_information: "If you didn't request this, please ignore this email. Your password won't change until you access the link above and create a new one."
+    instructions-confirm-account: "You can confirm your account through the link below:"
+    welcome: "Welcome:"
+    resend-confirmation: "Resend confirmation instructions"
+    resent-unlock-instructions: "Resend unlock instructions"
+    hello: "Hello"
+    locked-account-notice: "Your account has been locked due to an excessive amount of unsuccessful sign in attempts."
+    unlock-account-instructions: "Click the link below to unlock your account"
+    loading: "Loading..."
+    no-results: "You search returned no results."
+    search-input: "search using comma, separated, terms..."
+  titles:
+    about:
+      title: "Momentum"
+      subtitle: "Language learning tools"
+    user-home:
+      title: "Welcome to Momentum"
+      subtitle: "here is what you have going on now"
+    user-registration:
+      title: "Sign up to Momentum!"
+      subtitle: "sign and start gathering momentum"
+    users-unlock:
+      title: "Unlock your account"
       subtitle: ""
-      labels:
-        email: "enter your email address"
-        button: "Send me password reset instructions"
-      email:
-        greeting: "Hello"
-        what_is_this_email: "Someone has requested a link to change your password, and you can do this through the link below."
-        reset_password_link: "Change my password"
-        further_information: "If you didn't request this, please ignore this email. Your password won't change until you access the link above and create a new one."
-    login:
-      title: "Sign in to LearnTesting!"
-      subtitle: ""
-      labels:
-        email: "my email"
-        password: "my password"
-        remember_me: "and remember me from now on?"
-    edit:
+    user-edit:
       title: "Manage your account"
       subtitle: ""
-      labels:
-        email: "change email address?"
-        password: "change password? or leave blank"
-        confirm_password: "confirm your new password"
-        current_password: "your current password; to confirm changes"
-        update_account: "make changes"
-        cancel_account: "cancel my account"
-        cancel_account_confirm: "Are you sure?"
-    change_password:
+    user-login:
+      title: "Sign in and gather momentum!"
+      subtitle: ""
+    user-reset-password:
+      title: "Reset your password"
+      subtitle: ""
+    users-confirm:
+      title: "Resend confirmation message"
+      subtitle: ""
+    user-change-password:
       title: "Change your password"
       subtitle: ""
-      labels:
-        password: "your new password"
-        confirm_password: "confirm new password"
-        change_password: "Change Password"
-    actions:
-      forgot_password: "Forgot your password?"
-      sign_in: "Login"
-      sign_up: "Join"
-      sign_out: "Logout"
-      edit_registration: "Edit registration"
-      search: "Search"
-  search:
-    labels:
-      clear_filter: "clear filter"
-      hide_pending: "hide pending"
-      show_pending: "show pending"
+    users-pending:
+      title: "User Accounts Pending Approval"
+      subtitle: "Click on an account to approve it"
+
+    learning-objective-search:
+      title: "Testing"
+      subtitle: "What would you like to learn about?"

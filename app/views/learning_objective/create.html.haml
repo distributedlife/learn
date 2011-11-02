@@ -1,6 +1,0 @@
-=render :partial => '/header', :locals => {:title => t('learning_objective.propose.title'), :subtitle => t('learning_objective.propose.subtitle')}
-%section{:class => ["panel"]}
-  #create_learning_objective{:class => ['left'], :style => "width:100%"}
-    =render :partial => 'create_learning_objective', :locals => {:lo => @lo}
-  .pad
-.created_items

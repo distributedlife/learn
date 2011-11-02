@@ -1,11 +1,12 @@
-%nav.right
-  - if user_signed_in?
-    %span.top_menu_panel
-      %span= link_to(I18n.t('user.actions.edit_registration'), edit_user_registration_path)
-    %span.top_menu_panel
-      %span= link_to(I18n.t('user.actions.sign_out'), destroy_user_session_path)
-  - else
-    %span.top_menu_panel
-      %span= link_to(I18n.t('user.actions.sign_up'), new_user_registration_path)
-    %span.top_menu_panel
-      %span= link_to(I18n.t('user.actions.sign_in'), new_user_session_path)
+.pull-right
+  %ul
+    - if user_signed_in?
+      %li
+        = link_to(I18n.t('actions.edit-registration'), edit_user_registration_path)
+      %li
+        = link_to(I18n.t('actions.sign-out'), destroy_user_session_path)
+    - else
+      %li
+        = link_to(I18n.t('actions.sign-up'), new_user_registration_path)
+      %li
+        = link_to(I18n.t('actions.sign-in'), new_user_session_path)

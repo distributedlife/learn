@@ -3,6 +3,10 @@ require 'sham'
 require 'faker'
 
 Sham.define do
+  email {Faker::Internet.email(Faker::Name.first_name)}
+  password(:unique => false) {'password'}
+  name(:unique => true) {Faker::Lorem.words(1)}
+
   brief  { Faker::Lorem.paragraphs(1) }
   discipline(:unique => false) {'automation'}
   category(:unique => false) {'concept'}
@@ -14,4 +18,11 @@ LearningObjective.blueprint do
   discipline
   category
   pending
+end
+
+User.blueprint do
+  email
+  password
+  approved {true}
+  admin {false}
 end

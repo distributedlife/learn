@@ -1,0 +1,10 @@
+.container
+  .content
+    =render :partial => '/common/page_header', :locals => {:title => t('titles.user-registration.title'), :subtitle => t('titles.user-registration.subtitle')}
+    .row
+      .span16
+        .alert-message.block-message.info
+          %p
+            %strong Welcome.
+          .clearfix
+          %p You're account has been registered but we haven't approved it yet. You'll get an email when it is approved.
