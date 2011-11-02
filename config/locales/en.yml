@@ -36,6 +36,8 @@ en:
 
     no-matching-learning-objectives: "No learning objectives found"
     proposed-learning-objective: "This learning objective is not yet approved."
+    learning-created: "Proposed learning has been saved. It can now be discussed for future inclusion"
+    learning-updated: "Learning updated."
   actions:
     add: "add"
     advance: "Advance"
@@ -86,6 +88,8 @@ en:
     hide-pending: "hide pending"
     approve: "Approve this learning objective?"
     propose: "propose learning objective"
+    create-learning: "Propose"
+    update-learning: "Propose"
   form:
     user-email: "email"
     user-change-email: "change email address?"
@@ -97,6 +101,9 @@ en:
     user-translation-language: "my native language"
     user-current-password: "your current password; to confirm changes"
 
+    learning-brief: "Tell us about this learning"
+    learning-discipline: "Which discipline does it belong to"
+    learning-category: "What type of learning is it"
   terminology:
   text:
     brand: "Learn Testing"
@@ -114,14 +121,14 @@ en:
     search-input: "search using comma, separated, terms..."
   titles:
     about:
-      title: "Momentum"
+      title: "Learn Testing"
       subtitle: "Language learning tools"
     user-home:
-      title: "Welcome to Momentum"
+      title: "Welcome to Learn Testing"
       subtitle: "here is what you have going on now"
     user-registration:
-      title: "Sign up to Momentum!"
-      subtitle: "sign and start gathering momentum"
+      title: "Sign up to Learn Testing!"
+      subtitle: "sign and start gathering Learn Testing"
     users-unlock:
       title: "Unlock your account"
       subtitle: ""
@@ -129,7 +136,7 @@ en:
       title: "Manage your account"
       subtitle: ""
     user-login:
-      title: "Sign in and gather momentum!"
+      title: "Sign in and gather Learn Testing!"
       subtitle: ""
     user-reset-password:
       title: "Reset your password"
@@ -144,6 +151,9 @@ en:
       title: "User Accounts Pending Approval"
       subtitle: "Click on an account to approve it"
 
-    learning-objective-search:
-      title: "Testing"
-      subtitle: "What would you like to learn about?"
+    learning-new:
+      title: "Propose New Learning"
+      subtitle: "What learning would you like to share?"
+    learning-edit:
+      title: "Edit Learning"
+      subtitle: "How can we make this more concise?"

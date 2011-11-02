@@ -1,0 +1,21 @@
+.container
+  .content
+    =render :partial => '/common/page_header', :locals => {:title => t('titles.learning-edit.title'), :subtitle => t('titles.learning-edit.subtitle')}
+    .row
+      .span16
+        = semantic_form_for(@learning, :url => learning_path(@learning.id), :method => :put) do |f|
+          .clearfix
+            = f.input :brief, :as => :text, :label => I18n.t('form.learning-brief'), :input_html => {:class => 'xxlarge', :rows => 3, :length => 500}
+          .clearfix
+            = f.input :discipline, :as => :select, :label => I18n.t('form.learning-discipline'), :collection => LearningObjective::DISCIPLINES
+            :javascript
+              $j("#learning_objective_discipline").attr("class", "chzn-select")
+              $j("#learning_objective_discipline").css('width', '90%');
+          .clearfix
+            = f.input :category, :as => :select, :label => I18n.t('form.learning-category'), :collection => LearningObjective::CATEGORIES
+            :javascript
+              $j("#learning_objective_category").attr("class", "chzn-select")
+              $j("#learning_objective_category").css('width', '90%');
+          .actions
+            .input
+              = f.submit I18n.t('actions.update-learning'), :class => 'btn primary', :id => "update_learning"

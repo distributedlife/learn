@@ -279,4 +279,26 @@ describe LearningObjective do
       categories[1].should == 'lens'
     end
   end
+
+  describe 'exists?' do
+    it 'should return true if the idiom exists' do
+      LearningObjective::exists?(LearningObjective.make.id).should == true
+    end
+
+    it 'should return false if the idiom does not exist' do
+      LearningObjective::exists?(100).should == false
+    end
+  end
+
+  describe 'approve!' do
+    it 'should set pending to false' do
+      l = LearningObjective.make(:pending => true)
+
+      l.approve!
+      l.pending.should == false
+      
+      l.approve!
+      l.pending.should == false
+    end
+  end
 end

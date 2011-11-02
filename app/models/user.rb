@@ -18,4 +18,8 @@ class User < ActiveRecord::Base
   def password_required?
     (authentications.empty? || !password.blank?) && super
   end
+
+  def admin?
+    admin
+  end
 end

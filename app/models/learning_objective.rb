@@ -11,6 +11,15 @@ class LearningObjective < ActiveRecord::Base
   validates_inclusion_of :category, :in => CATEGORIES
   validates_inclusion_of :discipline, :in => DISCIPLINES
 
+  def self.exists? id
+    begin
+      LearningObjective.find(id)
+
+      true
+    rescue
+      false
+    end
+  end
   
   def self.search(search_term, discipline_filter = nil, category_filter = nil, show_pending = false)
     search_term = "%#{search_term}%".downcase
@@ -45,5 +54,10 @@ class LearningObjective < ActiveRecord::Base
     end
 
     CATEGORIES & categories
+  end
+
+  def approve!
+    self.pending = false
+    self.save!
   end
 end

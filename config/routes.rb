@@ -22,4 +22,10 @@ LearnTesting::Application.routes.draw do
       put 'approve'
     end
   end
+
+  resources :learnings, :except => ['destroy', 'index'] do
+    member do
+      put 'approve'
+    end
+  end
 end
