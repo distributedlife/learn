@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
          
   has_many :authentications
+  has_many :user_assessments, :class_name => "UserAssessments", :foreign_key => "user_id", :primary_key => "id"
+  has_many :learning_objectives, :through => :user_assessments
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :approved, :admin
 
@@ -21,5 +23,9 @@ class User < ActiveRecord::Base
 
   def admin?
     admin
+  end
+
+  def get_assessment learning_objective_id
+    get_first UserAssessments.where(:user_id => self.id, :learning_objective_id => learning_objective_id)
   end
 end

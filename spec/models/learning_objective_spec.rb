@@ -117,7 +117,7 @@ describe LearningObjective do
   end
 
   context 'search' do
-    before do
+    before(:each) do
       create_learning_objective('the quick brown fox jumps over the lazy dog', 'automation', 'concept')
       create_learning_objective('aaaaa bbbbb ccccc ddddd eeeee fffff ggggg', 'fundamentals', 'lens')
       create_learning_objective('aaaaa hhhhh iiiii jjjjj kkkkk lllll mmmmm', 'user interaction', 'artefact')
@@ -299,6 +299,21 @@ describe LearningObjective do
       
       l.approve!
       l.pending.should == false
+    end
+  end
+
+  describe 'users' do
+    it 'should get the users' do
+      user = User.make
+      l1 = LearningObjective.make
+      l2 = LearningObjective.make
+      UserAssessments.make(:user_id => user.id, :learning_objective_id => l1.id)
+      UserAssessments.make(:user_id => user.id, :learning_objective_id => l2.id)
+
+      l1.users.count.should == 1
+      l2.users.count.should == 1
+      l1.users.include?(user).should == true
+      l2.users.include?(user).should == true
     end
   end
 end

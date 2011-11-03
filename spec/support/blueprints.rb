@@ -26,3 +26,10 @@ User.blueprint do
   approved {true}
   admin {false}
 end
+
+UserAssessments.blueprint do
+  user_id {1}
+  learning_objective_id {1}
+  awareness {'not assessed'}
+  guidance {'not assessed'}
+end

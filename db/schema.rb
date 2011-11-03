@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111021114710) do
+ActiveRecord::Schema.define(:version => 20111102102724) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(:version => 20111021114710) do
     t.string   "discipline"
     t.string   "category"
     t.boolean  "pending",                   :default => true
+  end
+
+  create_table "user_assessments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "learning_objective_id"
+    t.string   "awareness"
+    t.string   "guidance"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

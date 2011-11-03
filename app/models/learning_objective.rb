@@ -11,6 +11,9 @@ class LearningObjective < ActiveRecord::Base
   validates_inclusion_of :category, :in => CATEGORIES
   validates_inclusion_of :discipline, :in => DISCIPLINES
 
+  has_many :user_assessments, :class_name => "UserAssessments", :foreign_key => "learning_objective_id", :primary_key => "id"
+  has_many :users, :through => :user_assessments
+
   def self.exists? id
     begin
       LearningObjective.find(id)

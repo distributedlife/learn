@@ -27,5 +27,7 @@ LearnTesting::Application.routes.draw do
     member do
       put 'approve'
     end
+
+    resources :assessments, :except => ['destroy', 'index', 'show', 'new', 'create', 'edit']
   end
 end

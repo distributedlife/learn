@@ -90,6 +90,7 @@ en:
     propose: "propose learning objective"
     create-learning: "Propose"
     update-learning: "Propose"
+    record-assessment: "Record Assessment"
   form:
     user-email: "email"
     user-change-email: "change email address?"
@@ -104,6 +105,8 @@ en:
     learning-brief: "Tell us about this learning"
     learning-discipline: "Which discipline does it belong to"
     learning-category: "What type of learning is it"
+    assess-awareness: "Your awareness of the topic"
+    assess-guidance: "The guidance you need in applying the topic"
   terminology:
   text:
     brand: "Learn Testing"

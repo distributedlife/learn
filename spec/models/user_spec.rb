@@ -24,4 +24,31 @@ describe User do
       User.count.should == 0
     end
   end
+
+  describe 'learning_objectives' do
+    it 'should get the users learning objectives' do
+      user = User.make
+      l1 = LearningObjective.make
+      l2 = LearningObjective.make
+      UserAssessments.make(:user_id => user.id, :learning_objective_id => l1.id)
+      UserAssessments.make(:user_id => user.id, :learning_objective_id => l2.id)
+
+      user.learning_objectives.count.should == 2
+      user.learning_objectives.include?(l1).should == true
+      user.learning_objectives.include?(l2).should == true
+    end
+  end
+
+  describe 'get_assessment' do
+    it 'should get the users learning objective assessment' do
+      user = User.make
+      l1 = LearningObjective.make
+      l2 = LearningObjective.make
+      ul1a = UserAssessments.make(:user_id => user.id, :learning_objective_id => l1.id)
+      ul2a = UserAssessments.make(:user_id => user.id, :learning_objective_id => l2.id)
+
+      user.get_assessment(l1.id).should == ul1a
+      user.get_assessment(l2.id).should == ul2a
+    end
+  end
 end

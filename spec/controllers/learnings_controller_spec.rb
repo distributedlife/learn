@@ -46,6 +46,32 @@ describe LearningsController do
 
       assigns[:learning].should == p1
     end
+
+    it 'should create an assessment for the user if one does not exist' do
+      p1 = LearningObjective.make
+      UserAssessments.count.should == 0
+
+      get :show, :id => p1.id
+
+      assigns[:learning].should == p1
+      UserAssessments.count.should == 1
+      UserAssessments.first.user_id = @user.id
+      UserAssessments.first.learning_objective_id.should == p1.id
+      UserAssessments.first.awareness.should == 'not assessed'
+      UserAssessments.first.guidance.should == 'not assessed'
+    end
+
+    it 'should not create an assessment if the user is not logged in' do
+      sign_out :user
+
+      p1 = LearningObjective.make
+      UserAssessments.count.should == 0
+
+      get :show, :id => p1.id
+
+      assigns[:learning].should == p1
+      UserAssessments.count.should == 0
+    end
   end
 
   context '"PUT" approve!' do

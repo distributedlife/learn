@@ -18,8 +18,32 @@
           = link_to 'Edit Learning Objective', edit_learning_path(@learning.id), :id => 'edit_learning'
           = link_to 'Approve', approve_learning_path(@learning.id), :method => :put, :id => 'approve_learning', :class => 'float-right'
     %p= @learning.brief
+  - if user_signed_in?
+    - unless @learning.pending?
+      %hr
+      .assessment
+        = semantic_form_for(@assessment, :url => learning_assessment_path(:learning_id => @learning.id, :id => @assessment.id), :method => :put) do |f|
+          %h3 How well do you know this learning objective?
+          %p
+            By measuring your awareness you can identify whether you need to do more theoretical learning on this topic
+          = f.input :awareness, :as => :select, :label => I18n.t('form.assess-awareness'), :collection => UserAssessments::AWARENESS
+          :javascript
+            $j("#assessment_awareness").attr("class", "chzn-select")
+            $j("#assessment_awareness").css('width', '90%');
+          .clearfix
+          %h3 Do you ever need assistence in applying this learning objective?
+          %p
+            By measuring how often you need guidance you can get a good understanding of where your application of this learning objective sits.
+          = f.input :guidance, :as => :select, :label => I18n.t('form.assess-guidance'), :collection => UserAssessments::GUIDANCE
+          :javascript
+            $j("#assessment_guidance").attr("class", "chzn-select")
+            $j("#assessment_guidance").css('width', '90%');
+          .clearfix
+          .actions
+            .input
+              = f.submit I18n.t('actions.record-assessment'), :class => 'btn primary', :id => "do_assessment"
+  %hr
   .disqus
-    %hr
     :plain
       <div id="disqus_thread"></div>
         <script type="text/javascript">
