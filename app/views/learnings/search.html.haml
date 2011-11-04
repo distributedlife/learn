@@ -1,0 +1,36 @@
+.container
+  .content
+    %ul.unstyled#learning_objectives
+      - @learning_objectives.each do |lo|
+        - if user_signed_in?
+          - assessment = get_first(current_user.user_assessments.for_learning_objective(lo.id))
+        - else
+          - assessment = nil
+        %li#learning_objective{:style => 'padding-bottom: 1em;'}
+          .media-user-discipline
+            .row
+              .span9
+                %h4= "#{lo.discipline} | #{lo.category}"
+                %p.large= lo.brief
+              .span6
+                %h4 Your Assessment
+                - if user_signed_in?
+                  - unless assessment.nil? or lo.pending or assessment.not_assessed?
+                    %p
+                      %strong
+                        Awareness:
+                      %span
+                        = assessment.awareness
+                    %p
+                      %strong
+                        Guidance:
+                      %span
+                        = assessment.guidance
+                  - else
+                    - if lo.pending
+                      %p This learning has not been approved
+                    - else
+                      = link_to 'Assess Now', learning_path(lo.id)
+                  = link_to 'discuss this', learning_path(lo.id)
+                - else
+                  = link_to 'Sign in to discuss and record your assessment', new_user_session_path

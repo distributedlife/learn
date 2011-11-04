@@ -19,4 +19,8 @@ class UserAssessments < ActiveRecord::Base
       false
     end
   end
+
+  def not_assessed?
+    self.awareness == 'not assessed' and self.guidance == 'not assessed'
+  end
 end

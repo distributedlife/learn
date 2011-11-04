@@ -1,27 +1,27 @@
 .container
   .content
     =render :partial => '/learnings/page_header', :locals => {:title => '', :subtitle => ''}
-  .learning-objective
-    - if @learning.pending?
-      .alert-message.block-message.info
-        %p
-          %strong This learning is currently pending. 
-        .clearfix
-        %p
-          Until we settle on a final description of the learning we won't let you self assess against it.
-        .clearfix
-        %p
-          If you have an opinion about this learning, you should join the discussion below.
-        .clearfix
-        %p
-        - if current_user.admin?
-          = link_to 'Edit Learning Objective', edit_learning_path(@learning.id), :id => 'edit_learning'
-          = link_to 'Approve', approve_learning_path(@learning.id), :method => :put, :id => 'approve_learning', :class => 'float-right'
-    %h2= "#{@learning.discipline.upcase} | #{@learning.category.upcase}"
-    %p.large= @learning.brief
-  - if user_signed_in?
-    - unless @learning.pending?
-      %hr
+  .alert-message.block-message.info
+    .learning-objective
+      %h2= "#{@learning.discipline.upcase} | #{@learning.category.upcase}"
+      %p.large= @learning.brief
+  %hr
+  - if @learning.pending?
+    %p
+      %strong This learning is currently pending.
+    .clearfix
+    %p
+      Until we settle on a final description of the learning we won't let you self assess against it.
+    .clearfix
+    %p
+      If you have an opinion about this learning, you should join the discussion below.
+    .clearfix
+    %p
+    - if current_user.admin?
+      = link_to 'Edit Learning Objective', edit_learning_path(@learning.id), :id => 'edit_learning'
+      = link_to 'Approve', approve_learning_path(@learning.id), :method => :put, :id => 'approve_learning', :class => 'float-right'
+  - else
+    - if user_signed_in?
       .assessment
         = semantic_form_for(@assessment, :url => learning_assessment_path(:learning_id => @learning.id, :id => @assessment.id), :method => :put) do |f|
           .row

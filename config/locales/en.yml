@@ -89,7 +89,7 @@ en:
     approve: "Approve this learning objective?"
     propose: "propose learning objective"
     create-learning: "Propose"
-    update-learning: "Propose"
+    update-learning: "Save Changes"
     record-assessment: "Record Assessment"
   form:
     user-email: "email"
@@ -127,11 +127,11 @@ en:
       title: "Learn Testing"
       subtitle: "Language learning tools"
     user-home:
-      title: "Welcome to Learn Testing"
-      subtitle: "here is what you have going on now"
+      title: "Your self assessment"
+      subtitle: ""
     user-registration:
       title: "Sign up to Learn Testing!"
-      subtitle: "sign and start gathering Learn Testing"
+      subtitle: "learn something new in testing today"
     users-unlock:
       title: "Unlock your account"
       subtitle: ""
@@ -139,8 +139,8 @@ en:
       title: "Manage your account"
       subtitle: ""
     user-login:
-      title: "Sign in and gather Learn Testing!"
-      subtitle: ""
+      title: "Sign in to Learn Testing!"
+      subtitle: "or search and start browsing"
     user-reset-password:
       title: "Reset your password"
       subtitle: ""

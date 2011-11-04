@@ -1,0 +1,6 @@
+%ul
+  - if user_signed_in?
+    %li
+      = link_to I18n.t('actions.new'), new_learning_path
+%form.pull-left{:action => search_learnings_path}
+  %input{:type => "text", :placeholder => "Search", :id => 'search', :name => 'q', :value => @q}

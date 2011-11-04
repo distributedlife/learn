@@ -24,6 +24,10 @@ LearnTesting::Application.routes.draw do
   end
 
   resources :learnings, :except => ['destroy', 'index'] do
+    collection do
+      get 'search'
+    end
+    
     member do
       put 'approve'
     end

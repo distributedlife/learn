@@ -51,4 +51,74 @@ describe User do
       user.get_assessment(l2.id).should == ul2a
     end
   end
+
+  describe 'get user assessments for discipline' do
+    it 'should return only learnings for the current user' do
+      user = User.make
+      user2 = User.make
+      l1 = LearningObjective.make(:discipline => "automation")
+      l2 = LearningObjective.make(:discipline => "automation")
+      ul1a = UserAssessments.make(:user_id => user.id, :learning_objective_id => l1.id)
+      ul2a = UserAssessments.make(:user_id => user2.id, :learning_objective_id => l2.id)
+
+      r = user.user_assessments.for_discipline 'automation'
+      r.include?(ul1a).should == true
+      r.include?(ul2a).should_not == true
+    end
+
+    it 'should return only learnings for the specified discipline' do
+      user = User.make
+      l1 = LearningObjective.make(:discipline => "automation")
+      l2 = LearningObjective.make(:discipline => "automation")
+      l3 = LearningObjective.make(:discipline => "fundamentals")
+      ul1a = UserAssessments.make(:user_id => user.id, :learning_objective_id => l1.id)
+      ul2a = UserAssessments.make(:user_id => user.id, :learning_objective_id => l2.id)
+      ul3a = UserAssessments.make(:user_id => user.id, :learning_objective_id => l3.id)
+
+      r = user.user_assessments.for_discipline 'automation'
+      r.include?(ul1a).should == true
+      r.include?(ul2a).should == true
+      r.include?(ul3a).should_not == true
+
+      r = user.user_assessments.for_discipline 'fundamentals'
+      r.include?(ul1a).should_not == true
+      r.include?(ul2a).should_not == true
+      r.include?(ul3a).should == true
+    end
+  end
+
+  describe 'get user learning objectives for discipline' do
+    it 'should return only learnings for the current user' do
+      user = User.make
+      user2 = User.make
+      l1 = LearningObjective.make(:discipline => "automation")
+      l2 = LearningObjective.make(:discipline => "automation")
+      UserAssessments.make(:user_id => user.id, :learning_objective_id => l1.id)
+      UserAssessments.make(:user_id => user2.id, :learning_objective_id => l2.id)
+
+      r = user.learning_objectives.for_discipline 'automation'
+      r.include?(l1).should == true
+      r.include?(l2).should_not == true
+    end
+
+    it 'should return only learnings for the specified discipline' do
+      user = User.make
+      l1 = LearningObjective.make(:discipline => "automation")
+      l2 = LearningObjective.make(:discipline => "automation")
+      l3 = LearningObjective.make(:discipline => "fundamentals")
+      UserAssessments.make(:user_id => user.id, :learning_objective_id => l1.id)
+      UserAssessments.make(:user_id => user.id, :learning_objective_id => l2.id)
+      UserAssessments.make(:user_id => user.id, :learning_objective_id => l3.id)
+
+      r = user.learning_objectives.for_discipline 'automation'
+      r.include?(l1).should == true
+      r.include?(l2).should == true
+      r.include?(l3).should_not == true
+
+      r = user.learning_objectives.for_discipline 'fundamentals'
+      r.include?(l1).should_not == true
+      r.include?(l2).should_not == true
+      r.include?(l3).should == true
+    end
+  end
 end

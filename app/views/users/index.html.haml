@@ -1,6 +1,27 @@
 .container
   .content
     =render :partial => '/common/page_header', :locals => {:title => t('titles.user-home.title', :email => ""), :subtitle => t('titles.user-home.subtitle')}
-    .row
-      .span16
-        Welcome
+  %ul.unstyled#user_disciplines
+    - LearningObjective::DISCIPLINES.sort.each do |discipline|
+      %li#user_disciple
+        .media-user-discipline
+          .row
+            .span9
+              %p.large
+                %strong= link_to discipline, search_learnings_path(:q => discipline)
+            .span6
+              %p
+                %strong Awareness:
+                = awareness_range discipline
+          .row
+            .span9
+              - count = LearningObjective.where(:discipline => discipline).count
+              - assessed = current_user.learning_objectives.where(:discipline => discipline).count
+              - if count == assessed
+                all learning objectives assessed
+              - else
+                = "#{count - assessed} of #{count} assessments pending"
+            .span6
+              %p
+                %strong Guidance:
+                = guidance_range discipline

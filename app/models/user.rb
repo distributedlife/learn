@@ -5,8 +5,21 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
          
   has_many :authentications
-  has_many :user_assessments, :class_name => "UserAssessments", :foreign_key => "user_id", :primary_key => "id"
-  has_many :learning_objectives, :through => :user_assessments
+  has_many :user_assessments, :class_name => "UserAssessments", :foreign_key => "user_id", :primary_key => "id" do
+    def for_discipline discipline
+      joins(:learning_objectives).where(:learning_objectives => {:discipline => discipline})
+    end
+
+    def for_learning_objective lo_id
+      joins(:learning_objectives).where(:learning_objectives => {:id => lo_id})
+    end
+  end
+
+  has_many :learning_objectives, :through => :user_assessments do
+    def for_discipline discipline
+      where(:discipline => discipline)
+    end
+  end
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :approved, :admin
 
