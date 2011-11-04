@@ -12,7 +12,7 @@ describe AssessmentsController do
     it 'should redirect if learning not found' do
       a = UserAssessments.make(:user_id => @user.id, :learning_objective_id => 1)
 
-      put :update, :learning_id => 1, :id => a.id, :user_assessment => {}
+      put :update, :learning_id => 1, :id => a.id, :user_assessments => {}
 
       response.should be_redirect
       response.should redirect_to(learnings_path)
@@ -21,7 +21,7 @@ describe AssessmentsController do
     it 'should redirect if assessment not found' do
       p1 = LearningObjective.make
 
-      put :update, :learning_id => p1.id, :id => 1, :user_assessment => {}
+      put :update, :learning_id => p1.id, :id => 1, :user_assessments => {}
 
       response.should be_redirect
       response.should redirect_to(learnings_path)
@@ -33,7 +33,7 @@ describe AssessmentsController do
       p1 = LearningObjective.make
       a = UserAssessments.make(:user_id => other_user.id, :learning_objective_id => p1.id)
 
-      put :update, :learning_id => p1.id, :id => a.id, :user_assessment => {:guidance => '', :awareness => ''}
+      put :update, :learning_id => p1.id, :id => a.id, :user_assessments => {:guidance => '', :awareness => ''}
 
       response.should be_redirect
       response.should redirect_to(learnings_path)
@@ -44,7 +44,7 @@ describe AssessmentsController do
       p2 = LearningObjective.make
       a = UserAssessments.make(:user_id => @user.id, :learning_objective_id => p1.id)
 
-      put :update, :learning_id => p2.id, :id => a.id, :user_assessment => {:guidance => '', :awareness => ''}
+      put :update, :learning_id => p2.id, :id => a.id, :user_assessments => {:guidance => '', :awareness => ''}
 
       response.should be_redirect
       response.should redirect_to(learnings_path)
@@ -54,7 +54,7 @@ describe AssessmentsController do
       p1 = LearningObjective.make
       a = UserAssessments.make(:user_id => @user.id, :learning_objective_id => p1.id)
 
-      put :update, :learning_id => p1.id, :id => a.id, :user_assessment => {:guidance => '', :awareness => ''}
+      put :update, :learning_id => p1.id, :id => a.id, :user_assessments => {:guidance => '', :awareness => ''}
 
       a.reload
       UserAssessments.count.should == 1
@@ -66,12 +66,12 @@ describe AssessmentsController do
       p1 = LearningObjective.make
       a = UserAssessments.make(:user_id => @user.id, :learning_objective_id => p1.id)
 
-      put :update, :learning_id => p1.id, :id => a.id, :user_assessment => {:guidance => 'continual', :awareness => 'little'}
+      put :update, :learning_id => p1.id, :id => a.id, :user_assessments => {:guidance => 'occasional guidance', :awareness => 'little understanding'}
 
       a.reload
       UserAssessments.count.should == 1
-      a.guidance.should == 'continual'
-      a.awareness.should == 'little'
+      a.guidance.should == 'occasional guidance'
+      a.awareness.should == 'little understanding'
     end
   end
 end

@@ -1,6 +1,6 @@
 .container
   .content
-    =render :partial => '/common/page_header', :locals => {:title => @learning.discipline, :subtitle => @learning.category}
+    =render :partial => '/learnings/page_header', :locals => {:title => '', :subtitle => ''}
   .learning-objective
     - if @learning.pending?
       .alert-message.block-message.info
@@ -17,33 +17,40 @@
         - if current_user.admin?
           = link_to 'Edit Learning Objective', edit_learning_path(@learning.id), :id => 'edit_learning'
           = link_to 'Approve', approve_learning_path(@learning.id), :method => :put, :id => 'approve_learning', :class => 'float-right'
-    %p= @learning.brief
+    %h2= "#{@learning.discipline.upcase} | #{@learning.category.upcase}"
+    %p.large= @learning.brief
   - if user_signed_in?
     - unless @learning.pending?
       %hr
       .assessment
         = semantic_form_for(@assessment, :url => learning_assessment_path(:learning_id => @learning.id, :id => @assessment.id), :method => :put) do |f|
-          %h3 How well do you know this learning objective?
-          %p
-            By measuring your awareness you can identify whether you need to do more theoretical learning on this topic
-          = f.input :awareness, :as => :select, :label => I18n.t('form.assess-awareness'), :collection => UserAssessments::AWARENESS
-          :javascript
-            $j("#assessment_awareness").attr("class", "chzn-select")
-            $j("#assessment_awareness").css('width', '90%');
-          .clearfix
-          %h3 Do you ever need assistence in applying this learning objective?
-          %p
-            By measuring how often you need guidance you can get a good understanding of where your application of this learning objective sits.
-          = f.input :guidance, :as => :select, :label => I18n.t('form.assess-guidance'), :collection => UserAssessments::GUIDANCE
-          :javascript
-            $j("#assessment_guidance").attr("class", "chzn-select")
-            $j("#assessment_guidance").css('width', '90%');
-          .clearfix
+          .row
+            .span8
+              %h4 How well do you know this learning objective?
+              %p
+                By measuring your awareness you can identify whether you need to do more theoretical learning on this topic
+            .span8
+              %h4 Do you need assistence applying this learning objective?
+              %p
+                By measuring how often you need guidance you can get a good understanding of where your application of this learning objective sits.
+          .row
+            .span8
+              = f.input :awareness, :as => :select, :label => I18n.t('form.assess-awareness'), :collection => UserAssessments::AWARENESS, :required => false
+              :javascript
+                $j("#user_assessments_awareness").attr("class", "chzn-select")
+                $j("#user_assessments_awareness").css('width', '90%');
+            .span8
+              = f.input :guidance, :as => :select, :label => I18n.t('form.assess-guidance'), :collection => UserAssessments::GUIDANCE, :required => false
+              :javascript
+                $j("#user_assessments_guidance").attr("class", "chzn-select")
+                $j("#user_assessments_guidance").css('width', '90%');
           .actions
-            .input
-              = f.submit I18n.t('actions.record-assessment'), :class => 'btn primary', :id => "do_assessment"
+            .input{:style => "min-height: 2em;"}
+              = f.submit I18n.t('actions.record-assessment'), :class => 'btn primary float-right', :id => "do_assessment"
+  .row
   %hr
   .disqus
+    %h4 Discuss this learning objective
     :plain
       <div id="disqus_thread"></div>
         <script type="text/javascript">

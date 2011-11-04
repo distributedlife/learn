@@ -7,7 +7,7 @@ class AssessmentsController < ApplicationController
     return error_redirect_to t('notice.not-found'), learnings_path if assessment.user_id != current_user.id
     return error_redirect_to t('notice.not-found'), learnings_path if assessment.learning_objective_id != params[:learning_id].to_i
 
-    assessment.update_attributes(params[:user_assessment])
+    assessment.update_attributes(params[:user_assessments])
     if assessment.invalid?
       error_redirect_to t('notice.invalid-assessment'), :back
     else

@@ -4,8 +4,8 @@ class UserAssessments < ActiveRecord::Base
 
   attr_accessible :user_id, :learning_objective_id, :awareness, :guidance
 
-  AWARENESS = ['not assessed', 'little', 'some', 'full']
-  GUIDANCE = ['not assessed', 'continual', 'some', 'none']
+  AWARENESS = ['not assessed', 'little understanding', 'good understanding', 'complete understanding']
+  GUIDANCE = ['not assessed', 'frequent guidance', 'occasional guidance', 'no guidance']
 
   validates_inclusion_of :awareness, :in => AWARENESS
   validates_inclusion_of :guidance, :in => GUIDANCE

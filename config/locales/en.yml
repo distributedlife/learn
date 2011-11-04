@@ -105,8 +105,8 @@ en:
     learning-brief: "Tell us about this learning"
     learning-discipline: "Which discipline does it belong to"
     learning-category: "What type of learning is it"
-    assess-awareness: "Your awareness of the topic"
-    assess-guidance: "The guidance you need in applying the topic"
+    assess-awareness: "Your assessment"
+    assess-guidance: "Your assessment"
   terminology:
   text:
     brand: "Learn Testing"
