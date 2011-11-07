@@ -8,17 +8,17 @@ Feature: User accounts
   When I create an account for "user@testingthis.com"
   Then I should be on the "user home" page
 
-  Scenario: user is redirect to site index on logout
-  Given I am a new, authenticated user
-  When I click on "Logout"
-  Then I should be on the "user login" page
-
-  Scenario: user can delete account
-  Given I am a new, authenticated user
-  And I go to the "edit account" page
-  When I cancel my account
-  Then my account should be deleted
-  And I should be on the "user login" page
+#  Scenario: user is redirect to site index on logout
+#  Given I am a new, authenticated user
+#  When I click on "Logout"
+#  Then I should be on the "user login" page
+#
+#  Scenario: user can delete account
+#  Given I am a new, authenticated user
+#  And I go to the "edit account" page
+#  When I cancel my account
+#  Then my account should be deleted
+#  And I should be on the "user login" page
 
   Scenario: user can change their email address
   Given I am a new, authenticated user
