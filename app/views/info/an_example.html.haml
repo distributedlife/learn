@@ -1,0 +1,57 @@
+.container
+  .hero-unit
+    %h1 An example
+    %ps
+      &nbsp;
+    %p
+      So what does a learning objective look like?
+    %blockquote
+      %p
+        %strong
+          %i
+            Do you understand the difference between identity and anonymous data and the
+            impacts it can have on automated data creation?
+    %p
+      Consider this statement. How well do you understand it? Could you explain it to someone else?
+      Can you think of how it relates to your current project or previous projects? What about the
+      application? Do you know how to write automated tests that can deal with identity specific data?
+    %p
+      Once you have considered it, it's time to record your assessment. You support the following
+      levels of control. We purposely kept it simple so you don't have to decide whether you have
+      "little undersanding" or "some understanding".
+    %ps
+      &nbsp;
+    .row
+      .span2
+        &nbsp;
+      .span6
+        %p
+          %strong
+            Awareness & Understanding
+          %ul
+            - UserAssessments::AWARENESS.each do |awareness|
+              - next if awareness == "not assessed"
+              %li.large= awareness
+      .span6
+        %p
+          %strong
+            Guidance Required
+          %ul
+            - UserAssessments::GUIDANCE.each do |guidance|
+              - next if guidance == "not assessed"
+              %li.large= guidance
+    %p
+      This particular learning comes from the 
+      %i automation
+      discipline. Read on if you want to learn about
+      the different software testing disciplines.
+    %p
+      &nbsp;
+    %p
+      - unless user_signed_in?
+        = link_to "Start Now, it's free", new_user_registration_path, :class => "btn primary large"
+      = link_to "Getting the hang of this learning thing? Don't stop now.", info_how_disciplines_work_path, :class => "btn large"
+
+  %footer
+    :plain
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a>

@@ -1,0 +1,32 @@
+.container
+  .hero-unit
+    %h1 Categories?
+    %ps
+      &nbsp;
+    %p
+      Each discipline consists a set of learnings that a tester can eventually learn.
+      Each of these belongs to one the following categories:
+    %p
+      %ul
+        - LearningObjective::CATEGORIES.sort.each do |lo|
+          %li.large= lo
+    %p
+      Each category describes the type of learning. A responsability is something that, as testers, we
+      must do. A technique is a way of approaching a problem. The concepts show us the more theoretical
+      aspects of our field and lenses are ways we can use to look at what we are testing.
+    %p
+      Every learning focuses on the what you can learn and pays scant attention to how you apply it.
+      The reason for this is that there are many ways to apply a given learning and it is not for
+      us to tell you what you should do in your context. We're more interested in giving you the
+      options for learning.
+    %ps
+      &nbsp;
+    %p
+      Raring to go?
+    %p
+      - unless user_signed_in?
+        = link_to "Start Now", new_user_registration_path, :class => "btn primary large"
+
+  %footer
+    :plain
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a>

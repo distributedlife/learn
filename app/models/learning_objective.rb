@@ -4,7 +4,7 @@ class LearningObjective < ActiveRecord::Base
   attr_accessible :brief, :discipline, :category, :pending
 
   CATEGORIES = ['concept', 'responsibility', 'technique', 'artefact', 'lens']
-  DISCIPLINES = ['automation', 'fundamentals', 'behaviour & functionality', 'user interaction', 'performance', 'security', 'domain knowledge', 'preparation & planning', 'infrastructure & integration']
+  DISCIPLINES = ['automation', 'fundamentals', 'behaviour & functionality', 'user interaction', 'performance', 'security', 'domain knowledge', 'preparation & planning', 'infrastructure & integration', 'consultantcy']
 
   validates :brief, :presence => true, :length => { :maximum => 500 }
   validates :brief, :uniqueness => {:scope => :discipline}

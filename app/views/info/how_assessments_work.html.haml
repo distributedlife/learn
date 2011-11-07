@@ -1,0 +1,31 @@
+.container
+  .hero-unit
+    %h1 Self Assessments
+    %ps
+      &nbsp;
+    %p
+      At the core of learn testing is the self assessment. You use the assessment to determine what you
+      know and what you have yet to learn. We use a self assessment because only you truly know your
+      confidence in what you know.
+    %p
+      We don't share your assessment and other testers on the site won't be able to see what you think.
+      We do this so that you're more comfortable tracking your progress.
+    %p
+      %strong So how does it work?
+    %p
+      We ask you two questions, one regarding your awareness and understanding of the each topic and
+      one regarding how much guidance you need in applying the topic.
+    %p
+      When you say you don't fully understand the topic, you can discuss it with
+      other testers. If you feel you need guidance in application then it's time to find a mentor,
+      colleague or friend to sit with, skype with or whatever to improve your skills.
+    %p
+      &nbsp;
+    %p
+      - unless user_signed_in?
+        = link_to "Start Now, it's free", new_user_registration_path, :class => "btn primary large"
+      = link_to "Keep learning, you see how easy this is?", info_an_example_path, :class => "btn large"
+
+  %footer
+    :plain
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a>

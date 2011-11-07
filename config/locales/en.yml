@@ -130,7 +130,7 @@ en:
       title: "Your self assessment"
       subtitle: ""
     user-registration:
-      title: "Sign up to Learn Testing!"
+      title: "Sign up and get some direction!"
       subtitle: "learn something new in testing today"
     users-unlock:
       title: "Unlock your account"
@@ -139,7 +139,7 @@ en:
       title: "Manage your account"
       subtitle: ""
     user-login:
-      title: "Sign in to Learn Testing!"
+      title: "Set a course for loggin in!"
       subtitle: "or search and start browsing"
     user-reset-password:
       title: "Reset your password"

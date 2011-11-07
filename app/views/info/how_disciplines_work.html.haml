@@ -1,0 +1,31 @@
+.container
+  .hero-unit
+    %h1 What is a discipline?
+    %ps
+      &nbsp;
+    %p
+      Does performance testing ring a bell? Only to findout the throughput. Terrible I know, but
+      performance testing is one of the disciplines we have. A discipline is a classification of
+      knowledge within testing. We use it as a way of helping you identify what you want to learn
+      so you can say "I want to learn about User Interaction testing" and can easily see all the
+      things you can learn that relate to that discipline.
+    %p
+      %strong
+        Disciplines
+      %ul
+        - LearningObjective::DISCIPLINES.sort.each do |lo|
+          %li.large= lo
+    %ps
+      &nbsp;
+    %p
+      We also classify knowledge in other ways too, you can read about those next!
+    %p
+      &nbsp;
+    %p
+      - unless user_signed_in?
+        = link_to "Start Now, it's free", new_user_registration_path, :class => "btn primary large"
+      = link_to "I grok this; tell me something I dont know", info_how_categories_work_path, :class => "btn large"
+
+  %footer
+    :plain
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a>
