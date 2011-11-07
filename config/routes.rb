@@ -9,7 +9,12 @@ LearnTesting::Application.routes.draw do
 
   match '/auth/:provider/callback' => 'authentications#create'
 
-  root :to => "users#index"
+  root :to => "info#index"
+
+  match '/info/how_assessments_work' => 'info#how_assessments_work'
+
+  resources :info, :as => "info", :except => ['edit', 'update', 'new', 'create', 'show', 'destroy'] do
+  end
 
   resources :users, :as => "user", :except => ['edit', 'update'] do
     collection do

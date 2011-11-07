@@ -1,6 +1,13 @@
 class InfoController < ApplicationController
-  def check_style
-    flash[:error] = "Error flash level"
-    flash[:info] = "Some informaton"
+  def index
+  end
+
+  def how_assessments_work
+  end
+  
+  def how_disciplines_work
+  end
+
+  def how_categories_work
   end
 end

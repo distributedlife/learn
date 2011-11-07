@@ -160,3 +160,7 @@ en:
     learning-edit:
       title: "Edit Learning"
       subtitle: "How can we make this more concise?"
+
+    info-index:
+      title: "because testing shouldn't be a mystery"
+      subtitle: ""
