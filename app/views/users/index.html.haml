@@ -16,7 +16,7 @@
           .row
             .span9
               - count = LearningObjective.where(:discipline => discipline).count
-              - assessed = current_user.learning_objectives.where(:discipline => discipline).count
+              - assessed = current_user.learning_objectives.where(:discipline => discipline).select {|l| current_user.get_assessment(l).not_assessed?}.count
               - if count == assessed
                 all learning objectives assessed
               - else
