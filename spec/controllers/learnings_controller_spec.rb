@@ -246,4 +246,32 @@ describe LearningsController do
       assigns(:learning_objectives)[0].brief.should == 'the quick brown fox jumps over the lazy dog'
     end
   end
+
+  describe '"GET" pending_assessments' do
+    it 'should only show pending assessments for the current user' do
+      other_user = User.make
+      p1 = LearningObjective.make(:pending => false)
+      p2 = LearningObjective.make(:pending => false)
+      p3 = LearningObjective.make(:pending => false)
+      UserAssessments.make(:user_id => @user.id, :learning_objective_id => p1.id)
+      UserAssessments.make(:user_id => other_user.id, :learning_objective_id => p2.id)
+
+      get :pending_assessments
+
+      assigns[:learning_objectives].count.should == 2
+      assigns[:learning_objectives].include?(p2).should == true
+      assigns[:learning_objectives].include?(p3).should == true
+    end
+
+    it 'should not return not yet approved learning objectives' do
+      other_user = User.make
+      p1 = LearningObjective.make(:pending => false)
+      p2 = LearningObjective.make(:pending => true)
+
+      get :pending_assessments
+
+      assigns[:learning_objectives].count.should == 1
+      assigns[:learning_objectives].include?(p1).should == true
+    end
+  end
 end

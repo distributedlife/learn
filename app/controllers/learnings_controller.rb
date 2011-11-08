@@ -83,6 +83,21 @@ class LearningsController < ApplicationController
 
     @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).search(query_to_search_for, @disciplines, @categories, @show_pending)
   end
+
+  def pending_assessments
+    sql = <<-SQL
+      SELECT id
+      FROM learning_objectives
+      WHERE pending = false
+      EXCEPT
+      SELECT learning_objective_id
+      FROM user_assessments
+      WHERE user_id = #{current_user.id}
+    SQL
+
+    pending = ActiveRecord::Base.connection.execute(sql)
+    @learning_objectives = LearningObjective.find(pending.map{|s| s['id']})
+  end
   
   def adjust_query_if_it_was_a_filter(query, disciplines, categories)
 #    if disciplines.include? query or categories.include? query

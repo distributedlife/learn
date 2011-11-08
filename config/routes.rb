@@ -32,6 +32,7 @@ LearnTesting::Application.routes.draw do
   resources :learnings, :except => ['destroy', 'index'] do
     collection do
       get 'search'
+      get 'pending_assessments'
     end
     
     member do

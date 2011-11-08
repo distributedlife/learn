@@ -1,0 +1,42 @@
+.container
+  .content
+    - if @learning_objectives.empty?
+      %p &nbsp;
+      .alert-message.block-message.info
+        %p
+          %strong There are no learnings you have not assessed.
+        .clearfix
+        %p
+          Perhaps you can reassess how your going on other learnings.
+          =link_to 'Click here to go back to your assessment page', user_index_path
+    %ul.unstyled#learning_objectives
+      - @learning_objectives.each do |lo|
+        - if user_signed_in?
+          - assessment = get_first(current_user.user_assessments.for_learning_objective(lo.id))
+        - else
+          - assessment = nil
+        %li#learning_objective{:style => 'padding-bottom: 1em;'}
+          .media-user-discipline
+            .row
+              .span9
+                %h4= "#{lo.discipline} | #{lo.category}"
+                %p.large= lo.brief
+              .span6
+                %h4 Your Assessment
+                - if user_signed_in?
+                  - unless assessment.nil? or assessment.not_assessed?
+                    %p
+                      %strong
+                        Awareness:
+                      %span
+                        = assessment.awareness
+                    %p
+                      %strong
+                        Guidance:
+                      %span
+                        = assessment.guidance
+                  - else
+                    %p= link_to 'Assess now', learning_path(lo.id)
+                  %p= link_to 'Discuss this', learning_path(lo.id)
+                - else
+                  = link_to 'Sign in to discuss and record your assessment', new_user_session_path

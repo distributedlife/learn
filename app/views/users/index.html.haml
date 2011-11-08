@@ -16,11 +16,16 @@
           .row
             .span9
               - count = LearningObjective.where(:discipline => discipline).count
-              - assessed = current_user.learning_objectives.where(:discipline => discipline).select {|l| current_user.get_assessment(l).not_assessed?}.count
+              - pending_approval = LearningObjective.where(:discipline => discipline, :pending => true).count
+              - assessed = current_user.learning_objectives.where(:discipline => discipline).select {|l| !current_user.get_assessment(l).not_assessed?}.count
+              - assessment_pending = count - pending_approval - assessed
               - if count == assessed
-                all learning objectives assessed
+                = "all learning objectives assessed (of #{count})"
               - else
-                = "#{count - assessed} of #{count} assessments pending"
+                - if assessment_pending == 0
+                  no assessments pending
+                - else
+                  = "you have #{pluralize(assessment_pending, 'assessment')} pending"
             .span6
               %p
                 %strong Guidance:
