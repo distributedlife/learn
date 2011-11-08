@@ -38,6 +38,7 @@ en:
     proposed-learning-objective: "This learning objective is not yet approved."
     learning-created: "Proposed learning has been saved. It can now be discussed for future inclusion"
     learning-updated: "Learning updated."
+    assessment-updated: "Your assessment has been recorded."
   actions:
     add: "add"
     advance: "Advance"
@@ -139,7 +140,7 @@ en:
       title: "Manage your account"
       subtitle: ""
     user-login:
-      title: "Set a course for loggin in!"
+      title: "Set a course for logging in!"
       subtitle: "or search and start browsing"
     user-reset-password:
       title: "Reset your password"

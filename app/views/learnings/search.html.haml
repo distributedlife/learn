@@ -30,7 +30,7 @@
                     - if lo.pending
                       %p This learning has not been approved
                     - else
-                      = link_to 'Assess Now', learning_path(lo.id)
-                  = link_to 'discuss this', learning_path(lo.id)
+                      %p= link_to 'Assess now', learning_path(lo.id)
+                  %p= link_to 'Discuss this', learning_path(lo.id)
                 - else
                   = link_to 'Sign in to discuss and record your assessment', new_user_session_path
