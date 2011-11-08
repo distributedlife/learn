@@ -1,0 +1,22 @@
+.container
+  .content
+    - if @learning_objectives.empty?
+      %p &nbsp;
+      .alert-message.block-message.info
+        %p
+          %strong There are no learnings to be approved.
+    - else
+      %p &nbsp;
+      .alert-message.block-message.info
+        %p
+          %strong= "There are #{@learning_objectives.count} learnings pending approval."
+    %ul.unstyled#learning_objectives
+      - @learning_objectives.each do |lo|
+        %li#learning_objective{:style => 'padding-bottom: 1em;'}
+          .media-user-discipline
+            %h4= "#{lo.discipline} | #{lo.category}"
+            %p.large= lo.brief
+            - if user_signed_in?
+              %p= link_to 'Discuss this', learning_path(lo.id)
+            - else
+              = link_to 'Sign in to discuss and record your assessment', new_user_session_path

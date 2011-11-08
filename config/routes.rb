@@ -33,6 +33,7 @@ LearnTesting::Application.routes.draw do
     collection do
       get 'search'
       get 'pending_assessments'
+      get 'pending_approvals'
     end
     
     member do

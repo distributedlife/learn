@@ -14,6 +14,8 @@ class LearningObjective < ActiveRecord::Base
   has_many :user_assessments, :class_name => "UserAssessments", :foreign_key => "learning_objective_id", :primary_key => "id"
   has_many :users, :through => :user_assessments
 
+  scope :pending, where(:pending => true)
+  
   def self.exists? id
     begin
       LearningObjective.find(id)
@@ -62,5 +64,20 @@ class LearningObjective < ActiveRecord::Base
   def approve!
     self.pending = false
     self.save!
+  end
+
+  def self.pending_for_user user_id
+    sql = <<-SQL
+      SELECT id
+      FROM learning_objectives
+      WHERE pending = false
+      EXCEPT
+      SELECT learning_objective_id
+      FROM user_assessments
+      WHERE user_id = #{user_id}
+    SQL
+
+    pending = ActiveRecord::Base.connection.execute(sql)
+    LearningObjective.find(pending.map{|s| s['id']})
   end
 end

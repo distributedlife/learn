@@ -85,23 +85,15 @@ class LearningsController < ApplicationController
   end
 
   def pending_assessments
-    sql = <<-SQL
-      SELECT id
-      FROM learning_objectives
-      WHERE pending = false
-      EXCEPT
-      SELECT learning_objective_id
-      FROM user_assessments
-      WHERE user_id = #{current_user.id}
-    SQL
+    @learning_objectives = LearningObjective::pending_for_user current_user.id
+  end
 
-    pending = ActiveRecord::Base.connection.execute(sql)
-    @learning_objectives = LearningObjective.find(pending.map{|s| s['id']})
+  def pending_approvals
+    @learning_objectives = LearningObjective.pending
   end
   
   def adjust_query_if_it_was_a_filter(query, disciplines, categories)
-#    if disciplines.include? query or categories.include? query
-    if (disciplines & [query] == [query]) or (categories & [query] == [query])
+    if disciplines.include? query or categories.include? query
       ""
     else
       query
@@ -110,8 +102,9 @@ class LearningsController < ApplicationController
 
 
   def add_querystring_to_array(array, querystring)
-    array = array | [querystring] unless querystring.empty?
-    array
+    return array if querystring.empty?
+
+    array << querystring
   end
 
 

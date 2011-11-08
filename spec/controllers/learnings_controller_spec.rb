@@ -264,7 +264,6 @@ describe LearningsController do
     end
 
     it 'should not return not yet approved learning objectives' do
-      other_user = User.make
       p1 = LearningObjective.make(:pending => false)
       p2 = LearningObjective.make(:pending => true)
 
@@ -272,6 +271,19 @@ describe LearningsController do
 
       assigns[:learning_objectives].count.should == 1
       assigns[:learning_objectives].include?(p1).should == true
+    end
+  end
+
+  describe '"GET" pending_approvals' do
+    it 'should only return not yet approved learning objectives' do
+      p1 = LearningObjective.make(:pending => false)
+      p2 = LearningObjective.make(:pending => true)
+
+      get :pending_approvals  
+
+      assigns[:learning_objectives].count.should == 1
+      assigns[:learning_objectives].include?(p1).should == false
+      assigns[:learning_objectives].include?(p2).should == true
     end
   end
 end
