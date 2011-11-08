@@ -46,5 +46,7 @@ module LearnTesting
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    config.page_size = 10
   end
 end

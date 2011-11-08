@@ -64,6 +64,15 @@ class LearningsController < ApplicationController
 
     @q = params[:q] unless params[:q].nil?
     redirect_to browse_learnings_path and return if @q.blank?
+
+    @page = params[:page]
+    @page ||= 1
+    @page = @page.to_i
+
+    limit = Rails.application.config.page_size
+    offset = (@page - 1) * limit
+    @nextpage = search_learnings_path(:q => @q, :page => @page + 1)
+    
     
     @disciplines = LearningObjective.trim_invalid_disciplines(@q.split(' '))
     @categories = LearningObjective.trim_invalid_categories(@q.split(' '))
@@ -71,7 +80,10 @@ class LearningsController < ApplicationController
     #don't use search query if it is still within our filter
     query_to_search_for = adjust_query_if_it_was_a_filter(@q, @disciplines, @categories)
 
-    @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).search(query_to_search_for, @disciplines, @categories, @show_pending)
+    @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).limit(limit).offset(offset).search(query_to_search_for, @disciplines, @categories, @show_pending)
+    @result_count = LearningObjective::order(:discipline).order(:category).order(:brief).search(query_to_search_for, @disciplines, @categories, @show_pending).count
+    @pages =  @result_count / limit
+    @pages = @pages + 1 if LearningObjective.count % limit != 0
   end
 
   def pending_assessments
@@ -83,7 +95,18 @@ class LearningsController < ApplicationController
   end
 
   def browse
-    @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).limit(20).all
+    @page = params[:page]
+    @page ||= 1
+    @page = @page.to_i
+
+    limit = Rails.application.config.page_size
+    offset = (@page - 1) * limit
+    @nextpage = browse_learnings_path(:page => @page + 1)
+    
+    @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).limit(limit).offset(offset).all
+    @result_count = LearningObjective.count
+    @pages = @result_count / limit
+    @pages = @pages + 1 if LearningObjective.count % limit != 0
 
     render :template => "learnings/search"
   end

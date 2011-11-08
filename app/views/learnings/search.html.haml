@@ -1,18 +1,22 @@
 .container
   .content
-    - unless @q.blank?
-      %p &nbsp;
-      .alert-message.block-message.info
+    %p &nbsp;
+    .alert-message.block-message.info
+      - unless @q.blank?
         %p
-          %strong= "Found #{@learning_objectives.count} matches for the search \"#{@q}\""
+          %strong= "Found #{@result_count} matches for the search \"#{@q}\"."
         .clearfix
         %p
           Searching only supports exact matches and does not support multiple terms. You can however
           use the names of disciplines (performance) or a category (lens) to apply broad filters to
           search upon.
         .clearfix
+      - else
         %p
-          Showing page x of y pages.
+          %strong= "Browsing #{@result_count} learnings."
+        .clearfix
+      %p
+        ="Showing page #{@page} of #{@pages} pages."
     %ul.unstyled#learning_objectives
       - @learning_objectives.each do |lo|
         - if user_signed_in?
@@ -47,3 +51,6 @@
                   %p= link_to 'Discuss this', learning_path(lo.id)
                 - else
                   = link_to 'Sign in to discuss and record your assessment', new_user_session_path
+- if @page.to_i < @pages.to_i
+  .actions
+    = link_to 'Next Page', @nextpage, :class => 'btn primary'
