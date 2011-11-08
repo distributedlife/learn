@@ -1,6 +1,14 @@
 %ul
+  %li
+    = link_to 'Browse', browse_learnings_path
   - if user_signed_in?
     %li
-      = link_to I18n.t('actions.new'), new_learning_path
+      = link_to 'Propose', new_learning_path
+    %li
+      = link_to 'Assessments', pending_assessments_learnings_path
+    - if current_user.admin?
+      %li
+        = link_to 'Approvals', pending_approvals_learnings_path
+
 %form.pull-left{:action => search_learnings_path}
   %input{:type => "text", :placeholder => "Search", :id => 'search', :name => 'q', :value => @q}

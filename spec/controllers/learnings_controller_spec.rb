@@ -245,6 +245,13 @@ describe LearningsController do
       assigns(:learning_objectives).count.should be 1
       assigns(:learning_objectives)[0].brief.should == 'the quick brown fox jumps over the lazy dog'
     end
+
+    it 'should support combinations of disciplines and categories' do
+      get(:search, {:q => 'automation responsibility'})
+
+      assigns(:learning_objectives).count.should be 1
+      assigns(:learning_objectives)[0].brief.should == 'aba quick brown fox jumps over the lazy zog'
+    end
   end
 
   describe '"GET" pending_assessments' do

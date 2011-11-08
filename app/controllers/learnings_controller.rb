@@ -1,5 +1,5 @@
 class LearningsController < ApplicationController
-  before_filter :authenticate_user!, :except => ['show', 'search']
+  before_filter :authenticate_user!, :except => ['show', 'search', 'browse']
 
   def new
     @learning = LearningObjective.new
@@ -63,23 +63,13 @@ class LearningsController < ApplicationController
     @show_pending = true
 
     @q = params[:q] unless params[:q].nil?
-
-
-    #get disciplines
-    @disciplines = get_array_from_query_params(params[:disciplines])
-    @disciplines = add_querystring_to_array(@disciplines, @q)
-    @disciplines = LearningObjective.trim_invalid_disciplines(@disciplines)
-
-
-    #get categories
-    @categories = get_array_from_query_params(params[:categories])
-    @categories = add_querystring_to_array(@categories, @q)
-    @categories = LearningObjective.trim_invalid_categories(@categories)
-
+    redirect_to browse_learnings_path and return if @q.blank?
+    
+    @disciplines = LearningObjective.trim_invalid_disciplines(@q.split(' '))
+    @categories = LearningObjective.trim_invalid_categories(@q.split(' '))
 
     #don't use search query if it is still within our filter
     query_to_search_for = adjust_query_if_it_was_a_filter(@q, @disciplines, @categories)
-
 
     @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).search(query_to_search_for, @disciplines, @categories, @show_pending)
   end
@@ -91,13 +81,24 @@ class LearningsController < ApplicationController
   def pending_approvals
     @learning_objectives = LearningObjective.pending
   end
-  
+
+  def browse
+    @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).limit(20).all
+
+    render :template => "learnings/search"
+  end
+
+  protected
   def adjust_query_if_it_was_a_filter(query, disciplines, categories)
-    if disciplines.include? query or categories.include? query
-      ""
-    else
-      query
+    adjusted_query_string = ""
+
+    query.split(' ').each do |term|
+      next if disciplines.include? term or categories.include? term
+      
+      adjusted_query_string = "#{adjusted_query_string} #{term}"
     end
+
+    adjusted_query_string
   end
 
 

@@ -1,5 +1,18 @@
 .container
   .content
+    - unless @q.blank?
+      %p &nbsp;
+      .alert-message.block-message.info
+        %p
+          %strong= "Found #{@learning_objectives.count} matches for the search \"#{@q}\""
+        .clearfix
+        %p
+          Searching only supports exact matches and does not support multiple terms. You can however
+          use the names of disciplines (performance) or a category (lens) to apply broad filters to
+          search upon.
+        .clearfix
+        %p
+          Showing page x of y pages.
     %ul.unstyled#learning_objectives
       - @learning_objectives.each do |lo|
         - if user_signed_in?
