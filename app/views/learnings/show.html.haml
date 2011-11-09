@@ -20,7 +20,8 @@
     - if user_signed_in?
       - if current_user.admin?
         = link_to 'Edit Learning Objective', edit_learning_path(@learning.id), :id => 'edit_learning'
-        = link_to 'Deelte', learning_path(@learning.id), :method => :delete, :id => 'delete_learning', :class => 'float-right'
+        = link_to 'Delete', learning_path(@learning.id), :method => :delete, :id => 'delete_learning', :class => 'float-right'
+        &nbsp;
         = link_to 'Approve', approve_learning_path(@learning.id), :method => :put, :id => 'approve_learning', :class => 'float-right'
   - else
     - if user_signed_in?
