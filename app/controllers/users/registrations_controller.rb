@@ -39,6 +39,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     session[:omniauth] = nil unless @user.new_record?
   end
 
+  def update
+    #delete the admin property; this should stop admin accounts from being created via the devise form
+    params[:user].delete :admin
+
+    super
+  end
+
   protected
 
   def after_sign_up_path_for(resource)

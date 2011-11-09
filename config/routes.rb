@@ -12,6 +12,7 @@ LearnTesting::Application.routes.draw do
   root :to => "info#index"
 
   resources :info, :as => "info", :except => ['edit', 'update', 'new', 'create', 'show', 'destroy'] 
+  match '/info/about' => 'info#about'
   match '/info/how_assessments_work' => 'info#how_assessments_work'
   match '/info/an_example' => 'info#an_example'
   match '/info/how_disciplines_work' => 'info#how_disciplines_work'

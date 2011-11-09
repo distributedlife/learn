@@ -5,6 +5,13 @@
     .learning-objective
       %h2= "#{@learning.discipline.upcase} | #{@learning.category.upcase}"
       %p.large= @learning.brief
+    - if user_signed_in?
+      - if current_user.admin?
+        = link_to 'Edit Learning Objective', edit_learning_path(@learning.id), :id => 'edit_learning'
+        = link_to 'Delete', learning_path(@learning.id), :method => :delete, :id => 'delete_learning', :class => 'float-right'
+        - if @learning.pending?
+          %span.float-right &nbsp
+          = link_to 'Approve', approve_learning_path(@learning.id), :method => :put, :id => 'approve_learning', :class => 'float-right'
   %hr
   - if @learning.pending?
     %p
@@ -17,12 +24,6 @@
       If you have an opinion about this learning, you should join the discussion below.
     .clearfix
     %p
-    - if user_signed_in?
-      - if current_user.admin?
-        = link_to 'Edit Learning Objective', edit_learning_path(@learning.id), :id => 'edit_learning'
-        = link_to 'Delete', learning_path(@learning.id), :method => :delete, :id => 'delete_learning', :class => 'float-right'
-        &nbsp;
-        = link_to 'Approve', approve_learning_path(@learning.id), :method => :put, :id => 'approve_learning', :class => 'float-right'
   - else
     - if user_signed_in?
       .assessment

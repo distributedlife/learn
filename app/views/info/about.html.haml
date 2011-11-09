@@ -1,0 +1,148 @@
+.container
+  .hero-unit
+    %h1 What is this all about?
+    %p
+      %strong tl;dr
+    %p
+      Learn Testing is a site that helps you identify what you can learn in the world of software
+      testing. It also helps you keep track of what you know and how you confident you feel in
+      applying your skills.
+    %p
+      %strong why?
+    %p
+      Because finding out what you don't know is hard. 
+    %hr
+    %p
+      %strong The longer, substantially cooler, detailed explaination
+    %p
+      In 2010 I conducted a
+      = link_to 'survey', "http://distributedlife.com/content/paper.futures%20in%20software%20testing.pdf"
+      that found that 75% of testers surveyed were unaware of the different
+      directions a testing career could go. It also highlighted that 64% of testers surveyed had
+      insufficient information to develop the capabilities required for their desired career path.
+    %p
+      Learn Testing is a site to help you identify what you currently know and what you can learn
+      in software testing. We're talking the unknown unknowns. You can use this knowledge to start
+      learning and
+      pushing your testing career and your testing skills to where you always wanted them to be.
+    %p
+      &nbsp;
+
+    %h2 Self Assessments
+    %ps
+      &nbsp;
+    %p
+      At the core of learn testing is the self assessment. You use the assessment to determine what you
+      know and what you have yet to learn. We use a self assessment because only you truly know your
+      confidence in what you know.
+    %p
+      We don't share your assessment and other testers on the site won't be able to see what you think.
+      We do this so that you're more comfortable tracking your progress.
+    %p
+      %strong So how does it work?
+    %p
+      We ask you two questions, one regarding your awareness and understanding of the each topic and
+      one regarding how much guidance you need in applying the topic.
+    %p
+      When you say you don't fully understand the topic, you can discuss it with
+      other testers. If you feel you need guidance in application then it's time to find a mentor,
+      colleague or friend to sit with, skype with or whatever to improve your skills.
+    %p
+      &nbsp;
+
+    %h2 An example
+    %ps
+      &nbsp;
+    %p
+      So what does a learning objective look like?
+    %blockquote
+      %p
+        %strong
+          %i
+            Do you understand the difference between identity and anonymous data and the
+            impacts it can have on automated data creation?
+    %p
+      Consider this statement. How well do you understand it? Could you explain it to someone else?
+      Can you think of how it relates to your current project or previous projects? What about the
+      application? Do you know how to write automated tests that can deal with identity specific data?
+    %p
+      Once you have considered it, it's time to record your assessment. You support the following
+      levels of control. We purposely kept it simple so you don't have to decide whether you have
+      "little undersanding" or "some understanding".
+    %ps
+      &nbsp;
+    .row
+      .span2
+        &nbsp;
+      .span6
+        %p
+          %strong
+            Awareness & Understanding
+          %ul
+            - UserAssessments::AWARENESS.each do |awareness|
+              - next if awareness == "not assessed"
+              %li.large= awareness
+      .span6
+        %p
+          %strong
+            Guidance Required
+          %ul
+            - UserAssessments::GUIDANCE.each do |guidance|
+              - next if guidance == "not assessed"
+              %li.large= guidance
+    %p
+      This particular learning comes from the
+      %i automation
+      discipline. Read on if you want to learn about
+      the different software testing disciplines.
+    %p
+      &nbsp;
+
+
+    %h2 What is a discipline?
+    %ps
+      &nbsp;
+    %p
+      Does performance testing ring a bell? Only to determine the throughput. Terrible I know, but
+      performance testing is one of the disciplines we have. A discipline is a classification of
+      knowledge within testing. We use it as a way of helping you identify what you want to learn
+      so you can say "I want to learn about User Interaction testing" and can easily see all the
+      things you can learn that relate to that discipline.
+    %p
+      %strong
+        Disciplines
+      %ul
+        - LearningObjective::DISCIPLINES.sort.each do |lo|
+          %li.large= lo
+    %ps
+      &nbsp;
+    %p
+      We also classify knowledge in other ways too, you can read about those next!
+    %p
+      &nbsp;
+
+    %h2 Categories?
+    %ps
+      &nbsp;
+    %p
+      Each discipline consists a set of learnings that a tester can eventually learn.
+      Each of these belongs to one the following categories:
+    %p
+      %ul
+        - LearningObjective::CATEGORIES.sort.each do |lo|
+          %li.large= lo
+    %p
+      Each category describes the type of learning. A responsibility is something that, as testers, we
+      must do. A technique is a way of approaching a problem. The concepts show us the more theoretical
+      aspects of our field and lenses are ways we can use to look at what we are testing.
+    %p
+      Every learning focuses on the what you can learn and pays scant attention to how you apply it.
+      The reason for this is that there are many ways to apply a given learning and it is not for
+      us to tell you what you should do in your context. We're more interested in giving you the
+      options for learning.
+    %ps
+      &nbsp;
+
+  %footer
+    :plain
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a>
