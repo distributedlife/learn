@@ -271,7 +271,7 @@ describe LearningsController do
       p1 = LearningObjective.make(:pending => false)
       p2 = LearningObjective.make(:pending => false)
       p3 = LearningObjective.make(:pending => false)
-      UserAssessments.make(:user_id => @user.id, :learning_objective_id => p1.id)
+      UserAssessments.make(:user_id => @user.id, :learning_objective_id => p1.id, :awareness => 'little understanding', :guidance => 'no guidance')
       UserAssessments.make(:user_id => other_user.id, :learning_objective_id => p2.id)
 
       get :pending_assessments
