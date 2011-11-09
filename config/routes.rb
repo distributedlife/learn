@@ -29,7 +29,7 @@ LearnTesting::Application.routes.draw do
     end
   end
 
-  resources :learnings, :except => ['destroy', 'index'] do
+  resources :learnings, :except => ['index'] do
     collection do
       get 'browse'
       get 'search'
