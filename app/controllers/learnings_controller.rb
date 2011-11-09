@@ -63,6 +63,7 @@ class LearningsController < ApplicationController
     @show_pending = true
 
     @q = params[:q] unless params[:q].nil?
+    @q.strip!
     redirect_to browse_learnings_path and return if @q.blank?
 
     @page = params[:page]
@@ -78,7 +79,8 @@ class LearningsController < ApplicationController
     @categories = LearningObjective::CATEGORIES.select {|c| @q.include? c}
 
     #don't use search query if it is still within our filter
-    query_to_search_for = adjust_query_if_it_was_a_filter(@q, @disciplines, @categories)
+    query_to_search_for = adjust_query_if_it_was_a_filter("#{@q}", @disciplines, @categories)
+    query_to_search_for.strip!
 
     @learning_objectives = LearningObjective::order(:discipline).order(:category).order(:brief).limit(limit).offset(offset).search(query_to_search_for, @disciplines, @categories, @show_pending)
     @result_count = LearningObjective::order(:discipline).order(:category).order(:brief).search(query_to_search_for, @disciplines, @categories, @show_pending).count
@@ -125,8 +127,8 @@ class LearningsController < ApplicationController
 
   protected
   def adjust_query_if_it_was_a_filter(query, disciplines, categories)
-    disciplines.each { |d| query.gsub(d, "") if query.include? d }
-    categories.each { |c| query.gsub(c, "") if query.include? c }
+    disciplines.each { |d| query.gsub!(d, "") if query.include? d }
+    categories.each { |c| query.gsub!(c, "") if query.include? c }
 
     query
   end
