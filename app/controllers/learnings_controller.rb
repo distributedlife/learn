@@ -74,8 +74,8 @@ class LearningsController < ApplicationController
     @nextpage = search_learnings_path(:q => @q, :page => @page + 1)
     
     
-    @disciplines = LearningObjective.trim_invalid_disciplines(@q.split(' '))
-    @categories = LearningObjective.trim_invalid_categories(@q.split(' '))
+    @disciplines = LearningObjective::DISCIPLINES.select {|d| @q.include? d}
+    @categories = LearningObjective::CATEGORIES.select {|c| @q.include? c}
 
     #don't use search query if it is still within our filter
     query_to_search_for = adjust_query_if_it_was_a_filter(@q, @disciplines, @categories)
@@ -125,15 +125,10 @@ class LearningsController < ApplicationController
 
   protected
   def adjust_query_if_it_was_a_filter(query, disciplines, categories)
-    adjusted_query_string = ""
+    disciplines.each { |d| query.gsub(d, "") if query.include? d }
+    categories.each { |c| query.gsub(c, "") if query.include? c }
 
-    query.split(' ').each do |term|
-      next if disciplines.include? term or categories.include? term
-      
-      adjusted_query_string = "#{adjusted_query_string} #{term}"
-    end
-
-    adjusted_query_string
+    query
   end
 
 
