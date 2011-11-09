@@ -351,7 +351,8 @@ describe LearningsController do
       delete :destroy, :id => p1.id
       
       UserAssessments.count.should == 2
-      UserAssessments.where(:learning_ojective_id => p2.id).count.should == 2
+      
+      UserAssessments.where(:learning_objective_id => p2.id).count.should ==  2
       LearningObjective.where(:id => p1.id).empty?.should == true
       LearningObjective.where(:id => p2.id).empty?.should == false
     end
