@@ -75,7 +75,8 @@ class LearningObjective < ActiveRecord::Base
       SELECT learning_objective_id
       FROM user_assessments
       WHERE user_id = #{user_id}
-      AND (awareness = 'not assessed' or guidance = 'not assessed')
+      AND awareness != 'not assessed'
+      AND guidance != 'not assessed'
     SQL
 
     pending = ActiveRecord::Base.connection.execute(sql)
