@@ -266,7 +266,7 @@ describe LearningsController do
   end
 
   describe '"GET" pending_assessments' do
-    it 'should only show pending assessments for the current user' do
+    it 'should only show the next pending assessment for the current user' do
       other_user = User.make
       p1 = LearningObjective.make(:pending => false)
       p2 = LearningObjective.make(:pending => false)
@@ -276,9 +276,7 @@ describe LearningsController do
 
       get :pending_assessments
 
-      assigns[:learning_objectives].count.should == 2
-      assigns[:learning_objectives].include?(p2).should == true
-      assigns[:learning_objectives].include?(p3).should == true
+      assigns[:learning].should == p2
     end
 
     it 'should not return not yet approved learning objectives' do
@@ -287,8 +285,7 @@ describe LearningsController do
 
       get :pending_assessments
 
-      assigns[:learning_objectives].count.should == 1
-      assigns[:learning_objectives].include?(p1).should == true
+      assigns[:learning].should == p1
     end
   end
 

@@ -1,42 +1,69 @@
 .container
   .content
-    - if @learning_objectives.empty?
-      %p &nbsp;
-      .alert-message.block-message.info
-        %p
-          %strong There are no learnings you have not assessed.
-        .clearfix
-        %p
-          Perhaps you can reassess how your going on other learnings.
-          =link_to 'Click here to go back to your assessment page', user_index_path
-    %ul.unstyled#learning_objectives
-      - @learning_objectives.each do |lo|
-        - if user_signed_in?
-          - assessment = get_first(current_user.user_assessments.for_learning_objective(lo.id))
-        - else
-          - assessment = nil
-        %li#learning_objective{:style => 'padding-bottom: 1em;'}
-          .media-user-discipline
-            .row
-              .span9
-                %h4= "#{lo.discipline} | #{lo.category}"
-                %p.large= lo.brief
-              .span6
-                %h4 Your Assessment
-                - if user_signed_in?
-                  - unless assessment.nil? or assessment.not_assessed?
-                    %p
-                      %strong
-                        Awareness:
-                      %span
-                        = assessment.awareness
-                    %p
-                      %strong
-                        Guidance:
-                      %span
-                        = assessment.guidance
-                  - else
-                    %p= link_to 'Assess now', learning_path(lo.id)
-                  %p= link_to 'Discuss this', learning_path(lo.id)
-                - else
-                  = link_to 'Sign in to discuss and record your assessment', new_user_session_path
+    =render :partial => '/learnings/page_header', :locals => {:title => '', :subtitle => ''}
+  .alert-message.block-message.warning
+    %strong Pending Assessment.
+    %p 
+      You have not finished assessing yourself against this learning objective. When you have made your assessment click 'Record Assessment' and
+      you will be taken to the next pending assessment.
+  .alert-message.block-message.info
+    .learning-objective
+      %h2= "#{@learning.discipline.upcase} | #{@learning.category.upcase}"
+      %p.large= @learning.brief
+    - if user_signed_in?
+      - if current_user.admin?
+        = link_to 'Edit Learning Objective', edit_learning_path(@learning.id), :id => 'edit_learning'
+        = link_to 'Delete', learning_path(@learning.id), :method => :delete, :id => 'delete_learning', :class => 'float-right'
+        - if @learning.pending?
+          %span.float-right &nbsp
+          = link_to 'Approve', approve_learning_path(@learning.id), :method => :put, :id => 'approve_learning', :class => 'float-right'
+  %hr
+  - if user_signed_in?
+    .assessment
+      = semantic_form_for(@assessment, :url => learning_assessment_path(:learning_id => @learning.id, :id => @assessment.id), :method => :put) do |f|
+        .row
+          .span8
+            %h4 How well do you know this learning objective?
+            %p
+              By measuring your awareness you can identify whether you need to do more theoretical learning on this topic
+          .span8
+            %h4 Do you need assistence applying this learning objective?
+            %p
+              By measuring how often you need guidance you can get a good understanding of where your application of this learning objective sits.
+        .row
+          .span8
+            = f.input :awareness, :as => :select, :label => I18n.t('form.assess-awareness'), :collection => UserAssessments::AWARENESS, :required => false
+            :javascript
+              $j("#user_assessments_awareness").attr("class", "chzn-select")
+              $j("#user_assessments_awareness").css('width', '90%');
+          .span8
+            = f.input :guidance, :as => :select, :label => I18n.t('form.assess-guidance'), :collection => UserAssessments::GUIDANCE, :required => false
+            :javascript
+              $j("#user_assessments_guidance").attr("class", "chzn-select")
+              $j("#user_assessments_guidance").css('width', '90%');
+        .actions
+          .input{:style => "min-height: 2em;"}
+            = f.submit I18n.t('actions.record-assessment'), :class => 'btn primary float-right', :id => "do_assessment"
+  .row
+  %hr
+  .disqus
+    %h4 Discuss this learning objective
+    :plain
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'learntesting'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = 'http://learn.cromulent-testing.com/learnings/#{@learning.id}';
+            var disqus_url = 'http://learn.cromulent-testing.com/learnings/#{@learning.id}';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>

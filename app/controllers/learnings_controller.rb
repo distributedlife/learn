@@ -89,7 +89,13 @@ class LearningsController < ApplicationController
   end
 
   def pending_assessments
-    @learning_objectives = LearningObjective::pending_for_user current_user.id
+    @learning = LearningObjective::pending_for_user(current_user.id).first
+
+    if user_signed_in?
+      @assessment = current_user.get_assessment @learning.id
+      @assessment ||= UserAssessments.new(:user_id => current_user.id, :learning_objective_id => @learning.id, :awareness => 'not assessed', :guidance => 'not assessed')
+      @assessment.save
+    end
   end
 
   def pending_approvals
