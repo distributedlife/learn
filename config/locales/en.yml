@@ -39,6 +39,7 @@ en:
     learning-created: "Proposed learning has been saved. It can now be discussed for future inclusion"
     learning-updated: "Learning updated."
     assessment-updated: "Your assessment has been recorded."
+    no-pending-assessments: "Congratulations. You have no pending assessments."
   actions:
     add: "add"
     advance: "Advance"

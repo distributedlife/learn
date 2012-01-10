@@ -90,6 +90,7 @@ class LearningsController < ApplicationController
 
   def pending_assessments
     @learning = LearningObjective::pending_for_user(current_user.id).first
+    return success_redirect_to t('notice.no-pending-assessments'), user_index_path if @learning.nil?
 
     if user_signed_in?
       @assessment = current_user.get_assessment @learning.id
