@@ -3,7 +3,7 @@
     =render :partial => '/common/page_header', :locals => {:title => t('titles.user-change-password.title'), :subtitle => t('titles.user-change-password.subtitle')}
     .row
       .span16
-        - semantic_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+        = semantic_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
           .clearfix
             = f.hidden_field :reset_password_token
           .clearfix
